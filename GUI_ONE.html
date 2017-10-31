@@ -2,15 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Hester's Blog</title>
+<title>GUI 笔记1</title>
 <style type="text/css">
-<!--
-.STYLE1 {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 36px;
-}
--->
-	pre {
+pre {
 	width: 50%;
 	border: 2px solid #ccc;
 	margin: 20px 20px;
@@ -23,10 +17,20 @@
 </head>
 
 <body>
-<h1 align="center" class="STYLE1">This is Hester's blog!</h1>
+<h1 align="center" class="STYLE1">GUI chapter one</h1>
+<p>java swing 的 hello world</p>
 <pre>
-<h2>java GUI 编程尝试篇</h2>
-<p><a href="GUI_ONE.html">chapter one</a></p>
+import javax.swing.*;
+
+public class HelloSwing {
+	public static void main(String [] args) {
+		JFrame frame = new JFrame("Hello Swing");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(300, 160);
+		frame.setVisible(true);
+	}
+}
 </pre>
+
 </body>
 </html>
