@@ -16,7 +16,7 @@ public class SubmitSwingPrograme extends JFrame {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		final SubmitSwingPrograme ssp = new SubmitSwingPrograme();
-		SwingConsole.run(ssp, 1080, 720);
+		SwingConsole.run(ssp, 160, 300);
 		try {
 			TimeUnit.SECONDS.sleep(1);
 		} catch (InterruptedException e) {
