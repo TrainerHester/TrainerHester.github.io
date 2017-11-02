@@ -100,7 +100,7 @@
 </pre></div>
 
 
-<p><img alt="unavailable" src="/img/button1.jpg" title="p1"></p>
+<p><img alt="unavailable" src="img/button1.jpg" title="p1"></p>
 <p>上述的代码显示的效果很简单，即一个Frame中布置了两个Button和两个Label，但是为了使得Button具有交互意义，必须为其注册事件，即下面的Button2.java那样：</p>
 <div class="highlight"><pre><span></span><span class="c1">//:com/gui/start/Button2.java</span>
 <span class="kn">package</span> <span class="nn">com.gui.start</span><span class="o">;</span>
@@ -148,7 +148,7 @@
 </pre></div>
 
 
-<p><img alt="unavailable" src="/img/button2.jpg" title="p2"></p>
+<p><img alt="unavailable" src="img/button2.jpg" title="p2"></p>
 <p>Button2实现了Button的交互效果，当鼠标点击任意一个Button时，TestField会显示Button中的字符串，任何事件都需要实现ActionListerner接口实现，然后在相应的控件中使用addActionListener进行事件注册。而接下来的Button2b则是使用匿名内部类实现了Button2相同的效果，感觉代码量更少并且更加清晰。</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.awt.*</span><span class="o">;</span>
