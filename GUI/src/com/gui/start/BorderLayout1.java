@@ -1,3 +1,4 @@
+//:com/gui/start/BorderLayout1.java
 package com.gui.start;
 
 import javax.swing.*;
