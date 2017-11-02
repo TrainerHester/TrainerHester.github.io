@@ -141,7 +141,7 @@
 <h2>1. 正则表达式的使用步骤:</h2>
 <p>在java中使用正则表达式要引入java.util.regex.*
 使用Pattern类的静态方法compile 新建一个Pattern对象，compile的参数就是正则表达式
-需要注意的是java中正则表达式 <strong>转义字符\写成\\，匹配\字符时使用\\\\</strong>
+需要注意的是java中正则表达式 <strong>转义字符"\"写成"\"，匹配"\"字符时使用"\\"</strong>
 调用Pattern对象的matcher方法新建一个Matcher对象，matcher方法的参数是需要匹配的字符串
 Matcher对象的find方法用于确认匹配是否成功
 Matcher对象的group方法用于分组获取，group(0)表示整个字符串，从group(1)开始表示分组匹配后各组的结果</p>
