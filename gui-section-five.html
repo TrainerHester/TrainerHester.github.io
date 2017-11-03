@@ -298,6 +298,98 @@
 </tr>
 </tbody>
 </table>
+<p>JTextField控件的setEditable方法可以控制其可用性
+JTextArea同样具有该方法，并且JTextArea比JTextField更加灵活
+下一个例子是使用JButton开启JTextArea，在JButton未获取焦点前，JTextArea是无法编辑的。</p>
+<div class="highlight"><pre><span></span><span class="c1">//:com/gui/start/ButtonCrtlTextField.java</span>
+
+<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.event.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ButtonCrtlTestField</span> <span class="kd">extends</span> <span class="n">JFrame</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">JButton</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JButton</span><span class="o">(</span><span class="s">&quot;Foucu it to edit TextFiled&quot;</span><span class="o">);</span>
+    <span class="kd">private</span> <span class="n">JTextArea</span> <span class="n">txt</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JTextArea</span><span class="o">(</span><span class="mi">40</span><span class="o">,</span> <span class="mi">65</span><span class="o">);</span>
+
+    <span class="kd">class</span> <span class="nc">MyFocusListener</span> <span class="kd">extends</span> <span class="n">FocusAdapter</span> <span class="o">{</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">focusGained</span><span class="o">(</span><span class="n">FocusEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">txt</span><span class="o">.</span><span class="na">setEditable</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+            <span class="n">txt</span><span class="o">.</span><span class="na">requestFocus</span><span class="o">();</span>
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">ButtonCrtlTestField</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">setLayout</span><span class="o">(</span><span class="k">new</span> <span class="n">BorderLayout</span><span class="o">());</span>
+        <span class="n">b</span><span class="o">.</span><span class="na">addFocusListener</span><span class="o">(</span><span class="k">new</span> <span class="n">MyFocusListener</span><span class="o">());</span>
+        <span class="n">b</span><span class="o">.</span><span class="na">setBackground</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">BLUE</span><span class="o">);</span>
+        <span class="n">txt</span><span class="o">.</span><span class="na">setEditable</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+        <span class="n">add</span><span class="o">(</span><span class="n">BorderLayout</span><span class="o">.</span><span class="na">SOUTH</span><span class="o">,</span> <span class="n">b</span><span class="o">);</span>
+        <span class="n">add</span><span class="o">(</span><span class="n">BorderLayout</span><span class="o">.</span><span class="na">CENTER</span><span class="o">,</span> <span class="n">txt</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// TODO Auto-generated method stub</span>
+        <span class="n">SwingConsole</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="k">new</span> <span class="n">ButtonCrtlTestField</span><span class="o">(),</span> <span class="mi">500</span><span class="o">,</span> <span class="mi">300</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+
+
+<p><img alt="unavailable" src="img/bta.jpg" title="b&amp;t"></p>
+<p><img alt="unavailable" src="img/btb.jpg" title="b&amp;t"></p>
+<p>接下来是一个改变Button颜色的小程序，一旦按下按钮就会随机改变按钮的颜色</p>
+<div class="highlight"><pre><span></span><span class="c1">//:com/gui/start/Button3.java</span>
+
+<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.event.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Random</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Button3</span> <span class="kd">extends</span> <span class="n">JFrame</span> <span class="o">{</span>
+    <span class="kd">class</span> <span class="nc">MyButton</span> <span class="kd">extends</span> <span class="n">JButton</span> <span class="o">{</span>
+        <span class="n">Random</span> <span class="n">random</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Random</span><span class="o">();</span>
+        <span class="kd">public</span> <span class="nf">MyButton</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kd">super</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
+            <span class="n">setBackground</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">BLUE</span><span class="o">);</span>
+            <span class="n">addMouseListener</span><span class="o">(</span><span class="k">new</span> <span class="n">MouseAdapter</span><span class="o">()</span> <span class="o">{</span>
+                <span class="nd">@Override</span>
+                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">mouseClicked</span><span class="o">(</span><span class="n">MouseEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">setBackground</span><span class="o">(</span>
+                            <span class="k">new</span> <span class="n">Color</span><span class="o">(</span><span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">256</span><span class="o">),</span>
+                            <span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">256</span><span class="o">),</span>
+                            <span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">256</span><span class="o">)));</span>
+                <span class="o">}</span>
+
+            <span class="o">});</span>
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="nf">Button3</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">setLayout</span><span class="o">(</span><span class="k">new</span> <span class="n">BorderLayout</span><span class="o">());</span>
+        <span class="n">add</span><span class="o">(</span><span class="n">BorderLayout</span><span class="o">.</span><span class="na">CENTER</span><span class="o">,</span> <span class="k">new</span> <span class="n">MyButton</span><span class="o">(</span><span class="s">&quot;change color&quot;</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// TODO Auto-generated method stub</span>
+        <span class="n">SwingConsole</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="k">new</span> <span class="n">Button3</span><span class="o">(),</span> <span class="mi">300</span><span class="o">,</span> <span class="mi">200</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+
+
+<p><img alt="unavailable" src="img/color.jpg" title="color"></p>
+<p>在Java的GUI中颜色使用的是Color类，构造方法可以使用三个0-255的整数表示rgb三个通道。
+随机生成数字使用的是Random类，该类的nextXXX方法用于生成数字并且限定其范围。</p>
             
             
             <hr/>
