@@ -132,6 +132,114 @@
 
 
 <p><img alt="unavailable" src="img/button-group.jpg" title="b-g"></p>
+<p>下面是JTextField的例子，t1重新添加了一个PlainDocument，作用是将t1的输入全部改为大写，t2用于同步t1，但是t2的内容不会改变大小写，实现这个操作需要增加变量t1_field去实时跟踪t1的输入与删除，JTextField的输入与删除可以重写insertUpdate和removeUpdate，JTextFiled的回车操作会触发ActionListener</p>
+<div class="highlight"><pre><span></span><span class="c1">//:com/gui/start/TextFields.java</span>
+<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.swing.event.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.swing.text.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.event.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TextFields</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="n">JButton</span>
+        <span class="n">b1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JButton</span><span class="o">(</span><span class="s">&quot;Get Text&quot;</span><span class="o">),</span>
+        <span class="n">b2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JButton</span><span class="o">(</span><span class="s">&quot;Set Text&quot;</span><span class="o">);</span>
+
+    <span class="kd">private</span> <span class="n">JTextField</span>
+        <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JTextField</span><span class="o">(</span><span class="mi">30</span><span class="o">),</span>
+        <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JTextField</span><span class="o">(</span><span class="mi">30</span><span class="o">),</span>
+        <span class="n">t3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JTextField</span><span class="o">(</span><span class="mi">30</span><span class="o">);</span>
+
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">t1_field</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+
+    <span class="kd">class</span> <span class="nc">UpperCaseDocument</span> <span class="kd">extends</span> <span class="n">PlainDocument</span><span class="o">{</span>
+        <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">upperCase</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUpperCase</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">flag</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">upperCase</span> <span class="o">=</span> <span class="n">flag</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">insertString</span><span class="o">(</span><span class="kt">int</span> <span class="n">offset</span><span class="o">,</span> <span class="n">String</span> <span class="n">str</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">attSet</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">BadLocationException</span> <span class="o">{</span>
+            <span class="n">t1_field</span> <span class="o">+=</span> <span class="n">str</span><span class="o">;</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">upperCase</span><span class="o">)</span> 
+                <span class="n">str</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">toUpperCase</span><span class="o">();</span>
+            <span class="kd">super</span><span class="o">.</span><span class="na">insertString</span><span class="o">(</span><span class="n">offset</span><span class="o">,</span> <span class="n">str</span><span class="o">,</span> <span class="n">attSet</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="n">UpperCaseDocument</span> <span class="n">ucd</span> <span class="o">=</span> <span class="k">new</span> <span class="n">UpperCaseDocument</span><span class="o">();</span>
+
+    <span class="kd">public</span> <span class="nf">TextFields</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">t1</span><span class="o">.</span><span class="na">setDocument</span><span class="o">(</span><span class="n">ucd</span><span class="o">);</span>
+        <span class="n">ucd</span><span class="o">.</span><span class="na">addDocumentListener</span><span class="o">(</span><span class="k">new</span> <span class="n">DocumentListener</span><span class="o">()</span> <span class="o">{</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">changedUpdate</span><span class="o">(</span><span class="n">DocumentEvent</span> <span class="n">arg0</span><span class="o">)</span> <span class="o">{</span>
+
+            <span class="o">}</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">insertUpdate</span><span class="o">(</span><span class="n">DocumentEvent</span> <span class="n">de</span><span class="o">)</span> <span class="o">{</span>
+
+                <span class="n">t2</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">t1_field</span><span class="o">);</span>
+                <span class="n">t3</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;Text: &quot;</span> <span class="o">+</span> <span class="n">t1</span><span class="o">.</span><span class="na">getText</span><span class="o">());</span>
+            <span class="o">}</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">removeUpdate</span><span class="o">(</span><span class="n">DocumentEvent</span> <span class="n">de</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">i1</span> <span class="o">=</span> <span class="n">de</span><span class="o">.</span><span class="na">getOffset</span><span class="o">();</span>
+                <span class="kt">int</span> <span class="n">i2</span> <span class="o">=</span> <span class="n">de</span><span class="o">.</span><span class="na">getLength</span><span class="o">();</span>
+                <span class="n">t1_field</span> <span class="o">=</span> <span class="n">t1_field</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">i1</span><span class="o">)</span> <span class="o">+</span> <span class="n">t1_field</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">i1</span> <span class="o">+</span> <span class="n">i2</span><span class="o">);</span>
+                <span class="n">t2</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">t1_field</span><span class="o">);</span>
+            <span class="o">}</span>
+
+        <span class="o">});</span>
+        <span class="n">b1</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="k">new</span> <span class="n">ActionListener</span><span class="o">()</span> <span class="o">{</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">actionPerformed</span><span class="o">(</span><span class="n">ActionEvent</span> <span class="n">arg0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">if</span><span class="o">(</span><span class="n">t1</span><span class="o">.</span><span class="na">getSelectedText</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+                    <span class="n">s</span> <span class="o">=</span> <span class="n">t1</span><span class="o">.</span><span class="na">getText</span><span class="o">();</span>
+                <span class="k">else</span>
+                    <span class="n">s</span> <span class="o">=</span> <span class="n">t1</span><span class="o">.</span><span class="na">getSelectedText</span><span class="o">();</span>
+                <span class="n">t1</span><span class="o">.</span><span class="na">setEditable</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+            <span class="o">}</span>
+
+        <span class="o">});</span>
+        <span class="n">b2</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="k">new</span> <span class="n">ActionListener</span><span class="o">()</span> <span class="o">{</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">actionPerformed</span><span class="o">(</span><span class="n">ActionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">ucd</span><span class="o">.</span><span class="na">setUpperCase</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+                <span class="n">t1</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;Insert by Button2: &quot;</span> <span class="o">+</span> <span class="n">s</span><span class="o">);</span>
+                <span class="n">ucd</span><span class="o">.</span><span class="na">setUpperCase</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+                <span class="n">t1</span><span class="o">.</span><span class="na">setEditable</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+            <span class="o">}</span>
+
+        <span class="o">});</span>
+        <span class="n">t1</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="k">new</span> <span class="n">ActionListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="kd">private</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">actionPerformed</span><span class="o">(</span><span class="n">ActionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">t3</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;t1 Action Event &quot;</span> <span class="o">+</span> <span class="n">count</span><span class="o">++);</span>
+
+            <span class="o">}</span>
+
+        <span class="o">});</span>
+        <span class="n">setLayout</span><span class="o">(</span><span class="k">new</span> <span class="n">FlowLayout</span><span class="o">());</span>
+        <span class="n">add</span><span class="o">(</span><span class="n">b1</span><span class="o">);</span>
+        <span class="n">add</span><span class="o">(</span><span class="n">b2</span><span class="o">);</span>
+        <span class="n">add</span><span class="o">(</span><span class="n">t1</span><span class="o">);</span>
+        <span class="n">add</span><span class="o">(</span><span class="n">t2</span><span class="o">);</span>
+        <span class="n">add</span><span class="o">(</span><span class="n">t3</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">SwingConsole</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="k">new</span> <span class="n">TextFields</span><span class="o">(),</span> <span class="mi">375</span><span class="o">,</span> <span class="mi">200</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
             
             
             <hr/>

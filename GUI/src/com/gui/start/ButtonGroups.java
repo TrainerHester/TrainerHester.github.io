@@ -38,6 +38,7 @@ public class ButtonGroups extends JFrame{
 				}
 				
 			});
+			ab.setToolTipText(title);
 		}
 		return jp;
 	}
