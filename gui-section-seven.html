@@ -106,6 +106,66 @@
 
 
 <p><img alt="unavailable" src="img/border.jpg" title="br"></p>
+<p>接下来演示的是下拉列表（感觉这个更加实用）:</p>
+<div class="highlight"><pre><span></span><span class="c1">//:com/gui/start/ComboBoxes.java</span>
+<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.event.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ComboBoxes</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">String</span> <span class="o">[]</span> <span class="n">description</span> <span class="o">=</span> <span class="o">{</span>
+            <span class="s">&quot;Ebullient&quot;</span><span class="o">,</span> <span class="s">&quot;Obtuse&quot;</span><span class="o">,</span> <span class="s">&quot;Recalcitrant&quot;</span><span class="o">,</span> <span class="s">&quot;Brilliant&quot;</span><span class="o">,</span>
+            <span class="s">&quot;Somnescent&quot;</span><span class="o">,</span> <span class="s">&quot;Timorous&quot;</span><span class="o">,</span> <span class="s">&quot;Florid&quot;</span><span class="o">,</span> <span class="s">&quot;Putrescent&quot;</span>
+    <span class="o">};</span>
+    <span class="kd">private</span> <span class="n">JTextField</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JTextField</span><span class="o">(</span><span class="mi">15</span><span class="o">);</span>
+    <span class="kd">private</span> <span class="n">JComboBox</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JComboBox</span><span class="o">();</span>
+    <span class="kd">private</span> <span class="n">JButton</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JButton</span><span class="o">(</span><span class="s">&quot;Add items&quot;</span><span class="o">);</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">ComboBoxes</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">c</span><span class="o">.</span><span class="na">addItem</span><span class="o">(</span><span class="n">description</span><span class="o">[</span><span class="n">count</span><span class="o">++]);</span>
+        <span class="o">}</span>
+        <span class="n">t</span><span class="o">.</span><span class="na">setEditable</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+        <span class="n">b</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="k">new</span> <span class="n">ActionListener</span><span class="o">()</span> <span class="o">{</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">actionPerformed</span><span class="o">(</span><span class="n">ActionEvent</span> <span class="n">arg0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">if</span><span class="o">(</span><span class="n">count</span> <span class="o">&lt;</span> <span class="n">description</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">c</span><span class="o">.</span><span class="na">addItem</span><span class="o">(</span><span class="n">description</span><span class="o">[</span><span class="n">count</span><span class="o">++]);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+
+        <span class="o">});</span>
+
+        <span class="n">c</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="k">new</span> <span class="n">ActionListener</span><span class="o">()</span> <span class="o">{</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">actionPerformed</span><span class="o">(</span><span class="n">ActionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">t</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;index: &quot;</span> <span class="o">+</span> <span class="n">c</span><span class="o">.</span><span class="na">getSelectedIndex</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="o">((</span><span class="n">JComboBox</span><span class="o">)</span><span class="n">e</span><span class="o">.</span><span class="na">getSource</span><span class="o">()).</span><span class="na">getSelectedItem</span><span class="o">());</span>
+            <span class="o">}</span>
+
+        <span class="o">});</span>
+        <span class="n">setLayout</span><span class="o">(</span><span class="k">new</span> <span class="n">FlowLayout</span><span class="o">());</span>
+        <span class="n">add</span><span class="o">(</span><span class="n">t</span><span class="o">);</span>
+        <span class="n">add</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+        <span class="n">add</span><span class="o">(</span><span class="n">b</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">SwingConsole</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="k">new</span> <span class="n">ComboBoxes</span><span class="o">(),</span> <span class="mi">200</span><span class="o">,</span> <span class="mi">175</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+
+
+<p>文本框用于显示下拉列表中的选中项，其中getSelectedIndex()和getSelectedItem()是两个获取下标以及文本的方法
+按钮使用addItem()方法向下拉列表中添加文本选项。</p>
+<p><img alt="unavailable" src="img/combobox.jpg" title="cb"></p>
             
             
             <hr/>
