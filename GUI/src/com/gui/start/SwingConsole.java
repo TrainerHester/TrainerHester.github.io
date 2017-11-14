@@ -9,6 +9,7 @@ public class SwingConsole {
 				frame.setTitle(frame.getClass().getSimpleName());
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setSize(width, height);
+				frame.setLocation(300, 300);
 				frame.setVisible(true);
 			}
 		});
