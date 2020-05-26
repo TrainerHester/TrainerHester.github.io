@@ -1,213 +1,167 @@
 <!DOCTYPE html>
-<html lang="en-US">
-    <head>
-        <meta charset="utf-8"> 
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author" content="Hester" />
-        <meta name="copyright" content="Hester" />
+<html lang="zh">
+<head>
+        <meta charset="utf-8" />
+        <title>GUI Section SEVEN</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
 
-        <meta property="og:type" content="article" />
-        <meta name="twitter:card" content="summary">
-
-<meta name="keywords" content=", Blog, " />
-
-<meta property="og:title" content="GUI Section SEVEN "/>
-<meta property="og:url" content="/gui-section-seven.html" />
-<meta property="og:description" content="GUI轮廓的小示例： //:com/gui/start/Border.java package com.gui.start; import javax.swing.*; import javax.swing.border.*; import java.awt.*; public class Borders extends JFrame{ static JPanel showBorder(Border b) { JPanel jp = new JPanel(); jp.setLayout(new BorderLayout()); String nm = b.getClass().toString(); nm = nm.substring(nm.lastIndexOf(&#39;.&#39;) + 1); jp …" />
-<meta property="og:site_name" content="Hester&#39;s blog" />
-<meta property="og:article:author" content="Hester" />
-<meta property="og:article:published_time" content="2017-11-09T19:56:00+01:00" />
-<meta name="twitter:title" content="GUI Section SEVEN ">
-<meta name="twitter:description" content="GUI轮廓的小示例： //:com/gui/start/Border.java package com.gui.start; import javax.swing.*; import javax.swing.border.*; import java.awt.*; public class Borders extends JFrame{ static JPanel showBorder(Border b) { JPanel jp = new JPanel(); jp.setLayout(new BorderLayout()); String nm = b.getClass().toString(); nm = nm.substring(nm.lastIndexOf(&#39;.&#39;) + 1); jp …">
-
-        <title>GUI Section SEVEN  · Hester&#39;s blog
-</title>
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="/theme/css/pygments.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="/theme/tipuesearch/tipuesearch.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
-    </head>
-    <body>
-        <div id="content-sans-footer">
-        <div class="navbar navbar-static-top">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <a class="brand" href="/"><span class=site-name>Hester's blog</span></a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav pull-right top-menu">
-                            <li ><a href="">Home</a></li>
-                            <li ><a href="/categories.html">Categories</a></li>
-                            <li ><a href="/tags.html">Tags</a></li>
-                            <li ><a href="/archives.html">Archives</a></li>
-                            <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span1"></div>
-                <div class="span10">
-<article>
-<div class="row-fluid">
-    <header class="page-header span10 offset2">
-    <h1><a href="/gui-section-seven.html"> GUI Section SEVEN  </a></h1>
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Hester's Blog </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/blog.html">Blog</a></li>
+                    <li><a href="/category/note.html">Note</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/gui-section-seven.html" rel="bookmark"
+           title="Permalink to GUI Section SEVEN">GUI Section SEVEN</a></h1>
     </header>
-</div>
 
-<div class="row-fluid">
-        <div class="span8 offset2 article-content">
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-11-09T19:56:00+01:00">
+                Published: 四 09 十一月 2017
+        </abbr>
 
-            
-            <p>GUI轮廓的小示例：</p>
-<div class="highlight"><pre><span></span><span class="c1">//:com/gui/start/Border.java</span>
-<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.swing.border.*</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="o">;</span>
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/hester.html">Hester</a>
+        </address>
+<p>In <a href="/category/blog.html">Blog</a>.</p>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Borders</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="o">{</span>
-    <span class="kd">static</span> <span class="n">JPanel</span> <span class="nf">showBorder</span><span class="o">(</span><span class="n">Border</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">JPanel</span> <span class="n">jp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JPanel</span><span class="o">();</span>
-        <span class="n">jp</span><span class="o">.</span><span class="na">setLayout</span><span class="o">(</span><span class="k">new</span> <span class="n">BorderLayout</span><span class="o">());</span>
-        <span class="n">String</span> <span class="n">nm</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
-        <span class="n">nm</span> <span class="o">=</span> <span class="n">nm</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">nm</span><span class="o">.</span><span class="na">lastIndexOf</span><span class="o">(</span><span class="sc">&#39;.&#39;</span><span class="o">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">);</span>
-        <span class="n">jp</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">JLabel</span><span class="o">(</span><span class="n">nm</span><span class="o">,</span> <span class="n">JLabel</span><span class="o">.</span><span class="na">CENTER</span><span class="o">),</span> <span class="n">BorderLayout</span><span class="o">.</span><span class="na">CENTER</span><span class="o">);</span>
-        <span class="n">jp</span><span class="o">.</span><span class="na">setBorder</span><span class="o">(</span><span class="n">b</span><span class="o">);</span>
-        <span class="k">return</span> <span class="n">jp</span><span class="o">;</span>
-    <span class="o">}</span>
+</footer><!-- /.post-info -->      <p>GUI轮廓的小示例：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/Border.java</span>
+<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.swing.border.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
 
-    <span class="kd">public</span> <span class="nf">Borders</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">setLayout</span><span class="o">(</span><span class="k">new</span> <span class="n">GridLayout</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span><span class="mi">4</span><span class="o">));</span>
-        <span class="n">add</span><span class="o">(</span><span class="n">showBorder</span><span class="o">(</span><span class="k">new</span> <span class="n">TitledBorder</span><span class="o">(</span><span class="s">&quot;Title&quot;</span><span class="o">)));</span>
-        <span class="n">add</span><span class="o">(</span><span class="n">showBorder</span><span class="o">(</span><span class="k">new</span> <span class="n">EtchedBorder</span><span class="o">()));</span>
-        <span class="n">add</span><span class="o">(</span><span class="n">showBorder</span><span class="o">(</span><span class="k">new</span> <span class="n">MatteBorder</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span><span class="mi">5</span><span class="o">,</span><span class="mi">30</span><span class="o">,</span><span class="mi">30</span><span class="o">,</span><span class="n">Color</span><span class="o">.</span><span class="na">GREEN</span><span class="o">)));</span>
-        <span class="n">add</span><span class="o">(</span><span class="n">showBorder</span><span class="o">(</span><span class="k">new</span> <span class="n">BevelBorder</span><span class="o">(</span><span class="n">BevelBorder</span><span class="o">.</span><span class="na">RAISED</span><span class="o">)));</span>
-        <span class="n">add</span><span class="o">(</span><span class="n">showBorder</span><span class="o">(</span><span class="k">new</span> <span class="n">SoftBevelBorder</span><span class="o">(</span><span class="n">BevelBorder</span><span class="o">.</span><span class="na">LOWERED</span><span class="o">)));</span>
-        <span class="n">add</span><span class="o">(</span><span class="n">showBorder</span><span class="o">(</span><span class="k">new</span> <span class="n">CompoundBorder</span><span class="o">(</span><span class="k">new</span> <span class="n">EtchedBorder</span><span class="o">(),</span> <span class="k">new</span> <span class="n">LineBorder</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">RED</span><span class="o">))));</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Borders</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
+    <span class="kd">static</span> <span class="n">JPanel</span> <span class="nf">showBorder</span><span class="p">(</span><span class="n">Border</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">JPanel</span> <span class="n">jp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JPanel</span><span class="p">();</span>
+        <span class="n">jp</span><span class="p">.</span><span class="na">setLayout</span><span class="p">(</span><span class="k">new</span> <span class="n">BorderLayout</span><span class="p">());</span>
+        <span class="n">String</span> <span class="n">nm</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">toString</span><span class="p">();</span>
+        <span class="n">nm</span> <span class="o">=</span> <span class="n">nm</span><span class="p">.</span><span class="na">substring</span><span class="p">(</span><span class="n">nm</span><span class="p">.</span><span class="na">lastIndexOf</span><span class="p">(</span><span class="sc">&#39;.&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="n">jp</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span> <span class="n">JLabel</span><span class="p">(</span><span class="n">nm</span><span class="p">,</span> <span class="n">JLabel</span><span class="p">.</span><span class="na">CENTER</span><span class="p">),</span> <span class="n">BorderLayout</span><span class="p">.</span><span class="na">CENTER</span><span class="p">);</span>
+        <span class="n">jp</span><span class="p">.</span><span class="na">setBorder</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">jp</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    <span class="o">}</span>
+    <span class="kd">public</span> <span class="nf">Borders</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">setLayout</span><span class="p">(</span><span class="k">new</span> <span class="n">GridLayout</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">));</span>
+        <span class="n">add</span><span class="p">(</span><span class="n">showBorder</span><span class="p">(</span><span class="k">new</span> <span class="n">TitledBorder</span><span class="p">(</span><span class="s">&quot;Title&quot;</span><span class="p">)));</span>
+        <span class="n">add</span><span class="p">(</span><span class="n">showBorder</span><span class="p">(</span><span class="k">new</span> <span class="n">EtchedBorder</span><span class="p">()));</span>
+        <span class="n">add</span><span class="p">(</span><span class="n">showBorder</span><span class="p">(</span><span class="k">new</span> <span class="n">MatteBorder</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="n">Color</span><span class="p">.</span><span class="na">GREEN</span><span class="p">)));</span>
+        <span class="n">add</span><span class="p">(</span><span class="n">showBorder</span><span class="p">(</span><span class="k">new</span> <span class="n">BevelBorder</span><span class="p">(</span><span class="n">BevelBorder</span><span class="p">.</span><span class="na">RAISED</span><span class="p">)));</span>
+        <span class="n">add</span><span class="p">(</span><span class="n">showBorder</span><span class="p">(</span><span class="k">new</span> <span class="n">SoftBevelBorder</span><span class="p">(</span><span class="n">BevelBorder</span><span class="p">.</span><span class="na">LOWERED</span><span class="p">)));</span>
+        <span class="n">add</span><span class="p">(</span><span class="n">showBorder</span><span class="p">(</span><span class="k">new</span> <span class="n">CompoundBorder</span><span class="p">(</span><span class="k">new</span> <span class="n">EtchedBorder</span><span class="p">(),</span> <span class="k">new</span> <span class="n">LineBorder</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">RED</span><span class="p">))));</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">SwingConsole</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="k">new</span> <span class="n">Borders</span><span class="o">(),</span> <span class="mi">500</span><span class="o">,</span> <span class="mi">300</span><span class="o">);</span>
-    <span class="o">}</span>
+    <span class="p">}</span>
 
-<span class="o">}</span>
-</pre></div>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">SwingConsole</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="k">new</span> <span class="n">Borders</span><span class="p">(),</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div>
 
 
 <p><img alt="unavailable" src="img/border.jpg" title="br"></p>
 <p>接下来演示的是下拉列表（感觉这个更加实用）:</p>
-<div class="highlight"><pre><span></span><span class="c1">//:com/gui/start/ComboBoxes.java</span>
-<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="o">;</span>
+<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/ComboBoxes.java</span>
+<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.awt.event.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.event.*</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ComboBoxes</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ComboBoxes</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
 
-    <span class="kd">private</span> <span class="n">String</span> <span class="o">[]</span> <span class="n">description</span> <span class="o">=</span> <span class="o">{</span>
-            <span class="s">&quot;Ebullient&quot;</span><span class="o">,</span> <span class="s">&quot;Obtuse&quot;</span><span class="o">,</span> <span class="s">&quot;Recalcitrant&quot;</span><span class="o">,</span> <span class="s">&quot;Brilliant&quot;</span><span class="o">,</span>
-            <span class="s">&quot;Somnescent&quot;</span><span class="o">,</span> <span class="s">&quot;Timorous&quot;</span><span class="o">,</span> <span class="s">&quot;Florid&quot;</span><span class="o">,</span> <span class="s">&quot;Putrescent&quot;</span>
-    <span class="o">};</span>
-    <span class="kd">private</span> <span class="n">JTextField</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JTextField</span><span class="o">(</span><span class="mi">15</span><span class="o">);</span>
-    <span class="kd">private</span> <span class="n">JComboBox</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JComboBox</span><span class="o">();</span>
-    <span class="kd">private</span> <span class="n">JButton</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JButton</span><span class="o">(</span><span class="s">&quot;Add items&quot;</span><span class="o">);</span>
-    <span class="kd">private</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="o">[]</span> <span class="n">description</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">&quot;Ebullient&quot;</span><span class="p">,</span> <span class="s">&quot;Obtuse&quot;</span><span class="p">,</span> <span class="s">&quot;Recalcitrant&quot;</span><span class="p">,</span> <span class="s">&quot;Brilliant&quot;</span><span class="p">,</span>
+            <span class="s">&quot;Somnescent&quot;</span><span class="p">,</span> <span class="s">&quot;Timorous&quot;</span><span class="p">,</span> <span class="s">&quot;Florid&quot;</span><span class="p">,</span> <span class="s">&quot;Putrescent&quot;</span>
+    <span class="p">};</span>
+    <span class="kd">private</span> <span class="n">JTextField</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JTextField</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+    <span class="kd">private</span> <span class="n">JComboBox</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JComboBox</span><span class="p">();</span>
+    <span class="kd">private</span> <span class="n">JButton</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;Add items&quot;</span><span class="p">);</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-    <span class="kd">public</span> <span class="nf">ComboBoxes</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="n">c</span><span class="o">.</span><span class="na">addItem</span><span class="o">(</span><span class="n">description</span><span class="o">[</span><span class="n">count</span><span class="o">++]);</span>
-        <span class="o">}</span>
-        <span class="n">t</span><span class="o">.</span><span class="na">setEditable</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
-        <span class="n">b</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="k">new</span> <span class="n">ActionListener</span><span class="o">()</span> <span class="o">{</span>
-
-            <span class="nd">@Override</span>
-            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">actionPerformed</span><span class="o">(</span><span class="n">ActionEvent</span> <span class="n">arg0</span><span class="o">)</span> <span class="o">{</span>
-                <span class="k">if</span><span class="o">(</span><span class="n">count</span> <span class="o">&lt;</span> <span class="n">description</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">c</span><span class="o">.</span><span class="na">addItem</span><span class="o">(</span><span class="n">description</span><span class="o">[</span><span class="n">count</span><span class="o">++]);</span>
-                <span class="o">}</span>
-            <span class="o">}</span>
-
-        <span class="o">});</span>
-
-        <span class="n">c</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="k">new</span> <span class="n">ActionListener</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">ComboBoxes</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">c</span><span class="p">.</span><span class="na">addItem</span><span class="p">(</span><span class="n">description</span><span class="o">[</span><span class="n">count</span><span class="o">++]</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">t</span><span class="p">.</span><span class="na">setEditable</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+        <span class="n">b</span><span class="p">.</span><span class="na">addActionListener</span><span class="p">(</span><span class="k">new</span> <span class="n">ActionListener</span><span class="p">()</span> <span class="p">{</span>
 
             <span class="nd">@Override</span>
-            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">actionPerformed</span><span class="o">(</span><span class="n">ActionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-                <span class="n">t</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;index: &quot;</span> <span class="o">+</span> <span class="n">c</span><span class="o">.</span><span class="na">getSelectedIndex</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="o">((</span><span class="n">JComboBox</span><span class="o">)</span><span class="n">e</span><span class="o">.</span><span class="na">getSource</span><span class="o">()).</span><span class="na">getSelectedItem</span><span class="o">());</span>
-            <span class="o">}</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">actionPerformed</span><span class="p">(</span><span class="n">ActionEvent</span> <span class="n">arg0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">count</span> <span class="o">&lt;</span> <span class="n">description</span><span class="p">.</span><span class="na">length</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">c</span><span class="p">.</span><span class="na">addItem</span><span class="p">(</span><span class="n">description</span><span class="o">[</span><span class="n">count</span><span class="o">++]</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
 
-        <span class="o">});</span>
-        <span class="n">setLayout</span><span class="o">(</span><span class="k">new</span> <span class="n">FlowLayout</span><span class="o">());</span>
-        <span class="n">add</span><span class="o">(</span><span class="n">t</span><span class="o">);</span>
-        <span class="n">add</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
-        <span class="n">add</span><span class="o">(</span><span class="n">b</span><span class="o">);</span>
-    <span class="o">}</span>
+        <span class="p">});</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">SwingConsole</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="k">new</span> <span class="n">ComboBoxes</span><span class="o">(),</span> <span class="mi">200</span><span class="o">,</span> <span class="mi">175</span><span class="o">);</span>
-    <span class="o">}</span>
+        <span class="n">c</span><span class="p">.</span><span class="na">addActionListener</span><span class="p">(</span><span class="k">new</span> <span class="n">ActionListener</span><span class="p">()</span> <span class="p">{</span>
 
-<span class="o">}</span>
-</pre></div>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">actionPerformed</span><span class="p">(</span><span class="n">ActionEvent</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">t</span><span class="p">.</span><span class="na">setText</span><span class="p">(</span><span class="s">&quot;index: &quot;</span> <span class="o">+</span> <span class="n">c</span><span class="p">.</span><span class="na">getSelectedIndex</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="p">((</span><span class="n">JComboBox</span><span class="p">)</span><span class="n">e</span><span class="p">.</span><span class="na">getSource</span><span class="p">()).</span><span class="na">getSelectedItem</span><span class="p">());</span>
+            <span class="p">}</span>
+
+        <span class="p">});</span>
+        <span class="n">setLayout</span><span class="p">(</span><span class="k">new</span> <span class="n">FlowLayout</span><span class="p">());</span>
+        <span class="n">add</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+        <span class="n">add</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+        <span class="n">add</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">SwingConsole</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="k">new</span> <span class="n">ComboBoxes</span><span class="p">(),</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">175</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div>
 
 
 <p>文本框用于显示下拉列表中的选中项，其中getSelectedIndex()和getSelectedItem()是两个获取下标以及文本的方法
 按钮使用addItem()方法向下拉列表中添加文本选项。</p>
 <p><img alt="unavailable" src="img/combobox.jpg" title="cb"></p>
-            
-            
-            <hr/>
-        </div>
-        <section>
-        <div class="span2" style="float:right;font-size:0.9em;">
-            <h4>Published</h4>
-            <time pubdate="pubdate" datetime="2017-11-09T19:56:00+01:00">十一月 9, 2017</time>
-            <h4>Category</h4>
-            <a class="category-link" href="/categories.html#blog-ref">Blog</a>
-<h4>Contact</h4>
-    <a href="#" title="My You can add links in your config file Profile" class="sidebar-social-links" target="_blank">
-    <i class="fa fa-you can add links in your config file sidebar-social-links"></i></a>
-    <a href="#" title="My Another social link Profile" class="sidebar-social-links" target="_blank">
-    <i class="fa fa-another social link sidebar-social-links"></i></a>
-        </div>
-        </section>
-</div>
-</article>
-                </div>
-                <div class="span1"></div>
-            </div>
-        </div>
-        <div id="push"></div>
-    </div>
-<footer>
-<div id="footer">
-    <ul class="footer-content">
-        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
-    </ul>
-</div>
-</footer>            <script src="http://code.jquery.com/jquery.min.js"></script>
-        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-        <script>
-            function validateForm(query)
-            {
-                return (query.length > 0);
-            }
-        </script>
+    </div><!-- /.entry-content -->
 
-    
-    </body>
-    <!-- Theme: Elegant built for Pelican
-    License : http://oncrashreboot.com/pelican-elegant -->
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
 </html>
