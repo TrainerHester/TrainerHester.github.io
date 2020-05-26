@@ -1,39 +1,43 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
+          <title>Hester's Blog - GUI Section SEVEN</title>
         <meta charset="utf-8" />
-        <title>GUI Section SEVEN</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+
+
+
+
+
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">Hester's Blog </a></h1>
-                <nav><ul>
-                    <li class="active"><a href="/category/blog.html">Blog</a></li>
-                    <li><a href="/category/note.html">Note</a></li>
-                </ul></nav>
+                <h1><a href="/">Hester's Blog <strong></strong></a></h1>
         </header><!-- /#banner -->
+        <nav id="menu"><ul>
+            <li class="active"><a href="/category/blog.html">Blog</a></li>
+            <li><a href="/category/note.html">Note</a></li>
+        </ul></nav><!-- /#menu -->
 <section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="/gui-section-seven.html" rel="bookmark"
-           title="Permalink to GUI Section SEVEN">GUI Section SEVEN</a></h1>
-    </header>
-
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-11-09T19:56:00+01:00">
-                Published: 四 09 十一月 2017
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/hester.html">Hester</a>
-        </address>
-<p>In <a href="/category/blog.html">Blog</a>.</p>
-
-</footer><!-- /.post-info -->      <p>GUI轮廓的小示例：</p>
+  <header>
+    <h2 class="entry-title">
+      <a href="/gui-section-seven.html" rel="bookmark"
+         title="Permalink to GUI Section SEVEN">GUI Section SEVEN</a></h2>
+ 
+  </header>
+  <footer class="post-info">
+    <time class="published" datetime="2017-11-09T19:56:00+01:00">
+      四 09 十一月 2017
+    </time>
+    <address class="vcard author">
+      By           <a class="url fn" href="/author/hester.html">Hester</a>
+    </address>
+    <div class="category">
+        Category: <a href="/category/blog.html">Blog</a>
+    </div>
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>GUI轮廓的小示例：</p>
 <div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/Border.java</span>
 <span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
 <span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
@@ -131,37 +135,13 @@
 <p>文本框用于显示下拉列表中的选中项，其中getSelectedIndex()和getSelectedItem()是两个获取下标以及文本的方法
 按钮使用addItem()方法向下拉列表中添加文本选项。</p>
 <p><img alt="unavailable" src="img/combobox.jpg" title="cb"></p>
-    </div><!-- /.entry-content -->
-
-  </article>
+  </div><!-- /.entry-content -->
 </section>
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
         <footer id="contentinfo" class="body">
                 <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                which takes great advantage of <a href="http://python.org">Python</a>.
                 </address><!-- /#about -->
-
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
         </footer><!-- /#contentinfo -->
-
 </body>
 </html>

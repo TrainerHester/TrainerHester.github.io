@@ -1,39 +1,43 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
+          <title>Hester's Blog - java IO note</title>
         <meta charset="utf-8" />
-        <title>java IO note</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+
+
+
+
+
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">Hester's Blog </a></h1>
-                <nav><ul>
-                    <li class="active"><a href="/category/blog.html">Blog</a></li>
-                    <li><a href="/category/note.html">Note</a></li>
-                </ul></nav>
+                <h1><a href="/">Hester's Blog <strong></strong></a></h1>
         </header><!-- /#banner -->
+        <nav id="menu"><ul>
+            <li class="active"><a href="/category/blog.html">Blog</a></li>
+            <li><a href="/category/note.html">Note</a></li>
+        </ul></nav><!-- /#menu -->
 <section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="/java-io-note.html" rel="bookmark"
-           title="Permalink to java IO note">java IO note</a></h1>
-    </header>
-
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-11-23T15:55:00+01:00">
-                Published: 四 23 十一月 2017
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/hester.html">Hester</a>
-        </address>
-<p>In <a href="/category/blog.html">Blog</a>.</p>
-
-</footer><!-- /.post-info -->      <p>java进行文件读取操作,主要使用到节点流FileReader和处理流BufferedReader。
+  <header>
+    <h2 class="entry-title">
+      <a href="/java-io-note.html" rel="bookmark"
+         title="Permalink to java IO note">java IO note</a></h2>
+ 
+  </header>
+  <footer class="post-info">
+    <time class="published" datetime="2017-11-23T15:55:00+01:00">
+      四 23 十一月 2017
+    </time>
+    <address class="vcard author">
+      By           <a class="url fn" href="/author/hester.html">Hester</a>
+    </address>
+    <div class="category">
+        Category: <a href="/category/blog.html">Blog</a>
+    </div>
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>java进行文件读取操作,主要使用到节点流FileReader和处理流BufferedReader。
 FileReader安照字符流读取文件，好处在于可以读取中文字符，
 BufferedReader是套在FileReader上的处理流，价值在于带缓冲，并且提供了readLine方法可以按行读取文件
 程序中使用GUI界面来显示文件的内容</p>
@@ -125,37 +129,13 @@ JTextField的触发在之前讨论过，即回车键
 BufferedReader使用readLine方法按行读取文件时行尾的换行符不会读入。</p>
 <p>程序的具体效果如下：</p>
 <p><img alt="unavailable" src="img/read.jpg" title="read"></p>
-    </div><!-- /.entry-content -->
-
-  </article>
+  </div><!-- /.entry-content -->
 </section>
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
         <footer id="contentinfo" class="body">
                 <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                which takes great advantage of <a href="http://python.org">Python</a>.
                 </address><!-- /#about -->
-
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
         </footer><!-- /#contentinfo -->
-
 </body>
 </html>

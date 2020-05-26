@@ -1,34 +1,31 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
+        <title>Hester's Blog - Note category</title>
         <meta charset="utf-8" />
-        <title>Hester's Blog - Note</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">Hester's Blog </a></h1>
-                <nav><ul>
-                    <li><a href="/category/blog.html">Blog</a></li>
-                    <li class="active"><a href="/category/note.html">Note</a></li>
-                </ul></nav>
+                <h1><a href="/">Hester's Blog <strong></strong></a></h1>
         </header><!-- /#banner -->
+        <nav id="menu"><ul>
+            <li><a href="/category/blog.html">Blog</a></li>
+            <li class="active"><a href="/category/note.html">Note</a></li>
+        </ul></nav><!-- /#menu -->
+<section id="content">
+<h2>Articles in the Note category</h2>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/observer-pattern.html">Observer Pattern</a></h1>
-<footer class="post-info">
-        <abbr class="published" title="2018-03-02T16:04:00+01:00">
-                Published: 五 02 三月 2018
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/hester.html">Hester</a>
-        </address>
-<p>In <a href="/category/note.html">Note</a>.</p>
-
-</footer><!-- /.post-info --><p>当一个对象的行为依赖于另一个对象的状态时，观察者模式就相当有用。
+<ol id="post-list">
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="/observer-pattern.html" rel="bookmark" title="Permalink to Observer Pattern">Observer Pattern</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2018-03-02T16:04:00+01:00"> 五 02 三月 2018 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="/author/hester.html">Hester</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>当一个对象的行为依赖于另一个对象的状态时，观察者模式就相当有用。
 若不使用观察者模式提供的通用结构，则只能在另一个线程中不断监听对象所依赖的状态</p>
 <p>经典结构图：
 <img alt="unavailable" src="img/ObPat.jpg" title="ObserverPattern"></p>
@@ -54,99 +51,15 @@
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteSubject</span> <span class="kd">implements</span> <span class="n">ISubject</span><span class="p">{</span>
     <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">IObserver</span><span class="o">&gt;</span> <span class="n">observers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">IObserver</span><span class="o">&gt;</span><span class="p">();</span>
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">attach</span><span class="p">(</span><span class="n">IObserver</span> <span class="n">o</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">observers</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">o</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">deattach</span><span class="p">(</span><span class="n">IObserver</span> <span class="n">o</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">observers</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">o</span><span class="p">))</span>
-            <span class="n">observers</span><span class="p">.</span><span class="na">remove</span><span class="p">(</span><span class="n">o</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">inform</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">Event</span> <span class="n">e</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Event</span><span class="p">();</span>
-        <span class="k">for</span><span class="p">(</span><span class="n">IObserver</span> <span class="n">o</span> <span class="p">:</span> <span class="n">observers</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">o</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-<span class="p">}</span>
-</code></pre></div>
-
-
-<p>ConcreteObserver实现</p>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteObserver</span> <span class="kd">implements</span> <span class="n">IObserver</span><span class="p">{</span>
-
-    <span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
-
-    <span class="kd">public</span> <span class="nf">ConcreteObserver</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">update</span><span class="p">(</span><span class="n">Event</span> <span class="n">evt</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Observer &quot;</span> <span class="o">+</span> <span class="n">id</span> <span class="o">+</span> <span class="s">&quot; Get Information from Subject.&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
-
-<p>测试主类</p>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="p">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-        <span class="n">ISubject</span> <span class="n">cs</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcreteSubject</span><span class="p">();</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">IObserver</span> <span class="n">observer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcreteObserver</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
-            <span class="n">cs</span><span class="p">.</span><span class="na">attach</span><span class="p">(</span><span class="n">observer</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="n">cs</span><span class="p">.</span><span class="na">inform</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
-
-<p>运行结果：</p>
-<div class="highlight"><pre><span></span><code><span class="n">Observer</span> <span class="mi">0</span> <span class="n">Get</span> <span class="n">Information</span> <span class="n">from</span> <span class="n">Subject</span><span class="p">.</span>
-<span class="n">Observer</span> <span class="mi">1</span> <span class="n">Get</span> <span class="n">Information</span> <span class="n">from</span> <span class="n">Subject</span><span class="p">.</span>
-<span class="n">Observer</span> <span class="mi">2</span> <span class="n">Get</span> <span class="n">Information</span> <span class="n">from</span> <span class="n">Subject</span><span class="p">.</span>
-<span class="n">Observer</span> <span class="mi">3</span> <span class="n">Get</span> <span class="n">Information</span> <span class="n">from</span> <span class="n">Subject</span><span class="p">.</span>
-<span class="n">Observer</span> <span class="mi">4</span> <span class="n">Get</span> <span class="n">Information</span> <span class="n">from</span> <span class="n">Subject</span><span class="p">.</span>
-<span class="n">Observer</span> <span class="mi">5</span> <span class="n">Get</span> <span class="n">Information</span> <span class="n">from</span> <span class="n">Subject</span><span class="p">.</span>
-<span class="n">Observer</span> <span class="mi">6</span> <span class="n">Get</span> <span class="n">Information</span> <span class="n">from</span> <span class="n">Subject</span><span class="p">.</span>
-<span class="n">Observer</span> <span class="mi">7</span> <span class="n">Get</span> <span class="n">Information</span> <span class="n">from</span> <span class="n">Subject</span><span class="p">.</span>
-<span class="n">Observer</span> <span class="mi">8</span> <span class="n">Get</span> <span class="n">Information</span> <span class="n">from</span> <span class="n">Subject</span><span class="p">.</span>
-<span class="n">Observer</span> <span class="mi">9</span> <span class="n">Get</span> <span class="n">Information</span> <span class="n">from</span> <span class="n">Subject</span><span class="p">.</span>
-</code></pre></div>                </article>
-            </aside><!-- /#featured -->
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
+    <span class="kd">public</span> <span class="kt">void …</span></code></pre></div> </div><!-- /.entry-content -->
+        </article></li>
+</ol><!-- /#posts-list -->
+</section><!-- /#content -->
         <footer id="contentinfo" class="body">
                 <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                which takes great advantage of <a href="http://python.org">Python</a>.
                 </address><!-- /#about -->
-
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
         </footer><!-- /#contentinfo -->
-
 </body>
 </html>

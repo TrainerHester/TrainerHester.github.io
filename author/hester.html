@@ -1,58 +1,41 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
+        <title>Hester's Blog - Articles by Hester</title>
         <meta charset="utf-8" />
-        <title>Hester's Blog - Hester</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">Hester's Blog </a></h1>
-                <nav><ul>
-                    <li><a href="/category/blog.html">Blog</a></li>
-                    <li><a href="/category/note.html">Note</a></li>
-                </ul></nav>
+                <h1><a href="/">Hester's Blog <strong></strong></a></h1>
         </header><!-- /#banner -->
+        <nav id="menu"><ul>
+            <li><a href="/category/blog.html">Blog</a></li>
+            <li><a href="/category/note.html">Note</a></li>
+        </ul></nav><!-- /#menu -->
+<section id="content">
+<h2>Articles by Hester</h2>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/new-plan.html">new plan</a></h1>
-<footer class="post-info">
-        <abbr class="published" title="2020-05-26T23:55:00+02:00">
-                Published: 二 26 五月 2020
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/hester.html">Hester</a>
-        </address>
-<p>In <a href="/category/blog.html">Blog</a>.</p>
-
-</footer><!-- /.post-info --><p>博客可以重启了！</p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/observer-pattern.html" rel="bookmark"
-                           title="Permalink to Observer Pattern">Observer Pattern</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2018-03-02T16:04:00+01:00">
-                Published: 五 02 三月 2018
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/hester.html">Hester</a>
-        </address>
-<p>In <a href="/category/note.html">Note</a>.</p>
-
-</footer><!-- /.post-info -->                <p>当一个对象的行为依赖于另一个对象的状态时，观察者模式就相当有用。
+<ol id="post-list">
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="/new-plan.html" rel="bookmark" title="Permalink to new plan">new plan</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2020-05-26T23:55:00+02:00"> 二 26 五月 2020 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="/author/hester.html">Hester</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>博客可以重启了！</p> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="/observer-pattern.html" rel="bookmark" title="Permalink to Observer Pattern">Observer Pattern</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2018-03-02T16:04:00+01:00"> 五 02 三月 2018 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="/author/hester.html">Hester</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>当一个对象的行为依赖于另一个对象的状态时，观察者模式就相当有用。
 若不使用观察者模式提供的通用结构，则只能在另一个线程中不断监听对象所依赖的状态</p>
 <p>经典结构图：
 <img alt="unavailable" src="img/ObPat.jpg" title="ObserverPattern"></p>
@@ -78,29 +61,17 @@
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteSubject</span> <span class="kd">implements</span> <span class="n">ISubject</span><span class="p">{</span>
     <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">IObserver</span><span class="o">&gt;</span> <span class="n">observers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">IObserver</span><span class="o">&gt;</span><span class="p">();</span>
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void …</span></code></pre></div>
-                <a class="readmore" href="/observer-pattern.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/java-io-note.html" rel="bookmark"
-                           title="Permalink to java IO note">java IO note</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-11-23T15:55:00+01:00">
-                Published: 四 23 十一月 2017
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/hester.html">Hester</a>
-        </address>
-<p>In <a href="/category/blog.html">Blog</a>.</p>
-
-</footer><!-- /.post-info -->                <p>java进行文件读取操作,主要使用到节点流FileReader和处理流BufferedReader。
+    <span class="kd">public</span> <span class="kt">void …</span></code></pre></div> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="/java-io-note.html" rel="bookmark" title="Permalink to java IO note">java IO note</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2017-11-23T15:55:00+01:00"> 四 23 十一月 2017 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="/author/hester.html">Hester</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>java进行文件读取操作,主要使用到节点流FileReader和处理流BufferedReader。
 FileReader安照字符流读取文件，好处在于可以读取中文字符，
 BufferedReader是套在FileReader上的处理流，价值在于带缓冲，并且提供了readLine方法可以按行读取文件
 程序中使用GUI界面来显示文件的内容</p>
@@ -116,29 +87,17 @@ BufferedReader是套在FileReader上的处理流，价值在于带缓冲，并�
 
     <span class="kd">private</span> <span class="n">JButton</span> <span class="n">copy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;copy&quot;</span><span class="p">);</span> <span class="c1">//显示按钮</span>
     <span class="kd">private</span> <span class="n">JTextField</span> <span class="n">filename</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JTextField</span><span class="p">(</span><span class="mi">40</span><span class="p">);</span><span class="c1">//文件名输入区域</span>
-    <span class="kd">private …</span></code></pre></div>
-                <a class="readmore" href="/java-io-note.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/gui-section-eight.html" rel="bookmark"
-                           title="Permalink to GUI Section EIGHT">GUI Section EIGHT</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-11-14T14:22:00+01:00">
-                Published: 二 14 十一月 2017
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/hester.html">Hester</a>
-        </address>
-<p>In <a href="/category/blog.html">Blog</a>.</p>
-
-</footer><!-- /.post-info -->                <p>GUI中的画图实例</p>
+    <span class="kd">private …</span></code></pre></div> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="/gui-section-eight.html" rel="bookmark" title="Permalink to GUI Section EIGHT">GUI Section EIGHT</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2017-11-14T14:22:00+01:00"> 二 14 十一月 2017 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="/author/hester.html">Hester</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>GUI中的画图实例</p>
 <div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/Painter,java</span>
 
 <span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
@@ -153,29 +112,17 @@ BufferedReader是套在FileReader上的处理流，价值在于带缓冲，并�
         <span class="n">g</span><span class="p">.</span><span class="na">setColor</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">red</span><span class="p">);</span>
         <span class="n">g</span><span class="p">.</span><span class="na">fillOval</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
         <span class="n">g</span><span class="p">.</span><span class="na">setColor</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">blue</span><span class="p">);</span>
-        <span class="n">g</span><span class="p">.</span><span class="na">drawRect</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">30 …</span></code></pre></div>
-                <a class="readmore" href="/gui-section-eight.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/gui-section-seven.html" rel="bookmark"
-                           title="Permalink to GUI Section SEVEN">GUI Section SEVEN</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-11-09T19:56:00+01:00">
-                Published: 四 09 十一月 2017
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/hester.html">Hester</a>
-        </address>
-<p>In <a href="/category/blog.html">Blog</a>.</p>
-
-</footer><!-- /.post-info -->                <p>GUI轮廓的小示例：</p>
+        <span class="n">g</span><span class="p">.</span><span class="na">drawRect</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">30 …</span></code></pre></div> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="/gui-section-seven.html" rel="bookmark" title="Permalink to GUI Section SEVEN">GUI Section SEVEN</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2017-11-09T19:56:00+01:00"> 四 09 十一月 2017 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="/author/hester.html">Hester</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>GUI轮廓的小示例：</p>
 <div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/Border.java</span>
 <span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
 <span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
@@ -188,29 +135,17 @@ BufferedReader是套在FileReader上的处理流，价值在于带缓冲，并�
         <span class="n">jp</span><span class="p">.</span><span class="na">setLayout</span><span class="p">(</span><span class="k">new</span> <span class="n">BorderLayout</span><span class="p">());</span>
         <span class="n">String</span> <span class="n">nm</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">toString</span><span class="p">();</span>
         <span class="n">nm</span> <span class="o">=</span> <span class="n">nm</span><span class="p">.</span><span class="na">substring</span><span class="p">(</span><span class="n">nm</span><span class="p">.</span><span class="na">lastIndexOf</span><span class="p">(</span><span class="sc">&#39;.&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-        <span class="n">jp …</span></code></pre></div>
-                <a class="readmore" href="/gui-section-seven.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/gui-section-six.html" rel="bookmark"
-                           title="Permalink to GUI Section SIX">GUI Section SIX</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-11-06T15:38:00+01:00">
-                Published: 一 06 十一月 2017
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/hester.html">Hester</a>
-        </address>
-<p>In <a href="/category/blog.html">Blog</a>.</p>
-
-</footer><!-- /.post-info -->                <p>下面是Button的一个例子，演示的Button种类包括JButton, JToggleButton, JRadioButton, JCheckBox
+        <span class="n">jp …</span></code></pre></div> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="/gui-section-six.html" rel="bookmark" title="Permalink to GUI Section SIX">GUI Section SIX</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2017-11-06T15:38:00+01:00"> 一 06 十一月 2017 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="/author/hester.html">Hester</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>下面是Button的一个例子，演示的Button种类包括JButton, JToggleButton, JRadioButton, JCheckBox
 利用反射机制建立了一系列的按钮组，加入按钮组的Button会产生互斥的行为
 同时每个按钮注册有ItemListener, 当按钮选中就会在控制台打印对应的文本</p>
 <div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/ButtonGroups</span>
@@ -225,29 +160,17 @@ BufferedReader是套在FileReader上的处理流，价值在于带缓冲，并�
 <span class="kn">import</span> <span class="nn">java.lang.reflect.*</span><span class="p">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ButtonGroups</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">ids …</span></code></pre></div>
-                <a class="readmore" href="/gui-section-six.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/gui-section-five.html" rel="bookmark"
-                           title="Permalink to GUI Section Five">GUI Section Five</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-11-03T13:10:00+01:00">
-                Published: 五 03 十一月 2017
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/hester.html">Hester</a>
-        </address>
-<p>In <a href="/category/blog.html">Blog</a>.</p>
-
-</footer><!-- /.post-info -->                <p>以下的代码用于观察多个事件</p>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">ids …</span></code></pre></div> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="/gui-section-five.html" rel="bookmark" title="Permalink to GUI Section Five">GUI Section Five</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2017-11-03T13:10:00+01:00"> 五 03 十一月 2017 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="/author/hester.html">Hester</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>以下的代码用于观察多个事件</p>
 <div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/TrackEvent.java</span>
 <span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
 
@@ -260,29 +183,17 @@ BufferedReader是套在FileReader上的处理流，价值在于带缓冲，并�
     <span class="kd">private</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">JTextField</span><span class="o">&gt;</span> <span class="n">h</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span>
     <span class="kd">private</span> <span class="n">String</span><span class="o">[]</span> <span class="n">event</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;focusGained&quot;</span><span class="p">,</span> <span class="s">&quot;focusLost&quot;</span><span class="p">,</span> <span class="s">&quot;keyPressed&quot;</span><span class="p">,</span> <span class="s">&quot;keyReleased&quot;</span><span class="p">,</span>
             <span class="s">&quot;keyTyped&quot;</span><span class="p">,</span> <span class="s">&quot;mouseClicked&quot;</span><span class="p">,</span> <span class="s">&quot;mouseEntered&quot;</span><span class="p">,</span> <span class="s">&quot;mouseExited&quot;</span><span class="p">,</span> <span class="s">&quot;mousePressed&quot;</span><span class="p">,</span>
-            <span class="s">&quot;mouseReleased&quot;</span><span class="p">,</span> <span class="s">&quot;mouseDragged&quot;</span><span class="p">,</span> <span class="s">&quot;mouseMoved …</span></code></pre></div>
-                <a class="readmore" href="/gui-section-five.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/gui-section-four.html" rel="bookmark"
-                           title="Permalink to GUI Section Four">GUI Section Four</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-11-02T15:38:00+01:00">
-                Published: 四 02 十一月 2017
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/hester.html">Hester</a>
-        </address>
-<p>In <a href="/category/blog.html">Blog</a>.</p>
-
-</footer><!-- /.post-info -->                <p>先看一个综合性强的java代码：</p>
+            <span class="s">&quot;mouseReleased&quot;</span><span class="p">,</span> <span class="s">&quot;mouseDragged&quot;</span><span class="p">,</span> <span class="s">&quot;mouseMoved …</span></code></pre></div> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="/gui-section-four.html" rel="bookmark" title="Permalink to GUI Section Four">GUI Section Four</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2017-11-02T15:38:00+01:00"> 四 02 十一月 2017 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="/author/hester.html">Hester</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>先看一个综合性强的java代码：</p>
 <div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/ShowMethod.java</span>
 <span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
 
@@ -295,29 +206,17 @@ BufferedReader是套在FileReader上的处理流，价值在于带缓冲，并�
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ShowMethods</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
     <span class="kd">private</span> <span class="n">JTextField</span> <span class="n">name</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JTextField</span><span class="p">(</span><span class="mi">25</span><span class="p">);</span>
     <span class="kd">private</span> <span class="n">JTextArea</span> <span class="n">results</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JTextArea</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">65</span><span class="p">);</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Pattern</span> <span class="n">addListener …</span></code></pre></div>
-                <a class="readmore" href="/gui-section-four.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/gui-section-three.html" rel="bookmark"
-                           title="Permalink to GUI Section Three">GUI Section Three</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-11-02T14:20:00+01:00">
-                Published: 四 02 十一月 2017
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/hester.html">Hester</a>
-        </address>
-<p>In <a href="/category/blog.html">Blog</a>.</p>
-
-</footer><!-- /.post-info -->                <p>本次讨论的是GUI的布局，作为例子，首先使用的是BorderLayout，代码和效果如下</p>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Pattern</span> <span class="n">addListener …</span></code></pre></div> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="/gui-section-three.html" rel="bookmark" title="Permalink to GUI Section Three">GUI Section Three</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2017-11-02T14:20:00+01:00"> 四 02 十一月 2017 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="/author/hester.html">Hester</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>本次讨论的是GUI的布局，作为例子，首先使用的是BorderLayout，代码和效果如下</p>
 <div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/BorderLayout1.java</span>
 <span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
 
@@ -329,29 +228,17 @@ BufferedReader是套在FileReader上的处理流，价值在于带缓冲，并�
         <span class="n">add</span><span class="p">(</span><span class="n">BorderLayout</span><span class="p">.</span><span class="na">CENTER</span><span class="p">,</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;center&quot;</span><span class="p">));</span>
         <span class="n">add</span><span class="p">(</span><span class="n">BorderLayout</span><span class="p">.</span><span class="na">EAST</span><span class="p">,</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;east&quot;</span><span class="p">));</span>
         <span class="n">add</span><span class="p">(</span><span class="n">BorderLayout</span><span class="p">.</span><span class="na">WEST</span><span class="p">,</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;west&quot;</span><span class="p">));</span>
-        <span class="n">add</span><span class="p">(</span><span class="n">BorderLayout</span><span class="p">.</span><span class="na">NORTH</span><span class="p">,</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;north …</span></code></pre></div>
-                <a class="readmore" href="/gui-section-three.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/gui-section-two.html" rel="bookmark"
-                           title="Permalink to GUI Section Two">GUI Section Two</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-11-01T10:20:00+01:00">
-                Published: 三 01 十一月 2017
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/hester.html">Hester</a>
-        </address>
-<p>In <a href="/category/blog.html">Blog</a>.</p>
-
-</footer><!-- /.post-info -->                <p>本部分是对GUI中的事件注册进行讨论，初始的代码如下：</p>
+        <span class="n">add</span><span class="p">(</span><span class="n">BorderLayout</span><span class="p">.</span><span class="na">NORTH</span><span class="p">,</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;north …</span></code></pre></div> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="/gui-section-two.html" rel="bookmark" title="Permalink to GUI Section Two">GUI Section Two</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2017-11-01T10:20:00+01:00"> 三 01 十一月 2017 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="/author/hester.html">Hester</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>本部分是对GUI中的事件注册进行讨论，初始的代码如下：</p>
 <div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/Button1.java</span>
 <span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
 
@@ -367,43 +254,19 @@ BufferedReader是套在FileReader上的处理流，价值在于带缓冲，并�
         <span class="n">label2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JLabel</span><span class="p">(</span><span class="s">&quot;Label two&quot;</span><span class="p">);</span>
 
     <span class="kd">public</span> <span class="nf">Button1</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">setLayout</span><span class="p">(</span><span class="k">new</span> <span class="n">FlowLayout</span><span class="p">());</span> <span class="c1">//每加入一个控件 …</span></code></pre></div>
-                <a class="readmore" href="/gui-section-two.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-                </ol><!-- /#posts-list -->
+        <span class="n">setLayout</span><span class="p">(</span><span class="k">new</span> <span class="n">FlowLayout</span><span class="p">());</span> <span class="c1">//每加入一个控件 …</span></code></pre></div> </div><!-- /.entry-content -->
+        </article></li>
+</ol><!-- /#posts-list -->
 <p class="paginator">
     Page 1 / 2
         <a href="/author/hester2.html">&raquo;</a>
 </p>
-                </section><!-- /#content -->
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
+</section><!-- /#content -->
         <footer id="contentinfo" class="body">
                 <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                which takes great advantage of <a href="http://python.org">Python</a>.
                 </address><!-- /#about -->
-
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
         </footer><!-- /#contentinfo -->
-
 </body>
 </html>

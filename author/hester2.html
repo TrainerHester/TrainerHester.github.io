@@ -1,40 +1,31 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
+        <title>Hester's Blog - Articles by Hester</title>
         <meta charset="utf-8" />
-        <title>Hester's Blog - Hester</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">Hester's Blog </a></h1>
-                <nav><ul>
-                    <li><a href="/category/blog.html">Blog</a></li>
-                    <li><a href="/category/note.html">Note</a></li>
-                </ul></nav>
+                <h1><a href="/">Hester's Blog <strong></strong></a></h1>
         </header><!-- /#banner -->
+        <nav id="menu"><ul>
+            <li><a href="/category/blog.html">Blog</a></li>
+            <li><a href="/category/note.html">Note</a></li>
+        </ul></nav><!-- /#menu -->
+<section id="content">
+<h2>Articles by Hester</h2>
 
-                <section id="content" class="body">
-                    <ol id="posts-list" class="hfeed" start="9">
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/gui-section-one.html" rel="bookmark"
-                           title="Permalink to GUI Section one">GUI Section one</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-10-31T10:20:00+01:00">
-                Published: 二 31 十月 2017
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/hester.html">Hester</a>
-        </address>
-<p>In <a href="/category/blog.html">Blog</a>.</p>
-
-</footer><!-- /.post-info -->                <p>java swing 的 hello world</p>
+<ol id="post-list">
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="/gui-section-one.html" rel="bookmark" title="Permalink to GUI Section one">GUI Section one</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2017-10-31T10:20:00+01:00"> 二 31 十月 2017 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="/author/hester.html">Hester</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>java swing 的 hello world</p>
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
 
 <span class="cm">/**</span>
@@ -50,43 +41,19 @@
         <span class="n">frame</span><span class="p">.</span><span class="na">setDefaultCloseOperation</span><span class="p">(</span><span class="n">JFrame</span><span class="p">.</span><span class="na">EXIT_ON_CLOSE</span><span class="p">);</span> <span class="c1">//激活关闭按钮</span>
         <span class="n">frame</span><span class="p">.</span><span class="na">setSize</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">160</span><span class="p">);</span> <span class="c1">//设置Frame的大小</span>
         <span class="n">frame</span><span class="p">.</span><span class="na">setVisible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span> <span class="c1">//设置为可见</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0 …</span></code></pre></div>
-                <a class="readmore" href="/gui-section-one.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-                </ol><!-- /#posts-list -->
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0 …</span></code></pre></div> </div><!-- /.entry-content -->
+        </article></li>
+</ol><!-- /#posts-list -->
 <p class="paginator">
         <a href="/author/hester.html">&laquo;</a>
     Page 2 / 2
 </p>
-                </section><!-- /#content -->
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
+</section><!-- /#content -->
         <footer id="contentinfo" class="body">
                 <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                which takes great advantage of <a href="http://python.org">Python</a>.
                 </address><!-- /#about -->
-
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
         </footer><!-- /#contentinfo -->
-
 </body>
 </html>
