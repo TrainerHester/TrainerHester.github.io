@@ -15,18 +15,18 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", Note, " />
+<meta name="keywords" content=", blog, " />
 
-<meta property="og:title" content="React Note 2 "/>
-<meta property="og:url" content="/react-note-2.html" />
-<meta property="og:description" content="编写React的注意事项 外部引入的组件直接使用文件名(不需要增加文件后缀) import React from &#39;react&#39;; import ReactDOM from &#39;react-dom&#39;; 引入自己项目的资源必须以./或../开头 import &#39;./index.css&#39;; import App from &#39;./App&#39;; import * as serviceWorker from &#39;./serviceWorker&#39;; 自定义组件的自定义函数使用箭头函数 addComment = (comment) =&gt; { const {comments} = this.state comments.unshift(comment) this.setState(comments) } 自定义组件的props类型规范使用static语法 static propTypes = { addComment: PropTypes.func.isRequired } js Array的操作 在React中进行ajax一般使用axios …" />
+<meta property="og:title" content="React的componentWillReceiveProps "/>
+<meta property="og:url" content="/reactde-componentwillreceiveprops.html" />
+<meta property="og:description" content="问题背景 学习React时教程中给出了下面一段代码 目的：兄弟组件之间通信 1. 子组件传递数据到父组件(父组件需要暴露一个函数给子组件) 2. 父组件通过设置prop的方式把数据传递给另一个自组件 componentWillReceiveProps(nextProps, nextContext) { const {searchName} = nextProps if (searchName) { this.setState({init: false, loading: true}) axios.get(`https://api.github.com/search/users?q=${searchName}`) .then((reponse) =&gt; { let users = reponse.data.items.map((user, index) =&gt; { return { name: user.login, url: user.html_url …" />
 <meta property="og:site_name" content="Hester&#39;s Blog" />
 <meta property="og:article:author" content="Hester" />
-<meta property="og:article:published_time" content="2020-06-06T16:31:00+02:00" />
-<meta name="twitter:title" content="React Note 2 ">
-<meta name="twitter:description" content="编写React的注意事项 外部引入的组件直接使用文件名(不需要增加文件后缀) import React from &#39;react&#39;; import ReactDOM from &#39;react-dom&#39;; 引入自己项目的资源必须以./或../开头 import &#39;./index.css&#39;; import App from &#39;./App&#39;; import * as serviceWorker from &#39;./serviceWorker&#39;; 自定义组件的自定义函数使用箭头函数 addComment = (comment) =&gt; { const {comments} = this.state comments.unshift(comment) this.setState(comments) } 自定义组件的props类型规范使用static语法 static propTypes = { addComment: PropTypes.func.isRequired } js Array的操作 在React中进行ajax一般使用axios …">
+<meta property="og:article:published_time" content="2020-06-07T14:22:00+02:00" />
+<meta name="twitter:title" content="React的componentWillReceiveProps ">
+<meta name="twitter:description" content="问题背景 学习React时教程中给出了下面一段代码 目的：兄弟组件之间通信 1. 子组件传递数据到父组件(父组件需要暴露一个函数给子组件) 2. 父组件通过设置prop的方式把数据传递给另一个自组件 componentWillReceiveProps(nextProps, nextContext) { const {searchName} = nextProps if (searchName) { this.setState({init: false, loading: true}) axios.get(`https://api.github.com/search/users?q=${searchName}`) .then((reponse) =&gt; { let users = reponse.data.items.map((user, index) =&gt; { return { name: user.login, url: user.html_url …">
 
-        <title>React Note 2  · Hester&#39;s Blog
+        <title>React的componentWillReceiveProps  · Hester&#39;s Blog
 </title>
 
 
@@ -66,8 +66,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="/react-note-2.html">
-                React Note 2
+            <a href="/reactde-componentwillreceiveprops.html">
+                React的componentWillReceiveProps
             </a>
         </h1>
     </header>
@@ -76,48 +76,100 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h2>编写React的注意事项</h2>
-<ol>
-<li>外部引入的组件直接使用文件名(不需要增加文件后缀)</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">React</span> <span class="nn">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">ReactDOM</span> <span class="nn">from</span> <span class="s1">&#39;react-dom&#39;</span><span class="p">;</span>
+            <h2>问题背景</h2>
+<p>学习React时教程中给出了下面一段代码</p>
+<p>目的：兄弟组件之间通信
+1. 子组件传递数据到父组件(父组件需要暴露一个函数给子组件)
+2. 父组件通过设置prop的方式把数据传递给另一个自组件</p>
+<div class="highlight"><pre><span></span><code>componentWillReceiveProps(nextProps, nextContext) {
+    const {searchName} = nextProps
+    if (searchName) {
+        this.setState({init: false, loading: true})
+        axios.get(`https://api.github.com/search/users?q=<span class="cp">${</span><span class="n">searchName</span><span class="cp">}</span>`)
+            .then((reponse) =&gt; {
+                let users = reponse.data.items.map((user, index) =&gt; {
+                    return {
+                        name: user.login,
+                        url: user.html_url,
+                        avatarUrl: user.avatar_url
+                    }
+                })
+                this.setState({users, loading: false})
+            })
+            .catch((error) =&gt; {
+                this.setState({error})
+            })
+    }
+}
 </code></pre></div>
 
 
-<ol>
-<li>引入自己项目的资源必须以<code>./</code>或<code>../</code>开头</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="s1">&#39;./index.css&#39;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">App</span> <span class="nn">from</span> <span class="s1">&#39;./App&#39;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="o">*</span> <span class="k">as</span> <span class="n">serviceWorker</span> <span class="kn">from</span> <span class="s1">&#39;./serviceWorker&#39;</span><span class="p">;</span>
+<p><code>componentWillReceiveProps</code>是React组件自带的声明周期函数，当有新的props传递到组件会触发这个函数。同时上面的代码在该函数中调用了<strong>setState</strong></p>
+<p>组件运行都正常，但是官方给出了warning</p>
+<div class="highlight"><pre><span></span><code><span class="err">If you&#39;re updating state whenever props change, refactor your code to use memoization techniques or move it to static getDerivedStateFromProps. Learn more at: https://fb.me/react-derived-state</span>
 </code></pre></div>
 
 
-<ol>
-<li>自定义组件的自定义函数使用箭头函数</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="err">addComment = (comment) =&gt; {</span>
-<span class="err">    const {comments} = this.state</span>
-<span class="err">    comments.unshift(comment)</span>
-<span class="err">    this.setState(comments)</span>
+<p>使用这个方案的问题在于，如果父组件重新render，子组件的props无论是否改变都会调用<code>componentWillReceiveProps</code>，而我们希望的是只有props变化时才产生调用。</p>
+<h2>解决方案</h2>
+<h3>getDerivedStateFromProps</h3>
+<p>替代方案的关键点<strong>getDerivedStateFromProps</strong></p>
+<p>这个函数用于解决在props改变时更新state</p>
+<div class="highlight"><pre><span></span><code><span class="err">// 静态函数，props表示新的props, state表示现有的state, 最终返回新的state</span>
+<span class="err">static getDerivedStateFromProps(props, state) {</span>
+<span class="err">// Any time the current user changes,</span>
+<span class="err">// Reset any parts of state that are tied to that user.</span>
+<span class="err">// In this simple example, that&#39;s just the email.</span>
+<span class="err">if (props.userID !== state.prevPropsUserID) {</span>
+<span class="err">    return {</span>
+<span class="err">    prevPropsUserID: props.userID,</span>
+<span class="err">    email: props.defaultEmail</span>
+<span class="err">    };</span>
+<span class="err">}</span>
+<span class="err">return null;</span>
 <span class="err">}</span>
 </code></pre></div>
 
 
-<ol>
-<li>自定义组件的props类型规范使用static语法</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="err">static propTypes = {</span>
-<span class="err">    addComment: PropTypes.func.isRequired</span>
+<p>但是原有的<code>componentWillReceiveProps</code>会进行两次setState，这种方案无法解决，除非把ajax调用放到父组件</p>
+<h3>PubSubJS</h3>
+<p><a href="https://github.com/mroderick/PubSubJS">PubSubJS</a>
+发布订阅模式，用于跨层次传递数据</p>
+<div class="highlight"><pre><span></span><code><span class="err">//发布端</span>
+<span class="err">handleSearch = (event) =&gt; {</span>
+<span class="err">    event.preventDefault()</span>
+<span class="err">    const searchName = this.input.value</span>
+<span class="err">    // 发布</span>
+<span class="err">    PubSub.publish(&quot;search&quot;, searchName)</span>
+<span class="err">    this.input.value = &quot;&quot;</span>
 <span class="err">}</span>
 </code></pre></div>
 
 
-<p><a href="https://www.w3schools.com/js/js_array_methods.asp">js Array的操作</a></p>
-<ol>
-<li>在React中进行ajax一般使用<strong>axios</strong>或<strong>fetch</strong></li>
-</ol>
+<div class="highlight"><pre><span></span><code>// 订阅端
+componentDidMount() {
+    //订阅
+    PubSub.subscribe(&#39;search&#39;, (msg, searchName) =&gt; {
+        if (searchName) {
+            this.setState({init: false, loading: true})
+            axios.get(`https://api.github.com/search/users?q=<span class="cp">${</span><span class="n">searchName</span><span class="cp">}</span>`)
+                .then((reponse) =&gt; {
+                    let users = reponse.data.items.map((user, index) =&gt; {
+                        return {
+                            name: user.login,
+                            url: user.html_url,
+                            avatarUrl: user.avatar_url
+                        }
+                    })
+                    this.setState({users, loading: false})
+                })
+                .catch((error) =&gt; {
+                    this.setState({error})
+                })
+        }
+    })
+}
+</code></pre></div>
 
 
              
@@ -136,9 +188,9 @@
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2020-06-06T16:31:00+02:00">六 06 六月 2020</time>
+            <time itemprop="dateCreated" datetime="2020-06-07T14:22:00+02:00">日 07 六月 2020</time>
             <h4>Category</h4>
-            <a class="category-link" href="/categories.html#note-ref">Note</a>
+            <a class="category-link" href="/categories.html#blog-ref">blog</a>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>
