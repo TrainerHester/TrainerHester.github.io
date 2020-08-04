@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Hester" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", blog, " />
+
+<meta property="og:title" content="React componentWillReceiveProps "/>
+<meta property="og:url" content="/react-componentwillreceiveprops.html" />
+<meta property="og:description" content="问题背景 学习React时教程中给出了下面一段代码 目的：兄弟组件之间通信 1. 子组件传递数据到父组件(父组件需要暴露一个函数给子组件) 2. 父组件通过设置prop的方式把数据传递给另一个自组件 componentWillReceiveProps(nextProps, nextContext) { const {searchName} = nextProps if (searchName) { this.setState({init: false, loading: true}) axios.get(`https://api.github.com/search/users?q=${searchName}`) .then((reponse) =&gt; { let users = reponse.data.items.map((user, index) =&gt; { return { name: user.login, url: user.html_url …" />
+<meta property="og:site_name" content="Hester&#39;s Blog" />
+<meta property="og:article:author" content="Hester" />
+<meta property="og:article:published_time" content="2020-06-07T14:22:00+02:00" />
+<meta name="twitter:title" content="React componentWillReceiveProps ">
+<meta name="twitter:description" content="问题背景 学习React时教程中给出了下面一段代码 目的：兄弟组件之间通信 1. 子组件传递数据到父组件(父组件需要暴露一个函数给子组件) 2. 父组件通过设置prop的方式把数据传递给另一个自组件 componentWillReceiveProps(nextProps, nextContext) { const {searchName} = nextProps if (searchName) { this.setState({init: false, loading: true}) axios.get(`https://api.github.com/search/users?q=${searchName}`) .then((reponse) =&gt; { let users = reponse.data.items.map((user, index) =&gt; { return { name: user.login, url: user.html_url …">
+
+        <title>React componentWillReceiveProps  · Hester&#39;s Blog
+</title>
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/"><span class=site-name>Hester's Blog</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       "/"
+                                    >Home</a>
+                                </li>
+                                <li ><a href="/categories.html">Categories</a></li>
+                                <li ><a href="/tags.html">Tags</a></li>
+                                <li ><a href="/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="/react-componentwillreceiveprops.html">
+                React componentWillReceiveProps
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <h2>问题背景</h2>
+<p>学习React时教程中给出了下面一段代码</p>
+<p>目的：兄弟组件之间通信
+1. 子组件传递数据到父组件(父组件需要暴露一个函数给子组件)
+2. 父组件通过设置prop的方式把数据传递给另一个自组件</p>
+<div class="highlight"><pre><span></span><code>componentWillReceiveProps(nextProps, nextContext) {
+    const {searchName} = nextProps
+    if (searchName) {
+        this.setState({init: false, loading: true})
+        axios.get(`https://api.github.com/search/users?q=<span class="cp">${</span><span class="n">searchName</span><span class="cp">}</span>`)
+            .then((reponse) =&gt; {
+                let users = reponse.data.items.map((user, index) =&gt; {
+                    return {
+                        name: user.login,
+                        url: user.html_url,
+                        avatarUrl: user.avatar_url
+                    }
+                })
+                this.setState({users, loading: false})
+            })
+            .catch((error) =&gt; {
+                this.setState({error})
+            })
+    }
+}
+</code></pre></div>
+
+
+<p><code>componentWillReceiveProps</code>是React组件自带的声明周期函数，当有新的props传递到组件会触发这个函数。同时上面的代码在该函数中调用了<strong>setState</strong></p>
+<p>组件运行都正常，但是官方给出了warning</p>
+<div class="highlight"><pre><span></span><code><span class="err">If you&#39;re updating state whenever props change, refactor your code to use memoization techniques or move it to static getDerivedStateFromProps. Learn more at: https://fb.me/react-derived-state</span>
+</code></pre></div>
+
+
+<p>使用这个方案的问题在于，如果父组件重新render，子组件的props无论是否改变都会调用<code>componentWillReceiveProps</code>，而我们希望的是只有props变化时才产生调用。</p>
+<h2>解决方案</h2>
+<h3>getDerivedStateFromProps</h3>
+<p>替代方案的关键点<strong>getDerivedStateFromProps</strong></p>
+<p>这个函数用于解决在props改变时更新state</p>
+<div class="highlight"><pre><span></span><code><span class="err">// 静态函数，props表示新的props, state表示现有的state, 最终返回新的state</span>
+<span class="err">static getDerivedStateFromProps(props, state) {</span>
+<span class="err">// Any time the current user changes,</span>
+<span class="err">// Reset any parts of state that are tied to that user.</span>
+<span class="err">// In this simple example, that&#39;s just the email.</span>
+<span class="err">if (props.userID !== state.prevPropsUserID) {</span>
+<span class="err">    return {</span>
+<span class="err">    prevPropsUserID: props.userID,</span>
+<span class="err">    email: props.defaultEmail</span>
+<span class="err">    };</span>
+<span class="err">}</span>
+<span class="err">return null;</span>
+<span class="err">}</span>
+</code></pre></div>
+
+
+<p>但是原有的<code>componentWillReceiveProps</code>会进行两次setState，这种方案无法解决，除非把ajax调用放到父组件</p>
+<h3>PubSubJS</h3>
+<p><a href="https://github.com/mroderick/PubSubJS">PubSubJS</a>
+发布订阅模式，用于跨层次传递数据</p>
+<div class="highlight"><pre><span></span><code><span class="err">//发布端</span>
+<span class="err">handleSearch = (event) =&gt; {</span>
+<span class="err">    event.preventDefault()</span>
+<span class="err">    const searchName = this.input.value</span>
+<span class="err">    // 发布</span>
+<span class="err">    PubSub.publish(&quot;search&quot;, searchName)</span>
+<span class="err">    this.input.value = &quot;&quot;</span>
+<span class="err">}</span>
+</code></pre></div>
+
+
+<div class="highlight"><pre><span></span><code>// 订阅端
+componentDidMount() {
+    //订阅
+    PubSub.subscribe(&#39;search&#39;, (msg, searchName) =&gt; {
+        if (searchName) {
+            this.setState({init: false, loading: true})
+            axios.get(`https://api.github.com/search/users?q=<span class="cp">${</span><span class="n">searchName</span><span class="cp">}</span>`)
+                .then((reponse) =&gt; {
+                    let users = reponse.data.items.map((user, index) =&gt; {
+                        return {
+                            name: user.login,
+                            url: user.html_url,
+                            avatarUrl: user.avatar_url
+                        }
+                    })
+                    this.setState({users, loading: false})
+                })
+                .catch((error) =&gt; {
+                    this.setState({error})
+                })
+        }
+    })
+}
+</code></pre></div>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2020-06-07T14:22:00+02:00">日 07 六月 2020</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#blog-ref">blog</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>
