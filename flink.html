@@ -237,8 +237,6 @@ WindowFunction</li>
 
 <div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">ProcessWindowFunction</span><span class="o">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="p">,</span> <span class="n">KEY</span><span class="p">,</span> <span class="n">W</span> <span class="kd">extends</span> <span class="n">Window</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="n">AbstractRichFunction</span> <span class="p">{</span>
 
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">1L</span><span class="p">;</span>
-
     <span class="c1">// 第二个参数是Context, 并且Context包含Window, 因此可以包含更多的信息</span>
     <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">process</span><span class="p">(</span><span class="n">KEY</span> <span class="n">key</span><span class="p">,</span> <span class="n">Context</span> <span class="n">context</span><span class="p">,</span> <span class="n">Iterable</span><span class="o">&lt;</span><span class="n">IN</span><span class="o">&gt;</span> <span class="n">elements</span><span class="p">,</span> <span class="n">Collector</span><span class="o">&lt;</span><span class="n">OUT</span><span class="o">&gt;</span> <span class="n">out</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="p">;</span>
 <span class="p">}</span>
