@@ -1,40 +1,44 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
+          <title>Hester's Blog - Observer Pattern</title>
         <meta charset="utf-8" />
-        <title>Observer Pattern</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+
+
+
+
+
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">Hester's Blog </a></h1>
-                <nav><ul>
-                    <li><a href="/category/blog.html">blog</a></li>
-                    <li><a href="/category/java-note.html">Java Note</a></li>
-                    <li class="active"><a href="/category/note.html">note</a></li>
-                </ul></nav>
+                <h1><a href="/">Hester's Blog <strong></strong></a></h1>
         </header><!-- /#banner -->
+        <nav id="menu"><ul>
+            <li><a href="/category/blog.html">blog</a></li>
+            <li><a href="/category/java-note.html">Java Note</a></li>
+            <li class="active"><a href="/category/note.html">note</a></li>
+        </ul></nav><!-- /#menu -->
 <section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="/observer-pattern.html" rel="bookmark"
-           title="Permalink to Observer Pattern">Observer Pattern</a></h1>
-    </header>
-
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2018-03-02T16:04:00+01:00">
-                Published: 五 02 三月 2018
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/hester.html">Hester</a>
-        </address>
-<p>In <a href="/category/note.html">Note</a>.</p>
-
-</footer><!-- /.post-info -->      <p>当一个对象的行为依赖于另一个对象的状态时，观察者模式就相当有用。
+  <header>
+    <h2 class="entry-title">
+      <a href="/observer-pattern.html" rel="bookmark"
+         title="Permalink to Observer Pattern">Observer Pattern</a></h2>
+ 
+  </header>
+  <footer class="post-info">
+    <time class="published" datetime="2018-03-02T16:04:00+01:00">
+      五 02 三月 2018
+    </time>
+    <address class="vcard author">
+      By           <a class="url fn" href="/author/hester.html">Hester</a>
+    </address>
+    <div class="category">
+        Category: <a href="/category/note.html">Note</a>
+    </div>
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>当一个对象的行为依赖于另一个对象的状态时，观察者模式就相当有用。
 若不使用观察者模式提供的通用结构，则只能在另一个线程中不断监听对象所依赖的状态</p>
 <p>经典结构图：
 <img alt="unavailable" src="img/ObPat.jpg" title="ObserverPattern"></p>
@@ -125,37 +129,13 @@
 <span class="n">Observer</span> <span class="mi">8</span> <span class="n">Get</span> <span class="n">Information</span> <span class="n">from</span> <span class="n">Subject</span><span class="p">.</span>
 <span class="n">Observer</span> <span class="mi">9</span> <span class="n">Get</span> <span class="n">Information</span> <span class="n">from</span> <span class="n">Subject</span><span class="p">.</span>
 </code></pre></div>
-    </div><!-- /.entry-content -->
-
-  </article>
+  </div><!-- /.entry-content -->
 </section>
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
         <footer id="contentinfo" class="body">
                 <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                which takes great advantage of <a href="http://python.org">Python</a>.
                 </address><!-- /#about -->
-
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
         </footer><!-- /#contentinfo -->
-
 </body>
 </html>

@@ -1,35 +1,32 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
+        <title>Hester's Blog - Java Note category</title>
         <meta charset="utf-8" />
-        <title>Hester's Blog - Java Note</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">Hester's Blog </a></h1>
-                <nav><ul>
-                    <li><a href="/category/blog.html">blog</a></li>
-                    <li class="active"><a href="/category/java-note.html">Java Note</a></li>
-                    <li><a href="/category/note.html">note</a></li>
-                </ul></nav>
+                <h1><a href="/">Hester's Blog <strong></strong></a></h1>
         </header><!-- /#banner -->
+        <nav id="menu"><ul>
+            <li><a href="/category/blog.html">blog</a></li>
+            <li class="active"><a href="/category/java-note.html">Java Note</a></li>
+            <li><a href="/category/note.html">note</a></li>
+        </ul></nav><!-- /#menu -->
+<section id="content">
+<h2>Articles in the Java Note category</h2>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/java-completablefuture.html">Java CompletableFuture</a></h1>
-<footer class="post-info">
-        <abbr class="published" title="2020-08-04T21:23:00+02:00">
-                Published: 二 04 八月 2020
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/hester.html">Hester</a>
-        </address>
-<p>In <a href="/category/java-note.html">Java Note</a>.</p>
-
-</footer><!-- /.post-info --><h2>简介</h2>
+<ol id="post-list">
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="/java-completablefuture.html" rel="bookmark" title="Permalink to Java CompletableFuture">Java CompletableFuture</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2020-08-04T21:23:00+02:00"> 二 04 八月 2020 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="/author/hester.html">Hester</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <h2>简介</h2>
 <p><strong>CompletableFuture</strong>是java8引入的一种异步执行工具，它同时实现了Future接口和<strong>CompletionStage</strong>接口，前者使其具备异步执行的能力，而后者则是让当前的异步执行和其他异步执行联系起来</p>
 <h2>基本用法</h2>
 <h3>用作Future</h3>
@@ -60,129 +57,15 @@
 </code></pre></div>
 
 
-<p>也可以进行取消操作</p>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="n">Future</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">calculateAsyncWithCancellation</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="p">{</span>
-    <span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">completableFuture</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CompletableFuture</span><span class="o">&lt;&gt;</span><span class="p">();</span>
-
-    <span class="n">Executors</span><span class="p">.</span><span class="na">newCachedThreadPool</span><span class="p">().</span><span class="na">submit</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="p">{</span>
-        <span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
-        <span class="n">completableFuture</span><span class="p">.</span><span class="na">cancel</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
-        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
-    <span class="p">});</span>
-
-    <span class="k">return</span> <span class="n">completableFuture</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
-
-<div class="highlight"><pre><span></span><code><span class="n">Future</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">future</span> <span class="o">=</span> <span class="n">calculateAsyncWithCancellation</span><span class="p">();</span>
-<span class="n">future</span><span class="p">.</span><span class="na">get</span><span class="p">();</span> <span class="c1">// 抛出CancellationException</span>
-</code></pre></div>
-
-
-<h3>封装异步执行逻辑</h3>
-<p>CompletableFuture有静态方法<strong>runAsync</strong>和<strong>supplyAsync</strong>前者的入参是Runnable, 表示没有出参的执行逻辑；后者入参是supplyAsync，表示有出参的逻辑</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testNewCompletableFuture</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">ExecutionException</span><span class="p">,</span> <span class="n">InterruptedException</span> <span class="p">{</span>
-    <span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">&gt;</span> <span class="n">runAsync</span> <span class="o">=</span> <span class="n">CompletableFuture</span><span class="p">.</span><span class="na">runAsync</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="p">{</span>
-        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;use runAsync&quot;</span><span class="p">);</span>
-    <span class="p">});</span>
-    <span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">supplyAsync</span> <span class="o">=</span> <span class="n">CompletableFuture</span><span class="p">.</span><span class="na">supplyAsync</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="s">&quot;use supplyAsync&quot;</span><span class="p">);</span>
-    <span class="n">Assert</span><span class="p">.</span><span class="na">assertNull</span><span class="p">(</span><span class="n">runAsync</span><span class="p">.</span><span class="na">get</span><span class="p">());</span>
-    <span class="n">Assert</span><span class="p">.</span><span class="na">assertEquals</span><span class="p">(</span><span class="s">&quot;use supplyAsync&quot;</span><span class="p">,</span> <span class="n">supplyAsync</span><span class="p">.</span><span class="na">get</span><span class="p">());</span>
-<span class="p">}</span>
-</code></pre></div>
-
-
-<p>需要说明的是上述两个方法还有另一个版本, 可以自定义异步执行器，当然在不指定的时候使用的是默认的ForkJoinPool</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@Before</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">before</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="na">executor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">TimeUnit</span><span class="p">.</span><span class="na">DAYS</span><span class="p">,</span> <span class="k">new</span> <span class="n">LinkedBlockingDeque</span><span class="o">&lt;&gt;</span><span class="p">());</span>
-<span class="p">}</span>
-
-<span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testNewCompletableFutureWithExecutor</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">ExecutionException</span><span class="p">,</span> <span class="n">InterruptedException</span> <span class="p">{</span>
-    <span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">&gt;</span> <span class="n">runAsync</span> <span class="o">=</span> <span class="n">CompletableFuture</span><span class="p">.</span><span class="na">runAsync</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="p">{</span>
-        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;use runAsync&quot;</span><span class="p">);</span>
-    <span class="p">},</span> <span class="n">executor</span><span class="p">);</span>
-    <span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">supplyAsync</span> <span class="o">=</span> <span class="n">CompletableFuture</span><span class="p">.</span><span class="na">supplyAsync</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="s">&quot;use supplyAsync&quot;</span><span class="p">,</span> <span class="n">executor</span><span class="p">);</span>
-    <span class="n">Assert</span><span class="p">.</span><span class="na">assertNull</span><span class="p">(</span><span class="n">runAsync</span><span class="p">.</span><span class="na">get</span><span class="p">());</span>
-    <span class="n">Assert</span><span class="p">.</span><span class="na">assertEquals</span><span class="p">(</span><span class="s">&quot;use supplyAsync&quot;</span><span class="p">,</span> <span class="n">supplyAsync</span><span class="p">.</span><span class="na">get</span><span class="p">());</span>
-<span class="p">}</span>
-</code></pre></div>
-
-
-<h3>对异步逻辑进行后续处理</h3>
-<p>这是CompletableFuture强大之处，主要是对CompletionStage接口的实现，让使用者可以对CompletableFuture进行编排</p>
-<div class="highlight"><pre><span></span><code> <span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testThenApply</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">ExecutionException</span><span class="p">,</span> <span class="n">InterruptedException</span> <span class="p">{</span>
-    <span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">supplyAsync</span> <span class="o">=</span> <span class="n">CompletableFuture</span><span class="p">.</span><span class="na">supplyAsync</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="s">&quot;hello&quot;</span><span class="p">);</span>
-    <span class="c1">// thenApply用法，从一个CompletableFuture产生另一个CompletableFuture</span>
-    <span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">thenApply</span> <span class="o">=</span> <span class="n">supplyAsync</span><span class="p">.</span><span class="na">thenApply</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="s">&quot; world!&quot;</span><span class="p">);</span>
-    <span class="n">Assert</span><span class="p">.</span><span class="na">assertEquals</span><span class="p">(</span><span class="s">&quot;hello world!&quot;</span><span class="p">,</span> <span class="n">thenApply</span><span class="p">.</span><span class="na">get</span><span class="p">());</span>
-<span class="p">}</span>
-
-<span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testThenCompose</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">ExecutionException</span><span class="p">,</span> <span class="n">InterruptedException</span> <span class="p">{</span>
-    <span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">supplyAsync</span> <span class="o">=</span> <span class="n">CompletableFuture</span><span class="p">.</span><span class="na">supplyAsync</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="s">&quot;hello&quot;</span><span class="p">);</span>
-    <span class="c1">// thenCompose入参是 源CompletableFuture的返回值, 出参必须显式定义为CompletionStage类型</span>
-    <span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">thenCompose</span> <span class="o">=</span> <span class="n">supplyAsync</span><span class="p">.</span><span class="na">thenCompose</span><span class="p">(</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="n">CompletableFuture</span><span class="p">.</span><span class="na">supplyAsync</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">s</span> <span class="o">+</span> <span class="s">&quot; world!&quot;</span><span class="p">));</span>
-    <span class="n">Assert</span><span class="p">.</span><span class="na">assertEquals</span><span class="p">(</span><span class="s">&quot;hello world!&quot;</span><span class="p">,</span> <span class="n">thenCompose</span><span class="p">.</span><span class="na">get</span><span class="p">());</span>
-<span class="p">}</span>
-</code></pre></div>
-
-
-<h3>并发对多个异步任务进行处理</h3>
-<div class="highlight"><pre><span></span><code><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testAllOf</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">ExecutionException</span><span class="p">,</span> <span class="n">InterruptedException</span> <span class="p">{</span>
-    <span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">supplyAsync1</span> <span class="o">=</span> <span class="n">CompletableFuture</span><span class="p">.</span><span class="na">supplyAsync</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="s">&quot;hello&quot;</span><span class="p">);</span>
-    <span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">supplyAsync2</span> <span class="o">=</span> <span class="n">CompletableFuture</span><span class="p">.</span><span class="na">supplyAsync</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="s">&quot;beautiful&quot;</span><span class="p">);</span>
-    <span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">supplyAsync3</span> <span class="o">=</span> <span class="n">CompletableFuture</span><span class="p">.</span><span class="na">supplyAsync</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="s">&quot;world&quot;</span><span class="p">);</span>
-    <span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">&gt;</span> <span class="n">allOf</span> <span class="o">=</span> <span class="n">CompletableFuture</span><span class="p">.</span><span class="na">allOf</span><span class="p">(</span><span class="n">supplyAsync1</span><span class="p">,</span> <span class="n">supplyAsync2</span><span class="p">,</span> <span class="n">supplyAsync3</span><span class="p">);</span>
-    <span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">future</span> <span class="o">=</span> <span class="n">allOf</span><span class="p">.</span><span class="na">thenApply</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">Stream</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">supplyAsync1</span><span class="p">,</span> <span class="n">supplyAsync2</span><span class="p">,</span> <span class="n">supplyAsync3</span><span class="p">).</span><span class="na">map</span><span class="p">(</span><span class="n">CompletableFuture</span><span class="p">::</span><span class="n">join</span><span class="p">)</span>
-            <span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">Collectors</span><span class="p">.</span><span class="na">joining</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">)));</span>
-    <span class="c1">// get调用成功表示supplyAsync1，supplyAsync2，supplyAsync3都执行完成</span>
-    <span class="n">Assert</span><span class="p">.</span><span class="na">assertEquals</span><span class="p">(</span><span class="s">&quot;hello beautiful world&quot;</span><span class="p">,</span> <span class="n">future</span><span class="p">.</span><span class="na">get</span><span class="p">());</span>
-    <span class="n">Assert</span><span class="p">.</span><span class="na">assertTrue</span><span class="p">(</span><span class="n">Stream</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">supplyAsync1</span><span class="p">,</span> <span class="n">supplyAsync2</span><span class="p">,</span> <span class="n">supplyAsync3</span><span class="p">)</span>
-            <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">CompletableFuture</span><span class="p">::</span><span class="n">isDone</span><span class="p">).</span><span class="na">reduce</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">&amp;&amp;</span> <span class="n">y</span><span class="p">));</span>
-
-<span class="p">}</span>
-</code></pre></div>
-
-
-<h2>其他</h2>
-<p>java8引入的这个工具在graphql-java中被广泛使用，查询优化核心DataLoader也使用了这个，个人感觉DataLoader的java实现参考了javascript实现，ES使用的<strong>async</strong>, <strong>await</strong>, <strong>Promise</strong>语法与CompletableFuture十分类似</p>
-<h2>参考资料</h2>
-<p><a href="https://www.baeldung.com/java-completablefuture">Guide To CompletableFuture</a>
-<a href="https://github.com/graphql-java/java-dataloader">dataloader的java实现</a></p>                </article>
-            </aside><!-- /#featured -->
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
+<p>也可以进行取消操作 …</p> </div><!-- /.entry-content -->
+        </article></li>
+</ol><!-- /#posts-list -->
+</section><!-- /#content -->
         <footer id="contentinfo" class="body">
                 <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                which takes great advantage of <a href="http://python.org">Python</a>.
                 </address><!-- /#about -->
-
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
         </footer><!-- /#contentinfo -->
-
 </body>
 </html>
