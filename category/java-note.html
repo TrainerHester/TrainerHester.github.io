@@ -1,71 +1,112 @@
 <!DOCTYPE html>
 <html lang="zh">
-<head>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Hester" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta property="og:title" content="Hester&#39;s Blog"/>
+<meta name="twitter:title" content="Hester&#39;s Blog">
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="Hester&#39;s Blog" />
+<meta property="og:article:author" content="Hester" />
+<meta name="keywords" content=" blog,  Java Note,  note, " />
         <title>Hester's Blog - Java Note category</title>
-        <meta charset="utf-8" />
-</head>
-
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="/">Hester's Blog <strong></strong></a></h1>
-        </header><!-- /#banner -->
-        <nav id="menu"><ul>
-            <li><a href="/category/blog.html">blog</a></li>
-            <li class="active"><a href="/category/java-note.html">Java Note</a></li>
-            <li><a href="/category/note.html">note</a></li>
-        </ul></nav><!-- /#menu -->
-<section id="content">
-<h2>Articles in the Java Note category</h2>
-
-<ol id="post-list">
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="/java-completablefuture.html" rel="bookmark" title="Permalink to Java CompletableFuture">Java CompletableFuture</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2020-08-04T21:23:00+02:00"> 二 04 八月 2020 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="/author/hester.html">Hester</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <h2>简介</h2>
-<p><strong>CompletableFuture</strong>是java8引入的一种异步执行工具，它同时实现了Future接口和<strong>CompletionStage</strong>接口，前者使其具备异步执行的能力，而后者则是让当前的异步执行和其他异步执行联系起来</p>
-<h2>基本用法</h2>
-<h3>用作Future</h3>
-<p>Future表示一个异步执行结果</p>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="n">Future</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">calculateAsync</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="p">{</span>
-    <span class="c1">// 无参构造</span>
-    <span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">completableFuture</span> 
-      <span class="o">=</span> <span class="k">new</span> <span class="n">CompletableFuture</span><span class="o">&lt;&gt;</span><span class="p">();</span>
-
-    <span class="n">Executors</span><span class="p">.</span><span class="na">newCachedThreadPool</span><span class="p">().</span><span class="na">submit</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="p">{</span>
-        <span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
-        <span class="c1">// complete方法的入参即返回结果</span>
-        <span class="n">completableFuture</span><span class="p">.</span><span class="na">complete</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">);</span>
-        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
-    <span class="p">});</span>
-
-    <span class="k">return</span> <span class="n">completableFuture</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
 
 
-<div class="highlight"><pre><span></span><code><span class="n">Future</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">completableFuture</span> <span class="o">=</span> <span class="n">calculateAsync</span><span class="p">();</span>
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/"><span class=site-name>Hester's Blog</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       "/"
+                                    >Home</a>
+                                </li>
+                                <li ><a href="/categories.html">Categories</a></li>
+                                <li ><a href="/tags.html">Tags</a></li>
+                                <li ><a href="/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
 
-<span class="c1">// 其他逻辑</span>
 
-<span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">completableFuture</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
-<span class="n">assertEquals</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
-</code></pre></div>
+<div class="row-fluid">
+
+    <div class="row-fluid">
+
+    </div>
+
+    <div class="row-fluid">
+        <div class="span8 offset2">
+            <header>
+            <h1 id="recent-posts">Recent Posts <a id="allposts" href="/archives.html">all posts</a></h1>
+            </header>
+        <div class="recent-posts">
+            <div itemscope class="recent-posts-article">
+                <a href="/java-completablefuture.html">
+                    Java CompletableFuture
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="/categories.html#java-note-ref">Java Note</a>
+                    <time itemprop="dateCreated" datetime="2020-08-04T21:23:00+02:00">二 04 八月 2020</time>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
 
 
-<p>也可以进行取消操作 …</p> </div><!-- /.entry-content -->
-        </article></li>
-</ol><!-- /#posts-list -->
-</section><!-- /#content -->
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
-                which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
-        </footer><!-- /#contentinfo -->
-</body>
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>        <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
 </html>

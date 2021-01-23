@@ -1,528 +1,202 @@
 <!DOCTYPE html>
 <html lang="zh">
-<head>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Hester" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta property="og:title" content="Hester&#39;s Blog"/>
+<meta name="twitter:title" content="Hester&#39;s Blog">
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="Hester&#39;s Blog" />
+<meta property="og:article:author" content="Hester" />
+<meta name="keywords" content=" blog,  Java Note,  note, " />
         <title>Hester's Blog - Articles by Hester</title>
-        <meta charset="utf-8" />
-</head>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="/">Hester's Blog <strong></strong></a></h1>
-        </header><!-- /#banner -->
-        <nav id="menu"><ul>
-            <li><a href="/category/blog.html">blog</a></li>
-            <li><a href="/category/java-note.html">Java Note</a></li>
-            <li><a href="/category/note.html">note</a></li>
-        </ul></nav><!-- /#menu -->
-<section id="content">
-<h2>Articles by Hester</h2>
 
-<ol id="post-list">
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="/java-completablefuture.html" rel="bookmark" title="Permalink to Java CompletableFuture">Java CompletableFuture</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2020-08-04T21:23:00+02:00"> 二 04 八月 2020 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="/author/hester.html">Hester</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <h2>简介</h2>
-<p><strong>CompletableFuture</strong>是java8引入的一种异步执行工具，它同时实现了Future接口和<strong>CompletionStage</strong>接口，前者使其具备异步执行的能力，而后者则是让当前的异步执行和其他异步执行联系起来</p>
-<h2>基本用法</h2>
-<h3>用作Future</h3>
-<p>Future表示一个异步执行结果</p>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="n">Future</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">calculateAsync</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="p">{</span>
-    <span class="c1">// 无参构造</span>
-    <span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">completableFuture</span> 
-      <span class="o">=</span> <span class="k">new</span> <span class="n">CompletableFuture</span><span class="o">&lt;&gt;</span><span class="p">();</span>
-
-    <span class="n">Executors</span><span class="p">.</span><span class="na">newCachedThreadPool</span><span class="p">().</span><span class="na">submit</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="p">{</span>
-        <span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
-        <span class="c1">// complete方法的入参即返回结果</span>
-        <span class="n">completableFuture</span><span class="p">.</span><span class="na">complete</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">);</span>
-        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
-    <span class="p">});</span>
-
-    <span class="k">return</span> <span class="n">completableFuture</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
-
-<div class="highlight"><pre><span></span><code><span class="n">Future</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">completableFuture</span> <span class="o">=</span> <span class="n">calculateAsync</span><span class="p">();</span>
-
-<span class="c1">// 其他逻辑</span>
-
-<span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">completableFuture</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
-<span class="n">assertEquals</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
-</code></pre></div>
-
-
-<p>也可以进行取消操作 …</p> </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="/react-componentwillreceiveprops.html" rel="bookmark" title="Permalink to React componentWillReceiveProps">React componentWillReceiveProps</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2020-06-07T14:22:00+02:00"> 日 07 六月 2020 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="/author/hester.html">Hester</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <h2>问题背景</h2>
-<p>学习React时教程中给出了下面一段代码</p>
-<p>目的：兄弟组件之间通信
-1. 子组件传递数据到父组件(父组件需要暴露一个函数给子组件)
-2. 父组件通过设置prop的方式把数据传递给另一个自组件</p>
-<div class="highlight"><pre><span></span><code>componentWillReceiveProps(nextProps, nextContext) {
-    const {searchName} = nextProps
-    if (searchName) {
-        this.setState({init: false, loading: true})
-        axios.get(`https://api.github.com/search/users?q=<span class="cp">${</span><span class="n">searchName</span><span class="cp">}</span>`)
-            .then((reponse) =&gt; {
-                let users = reponse.data.items.map((user, index) =&gt; {
-                    return {
-                        name: user.login,
-                        url: user.html_url …</code></pre></div> </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="/spring-note.html" rel="bookmark" title="Permalink to Spring note">Spring note</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2020-06-07T14:22:00+02:00"> 日 07 六月 2020 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="/author/hester.html">Hester</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <h2>Spring笔记</h2>
-<p>spring: IOC容器</p>
-<h3>定义信息</h3>
-<p>xml配置的bean抽象到spring: <strong>BeanDefinition</strong>
-读取BeanDefinition的类: <strong>BeanDefintionReader</strong>
-容器的本质</p>
-<div class="highlight"><pre><span></span><code><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">BeanDefinition</span><span class="o">&gt;</span> <span class="n">beanDefinitionMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcurrentHashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span>
-</code></pre></div>
-
-
-<h3>Environment</h3>
-<p>为了方便使用，在容器创建的时候会提前将系统的相关属性加载到StandardEnvironment对象中，方便后续调用</p>
-<h3>实例化</h3>
-<p>在堆中开辟一块空间，属性都是<strong>默认值</strong></p>
-<p>实例化的方式有
-- new
-- 反射</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// 完全限定名方式</span>
-<span class="n">Class</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">Class</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="s">&quot;xxxxxxx&quot;</span><span class="p">);</span> 
-
-<span class="c1">// 通过对象</span>
-<span class="n">Class</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">obj</span><span class="p">.</span><span class="na">getClass</span><span class="p">();</span> 
-
-<span class="c1">// 通过类</span>
-<span class="n">Class</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">Obj</span><span class="p">.</span><span class="na">class</span><span class="p">;</span>
-
-<span class="n">Constructor</span> <span class="n">constructor</span> <span class="o">=</span> <span class="n">clazz</span><span class="p">.</span><span class="na">getDecalaredConstructor</span><span class="p">();</span>
-<span class="n">Obj</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">constructor</span><span class="p">.</span><span class="na">newInstance …</span></code></pre></div> </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="/react-note-2.html" rel="bookmark" title="Permalink to React Note 2">React Note 2</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2020-06-06T16:31:00+02:00"> 六 06 六月 2020 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="/author/hester.html">Hester</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <h2>编写React的注意事项</h2>
-<ol>
-<li>外部引入的组件直接使用文件名(不需要增加文件后缀)</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">React</span> <span class="nn">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">ReactDOM</span> <span class="nn">from</span> <span class="s1">&#39;react-dom&#39;</span><span class="p">;</span>
-</code></pre></div>
-
-
-<ol>
-<li>引入自己项目的资源必须以<code>./</code>或<code>../</code>开头</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="s1">&#39;./index.css&#39;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">App</span> <span class="nn">from</span> <span class="s1">&#39;./App&#39;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="o">*</span> <span class="k">as</span> <span class="n">serviceWorker</span> <span class="kn">from</span> <span class="s1">&#39;./serviceWorker&#39;</span><span class="p">;</span>
-</code></pre></div>
-
-
-<ol>
-<li>自定义组件的自定义函数使用箭头函数</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="err">addComment = (comment) =&gt; {</span>
-<span class="err">    const {comments} = this.state</span>
-<span class="err">    comments.unshift(comment)</span>
-<span class="err">    this.setState(comments)</span>
-<span class="err">}</span>
-</code></pre></div>
-
-
-<ol>
-<li>自定义组件的props类型规范使用static语法</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="err">static propTypes = {</span>
-<span class="err">    addComment: PropTypes.func.isRequired</span>
-<span class="err">}</span>
-</code></pre></div>
-
-
-<p><a href="https://www.w3schools.com/js/js_array_methods.asp">js Array的操作</a></p>
-<ol>
-<li>在React中进行ajax一般使用<strong>axios …</strong></li></ol> </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="/react-note-1.html" rel="bookmark" title="Permalink to React Note 1">React Note 1</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2020-06-06T13:34:00+02:00"> 六 06 六月 2020 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="/author/hester.html">Hester</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <h2>创建一个空的React项目</h2>
-<h3>安装npm</h3>
-<p>安装node</p>
-<div class="highlight"><pre><span></span><code>brew install node
-</code></pre></div>
-
-
-<p>查看npm版本</p>
-<div class="highlight"><pre><span></span><code>npm -v
-</code></pre></div>
-
-
-<h3>创建项目</h3>
-<p>脚手架工具create-react-app</p>
-<div class="highlight"><pre><span></span><code>npm install -g create-react-app
-</code></pre></div>
-
-
-<p>tips: 加速下载速度</p>
-<div class="highlight"><pre><span></span><code>npm config <span class="nb">set</span> registry https://registry.npm.taobao.org
-npm config get registry
-</code></pre></div>
-
-
-<p>创建项目</p>
-<div class="highlight"><pre><span></span><code>create-react-app react_app
-<span class="nb">cd</span> react_app
-npm start
-</code></pre></div>
-
-
-<p><img alt="效果图" src="img/first-page.png"></p>
-<p>在项目下可以看到<code>package.json</code>文件如下</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;react_app&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.1.0&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;private&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="nt">&quot;dependencies …</span></code></pre></div> </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="/shi-zhan-xiang-mu-bi-ji.html" rel="bookmark" title="Permalink to 实战项目笔记">实战项目笔记</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2020-06-06T13:34:00+02:00"> 六 06 六月 2020 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="/author/hester.html">Hester</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <h2>工程结构</h2>
-<div class="highlight"><pre><span></span><code><span class="err">src</span>
-<span class="err">├── api 前后端接口</span>
-<span class="err">├── assets 通用资源</span>
-<span class="err">├── components UI组件</span>
-<span class="err">├── containers 容器组件</span>
-<span class="err">├── index.js 入口js</span>
-<span class="err">├── redux redux状态控制相关</span>
-<span class="err">└── utils 工具类</span>
-</code></pre></div>
-
-
-<h2>依赖的组件库</h2>
-<h3>AntD</h3>
-<p><a href="https://mobile.ant.design/docs/react/introduce-cn">antd官方文档</a></p>
-<div class="highlight"><pre><span></span><code><span class="err">npm install antd-mobile --save</span>
-</code></pre></div>
-
-
-<p>修改<code>public/index.html</code></p>
-<div class="highlight"><pre><span></span><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-  <span class="c">&lt;!-- set `maximum-scale` for some compatibility issues --&gt;</span>
-  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1 …</span></code></pre></div> </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="/new-plan.html" rel="bookmark" title="Permalink to new plan">new plan</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2020-05-26T23:55:00+02:00"> 二 26 五月 2020 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="/author/hester.html">Hester</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <p>博客可以重启了！</p> </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="/observer-pattern.html" rel="bookmark" title="Permalink to Observer Pattern">Observer Pattern</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2018-03-02T16:04:00+01:00"> 五 02 三月 2018 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="/author/hester.html">Hester</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <p>当一个对象的行为依赖于另一个对象的状态时，观察者模式就相当有用。
-若不使用观察者模式提供的通用结构，则只能在另一个线程中不断监听对象所依赖的状态</p>
-<p>经典结构图：
-<img alt="unavailable" src="img/ObPat.jpg" title="ObserverPattern"></p>
-<p>ISubject接口</p>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ISubject</span> <span class="p">{</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">attach</span><span class="p">(</span><span class="n">IObserver</span> <span class="n">o</span><span class="p">);</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">deattach</span><span class="p">(</span><span class="n">IObserver</span> <span class="n">o</span><span class="p">);</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">inform</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div>
-
-
-<p>IObserver接口</p>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">IObserver</span> <span class="p">{</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">update</span><span class="p">(</span><span class="n">Event</span> <span class="n">evt</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
-
-<p>ConcreteSubject实现</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">java.util.*</span><span class="p">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteSubject</span> <span class="kd">implements</span> <span class="n">ISubject</span><span class="p">{</span>
-    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">IObserver</span><span class="o">&gt;</span> <span class="n">observers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">IObserver</span><span class="o">&gt;</span><span class="p">();</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void …</span></code></pre></div> </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="/java-io-note.html" rel="bookmark" title="Permalink to java IO note">java IO note</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2017-11-23T15:55:00+01:00"> 四 23 十一月 2017 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="/author/hester.html">Hester</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <p>java进行文件读取操作,主要使用到节点流FileReader和处理流BufferedReader。
-FileReader安照字符流读取文件，好处在于可以读取中文字符，
-BufferedReader是套在FileReader上的处理流，价值在于带缓冲，并且提供了readLine方法可以按行读取文件
-程序中使用GUI界面来显示文件的内容</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/OutputFile.java</span>
-<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
-
-<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.awt.event.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.io.*</span><span class="p">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OutputFile</span> <span class="kd">extends</span> <span class="n">JFrame</span> <span class="p">{</span>
-
-    <span class="kd">private</span> <span class="n">JButton</span> <span class="n">copy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;copy&quot;</span><span class="p">);</span> <span class="c1">//显示按钮</span>
-    <span class="kd">private</span> <span class="n">JTextField</span> <span class="n">filename</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JTextField</span><span class="p">(</span><span class="mi">40</span><span class="p">);</span><span class="c1">//文件名输入区域</span>
-    <span class="kd">private …</span></code></pre></div> </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="/gui-section-eight.html" rel="bookmark" title="Permalink to GUI Section EIGHT">GUI Section EIGHT</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2017-11-14T14:22:00+01:00"> 二 14 十一月 2017 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="/author/hester.html">Hester</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <p>GUI中的画图实例</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/Painter,java</span>
-
-<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
-
-<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Painter</span> <span class="kd">extends</span> <span class="n">JFrame</span> <span class="p">{</span>
-
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">paint</span><span class="p">(</span><span class="n">Graphics</span> <span class="n">g</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">Color</span> <span class="n">c</span> <span class="o">=</span> <span class="n">g</span><span class="p">.</span><span class="na">getColor</span><span class="p">();</span> <span class="c1">//获取当前画笔的颜色</span>
-        <span class="n">g</span><span class="p">.</span><span class="na">setColor</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">red</span><span class="p">);</span>
-        <span class="n">g</span><span class="p">.</span><span class="na">fillOval</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
-        <span class="n">g</span><span class="p">.</span><span class="na">setColor</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">blue</span><span class="p">);</span>
-        <span class="n">g</span><span class="p">.</span><span class="na">drawRect</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">30 …</span></code></pre></div> </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="/gui-section-seven.html" rel="bookmark" title="Permalink to GUI Section SEVEN">GUI Section SEVEN</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2017-11-09T19:56:00+01:00"> 四 09 十一月 2017 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="/author/hester.html">Hester</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <p>GUI轮廓的小示例：</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/Border.java</span>
-<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">javax.swing.border.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Borders</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
-    <span class="kd">static</span> <span class="n">JPanel</span> <span class="nf">showBorder</span><span class="p">(</span><span class="n">Border</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">JPanel</span> <span class="n">jp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JPanel</span><span class="p">();</span>
-        <span class="n">jp</span><span class="p">.</span><span class="na">setLayout</span><span class="p">(</span><span class="k">new</span> <span class="n">BorderLayout</span><span class="p">());</span>
-        <span class="n">String</span> <span class="n">nm</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">toString</span><span class="p">();</span>
-        <span class="n">nm</span> <span class="o">=</span> <span class="n">nm</span><span class="p">.</span><span class="na">substring</span><span class="p">(</span><span class="n">nm</span><span class="p">.</span><span class="na">lastIndexOf</span><span class="p">(</span><span class="sc">&#39;.&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-        <span class="n">jp …</span></code></pre></div> </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="/gui-section-six.html" rel="bookmark" title="Permalink to GUI Section SIX">GUI Section SIX</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2017-11-06T15:38:00+01:00"> 一 06 十一月 2017 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="/author/hester.html">Hester</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <p>下面是Button的一个例子，演示的Button种类包括JButton, JToggleButton, JRadioButton, JCheckBox
-利用反射机制建立了一系列的按钮组，加入按钮组的Button会产生互斥的行为
-同时每个按钮注册有ItemListener, 当按钮选中就会在控制台打印对应的文本</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/ButtonGroups</span>
-<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
-
-<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.awt.event.ItemEvent</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.awt.event.ItemListener</span><span class="p">;</span>
-
-<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">javax.swing.border.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.lang.reflect.*</span><span class="p">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ButtonGroups</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">ids …</span></code></pre></div> </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="/gui-section-five.html" rel="bookmark" title="Permalink to GUI Section Five">GUI Section Five</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2017-11-03T13:10:00+01:00"> 五 03 十一月 2017 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="/author/hester.html">Hester</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <p>以下的代码用于观察多个事件</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/TrackEvent.java</span>
-<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
-
-<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.awt.event.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.util.*</span><span class="p">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TrackEvent</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
-    <span class="kd">private</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">JTextField</span><span class="o">&gt;</span> <span class="n">h</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span>
-    <span class="kd">private</span> <span class="n">String</span><span class="o">[]</span> <span class="n">event</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;focusGained&quot;</span><span class="p">,</span> <span class="s">&quot;focusLost&quot;</span><span class="p">,</span> <span class="s">&quot;keyPressed&quot;</span><span class="p">,</span> <span class="s">&quot;keyReleased&quot;</span><span class="p">,</span>
-            <span class="s">&quot;keyTyped&quot;</span><span class="p">,</span> <span class="s">&quot;mouseClicked&quot;</span><span class="p">,</span> <span class="s">&quot;mouseEntered&quot;</span><span class="p">,</span> <span class="s">&quot;mouseExited&quot;</span><span class="p">,</span> <span class="s">&quot;mousePressed&quot;</span><span class="p">,</span>
-            <span class="s">&quot;mouseReleased&quot;</span><span class="p">,</span> <span class="s">&quot;mouseDragged&quot;</span><span class="p">,</span> <span class="s">&quot;mouseMoved …</span></code></pre></div> </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="/gui-section-four.html" rel="bookmark" title="Permalink to GUI Section Four">GUI Section Four</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2017-11-02T15:38:00+01:00"> 四 02 十一月 2017 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="/author/hester.html">Hester</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <p>先看一个综合性强的java代码：</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/ShowMethod.java</span>
-<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
-
-<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.awt.event.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.lang.reflect.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.util.regex.*</span><span class="p">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ShowMethods</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
-    <span class="kd">private</span> <span class="n">JTextField</span> <span class="n">name</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JTextField</span><span class="p">(</span><span class="mi">25</span><span class="p">);</span>
-    <span class="kd">private</span> <span class="n">JTextArea</span> <span class="n">results</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JTextArea</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">65</span><span class="p">);</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Pattern</span> <span class="n">addListener …</span></code></pre></div> </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="/gui-section-three.html" rel="bookmark" title="Permalink to GUI Section Three">GUI Section Three</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2017-11-02T14:20:00+01:00"> 四 02 十一月 2017 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="/author/hester.html">Hester</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <p>本次讨论的是GUI的布局，作为例子，首先使用的是BorderLayout，代码和效果如下</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/BorderLayout1.java</span>
-<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
-
-<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BorderLayout1</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
-    <span class="kd">public</span> <span class="nf">BorderLayout1</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">add</span><span class="p">(</span><span class="n">BorderLayout</span><span class="p">.</span><span class="na">CENTER</span><span class="p">,</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;center&quot;</span><span class="p">));</span>
-        <span class="n">add</span><span class="p">(</span><span class="n">BorderLayout</span><span class="p">.</span><span class="na">EAST</span><span class="p">,</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;east&quot;</span><span class="p">));</span>
-        <span class="n">add</span><span class="p">(</span><span class="n">BorderLayout</span><span class="p">.</span><span class="na">WEST</span><span class="p">,</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;west&quot;</span><span class="p">));</span>
-        <span class="n">add</span><span class="p">(</span><span class="n">BorderLayout</span><span class="p">.</span><span class="na">NORTH</span><span class="p">,</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;north …</span></code></pre></div> </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="/gui-section-two.html" rel="bookmark" title="Permalink to GUI Section Two">GUI Section Two</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2017-11-01T10:20:00+01:00"> 三 01 十一月 2017 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="/author/hester.html">Hester</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <p>本部分是对GUI中的事件注册进行讨论，初始的代码如下：</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/Button1.java</span>
-<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
-
-<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Button1</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
-    <span class="kd">private</span> <span class="n">JButton</span>
-        <span class="n">b1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;Button1&quot;</span><span class="p">),</span>
-        <span class="n">b2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;Button2&quot;</span><span class="p">);</span>
-    <span class="kd">private</span> <span class="n">JLabel</span>
-        <span class="n">label1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JLabel</span><span class="p">(</span><span class="s">&quot;Label one&quot;</span><span class="p">),</span>
-        <span class="n">label2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JLabel</span><span class="p">(</span><span class="s">&quot;Label two&quot;</span><span class="p">);</span>
-
-    <span class="kd">public</span> <span class="nf">Button1</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">setLayout</span><span class="p">(</span><span class="k">new</span> <span class="n">FlowLayout</span><span class="p">());</span> <span class="c1">//每加入一个控件 …</span></code></pre></div> </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="/gui-section-one.html" rel="bookmark" title="Permalink to GUI Section one">GUI Section one</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2017-10-31T10:20:00+01:00"> 二 31 十月 2017 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="/author/hester.html">Hester</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <p>java swing 的 hello world</p>
-<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
-
-<span class="cm">/**</span>
-<span class="cm"> * @author Hester</span>
-<span class="cm"> * 初始的frame运用，产生的frame只有标题</span>
-<span class="cm"> */</span>
-
-<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloSwing</span> <span class="p">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span> <span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">JFrame</span> <span class="n">frame</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JFrame</span><span class="p">(</span><span class="s">&quot;Hello Swing&quot;</span><span class="p">);</span> <span class="c1">//新建一个frame对象并设置标题</span>
-        <span class="n">frame</span><span class="p">.</span><span class="na">setDefaultCloseOperation</span><span class="p">(</span><span class="n">JFrame</span><span class="p">.</span><span class="na">EXIT_ON_CLOSE</span><span class="p">);</span> <span class="c1">//激活关闭按钮</span>
-        <span class="n">frame</span><span class="p">.</span><span class="na">setSize</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">160</span><span class="p">);</span> <span class="c1">//设置Frame的大小</span>
-        <span class="n">frame</span><span class="p">.</span><span class="na">setVisible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span> <span class="c1">//设置为可见</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0 …</span></code></pre></div> </div><!-- /.entry-content -->
-        </article></li>
-</ol><!-- /#posts-list -->
-</section><!-- /#content -->
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
-                which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
-        </footer><!-- /#contentinfo -->
-</body>
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/"><span class=site-name>Hester's Blog</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       "/"
+                                    >Home</a>
+                                </li>
+                                <li ><a href="/categories.html">Categories</a></li>
+                                <li ><a href="/tags.html">Tags</a></li>
+                                <li ><a href="/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+
+
+<div class="row-fluid">
+
+    <div class="row-fluid">
+
+    </div>
+
+    <div class="row-fluid">
+        <div class="span8 offset2">
+            <header>
+            <h1 id="recent-posts">Recent Posts <a id="allposts" href="/archives.html">all posts</a></h1>
+            </header>
+        <div class="recent-posts">
+            <div itemscope class="recent-posts-article">
+                <a href="/java-completablefuture.html">
+                    Java CompletableFuture
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="/categories.html#java-note-ref">Java Note</a>
+                    <time itemprop="dateCreated" datetime="2020-08-04T21:23:00+02:00">二 04 八月 2020</time>
+                </div>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="/react-componentwillreceiveprops.html">
+                    React componentWillReceiveProps
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="/categories.html#blog-ref">blog</a>
+                    <time itemprop="dateCreated" datetime="2020-06-07T14:22:00+02:00">日 07 六月 2020</time>
+                </div>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="/spring-note.html">
+                    Spring note
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="/categories.html#note-ref">note</a>
+                    <time itemprop="dateCreated" datetime="2020-06-07T14:22:00+02:00">日 07 六月 2020</time>
+                </div>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="/react-note-2.html">
+                    React Note 2
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="/categories.html#note-ref">Note</a>
+                    <time itemprop="dateCreated" datetime="2020-06-06T16:31:00+02:00">六 06 六月 2020</time>
+                </div>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="/react-note-1.html">
+                    React Note 1
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="/categories.html#note-ref">Note</a>
+                    <time itemprop="dateCreated" datetime="2020-06-06T13:34:00+02:00">六 06 六月 2020</time>
+                </div>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="/shi-zhan-xiang-mu-bi-ji.html">
+                    实战项目笔记
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="/categories.html#note-ref">Note</a>
+                    <time itemprop="dateCreated" datetime="2020-06-06T13:34:00+02:00">六 06 六月 2020</time>
+                </div>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="/new-plan.html">
+                    new plan
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="/categories.html#blog-ref">Blog</a>
+                    <time itemprop="dateCreated" datetime="2020-05-26T23:55:00+02:00">二 26 五月 2020</time>
+                </div>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="/observer-pattern.html">
+                    Observer Pattern
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="/categories.html#note-ref">Note</a>
+                    <time itemprop="dateCreated" datetime="2018-03-02T16:04:00+01:00">五 02 三月 2018</time>
+                </div>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="/java-io-note.html">
+                    java IO note
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="/categories.html#blog-ref">Blog</a>
+                    <time itemprop="dateCreated" datetime="2017-11-23T15:55:00+01:00">四 23 十一月 2017</time>
+                </div>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="/gui-section-eight.html">
+                    GUI Section EIGHT
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="/categories.html#blog-ref">Blog</a>
+                    <time itemprop="dateCreated" datetime="2017-11-14T14:22:00+01:00">二 14 十一月 2017</time>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>        <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
 </html>

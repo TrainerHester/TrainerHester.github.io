@@ -1,44 +1,82 @@
 <!DOCTYPE html>
 <html lang="zh">
-<head>
-          <title>Hester's Blog - GUI Section one</title>
-        <meta charset="utf-8" />
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Hester" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", Blog, " />
+
+<meta property="og:title" content="GUI Section one "/>
+<meta property="og:url" content="/gui-section-one.html" />
+<meta property="og:description" content="java swing 的 hello world package com.gui.start; /** * @author Hester * 初始的frame运用，产生的frame只有标题 */ import javax.swing.*; public class HelloSwing { public static void main(String [] args) { JFrame frame = new JFrame(&#34;Hello Swing&#34;); //新建一个frame对象并设置标题 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //激活关闭按钮 frame.setSize(300, 160); //设置Frame的大小 frame.setVisible(true); //设置为可见 for(int i = 0 …" />
+<meta property="og:site_name" content="Hester&#39;s Blog" />
+<meta property="og:article:author" content="Hester" />
+<meta property="og:article:published_time" content="2017-10-31T10:20:00+01:00" />
+<meta name="twitter:title" content="GUI Section one ">
+<meta name="twitter:description" content="java swing 的 hello world package com.gui.start; /** * @author Hester * 初始的frame运用，产生的frame只有标题 */ import javax.swing.*; public class HelloSwing { public static void main(String [] args) { JFrame frame = new JFrame(&#34;Hello Swing&#34;); //新建一个frame对象并设置标题 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //激活关闭按钮 frame.setSize(300, 160); //设置Frame的大小 frame.setVisible(true); //设置为可见 for(int i = 0 …">
+
+        <title>GUI Section one  · Hester&#39;s Blog
+</title>
 
 
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/"><span class=site-name>Hester's Blog</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       "/"
+                                    >Home</a>
+                                </li>
+                                <li ><a href="/categories.html">Categories</a></li>
+                                <li ><a href="/tags.html">Tags</a></li>
+                                <li ><a href="/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="/gui-section-one.html">
+                GUI Section one
+            </a>
+        </h1>
+    </header>
+</div>
 
-
-
-</head>
-
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="/">Hester's Blog <strong></strong></a></h1>
-        </header><!-- /#banner -->
-        <nav id="menu"><ul>
-            <li class="active"><a href="/category/blog.html">blog</a></li>
-            <li><a href="/category/java-note.html">Java Note</a></li>
-            <li><a href="/category/note.html">note</a></li>
-        </ul></nav><!-- /#menu -->
-<section id="content" class="body">
-  <header>
-    <h2 class="entry-title">
-      <a href="/gui-section-one.html" rel="bookmark"
-         title="Permalink to GUI Section one">GUI Section one</a></h2>
- 
-  </header>
-  <footer class="post-info">
-    <time class="published" datetime="2017-10-31T10:20:00+01:00">
-      二 31 十月 2017
-    </time>
-    <address class="vcard author">
-      By           <a class="url fn" href="/author/hester.html">Hester</a>
-    </address>
-    <div class="category">
-        Category: <a href="/category/blog.html">Blog</a>
-    </div>
-  </footer><!-- /.post-info -->
-  <div class="entry-content">
-    <p>java swing 的 hello world</p>
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p>java swing 的 hello world</p>
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
 
 <span class="cm">/**</span>
@@ -122,13 +160,159 @@
 <p>一般GUI编程主类继承Frame，同时在构造方法中设置基本的参数如大小、标题等，同时要设置成可见
 main线程中创建实现Runnable的匿名类来改变Frame中的元素如Label、Button等。
 <strong>final 关键字用于变量的理解：将变量设置为常量，即只读，或者调用其方法，无法对其赋值。</strong></p>
-  </div><!-- /.entry-content -->
-</section>
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
-                which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
-        </footer><!-- /#contentinfo -->
-</body>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2017-10-31T10:20:00+01:00">二 31 十月 2017</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#blog-ref">Blog</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
 </html>
