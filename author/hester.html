@@ -12,7 +12,7 @@
                 <nav><ul>
                     <li><a href="/category/blog.html">blog</a></li>
                     <li><a href="/category/java-note.html">Java Note</a></li>
-                    <li><a href="/category/note.html">Note</a></li>
+                    <li><a href="/category/note.html">note</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
@@ -194,6 +194,55 @@
                         name: user.login,
                         url: user.html_url …</code></pre></div>
                 <a class="readmore" href="/react-componentwillreceiveprops.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/spring-note.html" rel="bookmark"
+                           title="Permalink to Spring note">Spring note</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-06-07T14:22:00+02:00">
+                Published: 日 07 六月 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/hester.html">Hester</a>
+        </address>
+<p>In <a href="/category/note.html">note</a>.</p>
+
+</footer><!-- /.post-info -->                <h2>Spring笔记</h2>
+<p>spring: IOC容器</p>
+<h3>定义信息</h3>
+<p>xml配置的bean抽象到spring: <strong>BeanDefinition</strong>
+读取BeanDefinition的类: <strong>BeanDefintionReader</strong>
+容器的本质</p>
+<div class="highlight"><pre><span></span><code><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">BeanDefinition</span><span class="o">&gt;</span> <span class="n">beanDefinitionMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcurrentHashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+</code></pre></div>
+
+
+<h3>Environment</h3>
+<p>为了方便使用，在容器创建的时候会提前将系统的相关属性加载到StandardEnvironment对象中，方便后续调用</p>
+<h3>实例化</h3>
+<p>在堆中开辟一块空间，属性都是<strong>默认值</strong></p>
+<p>实例化的方式有
+- new
+- 反射</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 完全限定名方式</span>
+<span class="n">Class</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">Class</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="s">&quot;xxxxxxx&quot;</span><span class="p">);</span> 
+
+<span class="c1">// 通过对象</span>
+<span class="n">Class</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">obj</span><span class="p">.</span><span class="na">getClass</span><span class="p">();</span> 
+
+<span class="c1">// 通过类</span>
+<span class="n">Class</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">Obj</span><span class="p">.</span><span class="na">class</span><span class="p">;</span>
+
+<span class="n">Constructor</span> <span class="n">constructor</span> <span class="o">=</span> <span class="n">clazz</span><span class="p">.</span><span class="na">getDecalaredConstructor</span><span class="p">();</span>
+<span class="n">Obj</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">constructor</span><span class="p">.</span><span class="na">newInstance …</span></code></pre></div>
+                <a class="readmore" href="/spring-note.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
