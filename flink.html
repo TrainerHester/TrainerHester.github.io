@@ -105,6 +105,7 @@
 
   <div>
     <h2>Flink笔记</h2>
+<p>[toc]</p>
 <h3>window相关的概念</h3>
 <p>将无限流切割为有限流的方式，将流数据分发到有限大小的bucket</p>
 <p>window类型
@@ -269,6 +270,38 @@ WindowFunction</li>
     <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">process</span><span class="p">(</span><span class="n">KEY</span> <span class="n">key</span><span class="p">,</span> <span class="n">Context</span> <span class="n">context</span><span class="p">,</span> <span class="n">Iterable</span><span class="o">&lt;</span><span class="n">IN</span><span class="o">&gt;</span> <span class="n">elements</span><span class="p">,</span> <span class="n">Collector</span><span class="o">&lt;</span><span class="n">OUT</span><span class="o">&gt;</span> <span class="n">out</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
+
+
+<h3>其他api</h3>
+<ul>
+<li><code>trigger</code>触发器, 定义window什么时候关闭, 触发计算并输出结果</li>
+<li><code>evictor</code>移除器, 定义移除某些数据的逻辑</li>
+<li><code>allowedLateness</code>允许延迟时间</li>
+<li><code>sideOutputLateData</code>迟到数据放到侧输出流</li>
+</ul>
+<p>所谓的迟到, 需要考虑时间语义</p>
+<h2>时间语义</h2>
+<p><img alt="时间语义" src="img/time.png"></p>
+<p>Event Time: 事件创建的时间
+Ingestion Time: 数据进入Flink的时间
+Processing Time: 执行操作算子的本地系统时间, 与机器相关</p>
+<p>代码如果没有设置, 默认是<strong>Processing Time</strong></p>
+<h3>watermark 水位线</h3>
+<p>用于衡量事件时间进展的机制, 一般用于处理乱序事件
+数据流中的watermark用于表示timestamp小于watermark的数据都已经到达了</p>
+<p>watermark用来让程序自己平衡延迟和结果的准确性</p>
+<p>watermark的特点
+1. watermark是特殊的数据记录
+2. watermark必须是单调递增的
+3. watermark与数据的时间戳相关</p>
+<p>watermark的传递
+<img alt="watermark的传递" src="img/watermark_prop.png"></p>
+<ol>
+<li>下游任务会接受所有上游任务的watermark, 称为Partition Watermark</li>
+<li>所有Partition Watermark中最小的watermark作为event-time clock触发窗口操作</li>
+<li>watermark更新之后会向下游广播</li>
+<li>watermark如果没有更新, 不会向下游广播</li>
+</ol>
   </div>
 
 
