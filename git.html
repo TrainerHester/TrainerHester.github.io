@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>  Blog
+    <title>  git
  | Hester's Blog</title>
 
     <meta name="author" content="Hester"/>
@@ -90,9 +90,9 @@
 
 
       <div class="row">
-        <div class=" col-md-12  ">
+        <div class=" col-md-9  ">
   <h1>
-    <a  href="/category/blog.html" rel="bookmark" title="Permalink to Blog articles">Blog articles</a>
+    <a href="/git.html" rel="bookmark" title="Permalink to git">git</a>
   </h1>
         </div>
       </div>
@@ -100,15 +100,96 @@
       <div class="row">
 
 
-        <div class=" col-md-12 " id="content" role="main">
-  <dl class="dl-horizontal">
-      <dt><abbr class="published" title="2021-02-11T20:00:00+08:00">四 11 二月 2021</abbr></dt>
-      <dd><a href="/git.html">git</a></dd>
-      <dt><abbr class="published" title="2020-05-26T23:55:00+08:00">二 26 五月 2020</abbr></dt>
-      <dd><a href="/new-plan.html">new plan</a></dd>
-  </dl>
+        <div class=" col-md-9 " id="content" role="main">
+  
+
+  <div>
+    <h2>VCS发展阶段</h2>
+<h3>本地版本控制系统(LVCS)</h3>
+<p>通过数据库保存所有文件变更
+典型的代表是 <a href="https://www.gnu.org/software/rcs/manual/rcs.html">RCS</a></p>
+<p><img alt="lvcs" src="img/lvcs.png"></p>
+<h3>中心化版本控制系统(CVCS)</h3>
+<p>解决多人同时合作编辑的问题</p>
+<p>架构: 单一服务器, 存储所有版本化的文件。复数的客户端从服务器check out文件进行处理, <strong>check out出来的是最新版本的一个快照</strong></p>
+<p><img alt="cvcs" src="img/cvcs.png"></p>
+<p>最关键的缺陷是单点问题，如果服务器宕机，所有开发者没法保存变更。
+服务器的数据出问题(比如硬盘问题或者数据库问题)，整个项目就没法恢复</p>
+<h3>分布式版本控制系统(DVCS)</h3>
+<p>客户端会全量拉取服务端的文件及历史数据
+<img alt="dvcs" src="img/dvcs.png"></p>
+<p>优势在于如果服务器挂掉，所有的客户端可以作为后备，并且每一个开发者可以建立自己的工作流</p>
+<p>Linux内核代码在2002维护在BitKeeper
+2005年BitKeeper不再支持Linux内核开发者，Linux的创始人Linus Torvalds决定自己写一个版本控制工具，就诞生了git</p>
+<p>git最初的目标是
+1. 快速
+2. 设计简单
+3. 支持非线性开发，例如数千个并行的分支
+4. 分布式
+5. 可以处理例如Linux内核的大型项目</p>
+<h2>git系统重要的几个概念</h2>
+<h3>多版本文件存储</h3>
+<p>其他的VCS增量存储文件变更
+git则是快照存储</p>
+<p>git绝大多数操作都是本地进行的，不需要联网
+git的运行过程通常是增量的</p>
+<h3>三种状态</h3>
+<ul>
+<li>Working Directory</li>
+<li>Staging Area</li>
+<li>Repsitory</li>
+</ul>
+<h2>git基础</h2>
+<p>.git文件夹存储了骨架信息
+<strong>git clone</strong>会把所有的文件，版本变更全部拉取到本地，而不是仅仅拉取最新版本的快照</p>
+<p>新建的文件如果不使用<strong>git add</strong>，git不会会追踪这些文件</p>
+<p>git add的作用
+- 追踪新文件
+- 把修改放到缓存区
+- 标记产生冲突的文件已经解决</p>
+<div class="highlight"><pre><span></span><code>$ git status -s
+   M README
+  MM Rakefile
+  A  lib/git.rb
+  M  lib/simplegit.rb
+  ?? LICENSE.txt
+</code></pre></div>
+
+
+<p>每个文件开头有两个字符，左边表示存储在<strong>缓存区</strong>的状态，右边表示存储在<strong>工作区</strong>的状态
+<code>??</code>表示未被git追踪的文件，M表示有修改，A表示新增</p>
+<h2>参考文献</h2>
+<p><a href="https://git-scm.com/book/en/v2">Pro Git</a></p>
+  </div>
+
+
+
         </div>
 
+          <div class="col-md-3">
+  <div class="well">
+
+    <p><abbr title="2021-02-11T20:00:00+08:00"><i class="fa fa-calendar"></i> 四 11 二月 2021</abbr></p>
+
+      <p><address>
+        <i class="fa fa-user"></i> By
+          <a href="/author/hester.html" rel="author">Hester</a>
+      </address></p>
+
+    <hr/>
+
+      <p>
+              <a href="/category/blog.html" rel="tag"
+                  data-toggle="tooltip" class="label label-info"
+                  title="2 articles in this category">Blog</a>
+      </p>
+      <hr/>
+
+
+
+  </div>
+            
+          </div>
 
       </div>
 
@@ -162,7 +243,7 @@
 
           <div class="col-md-2 text-muted">
             <h5>Copyright notice</h5>
-            <p>© Copyright 2020-2021 Hester.</p>
+            <p>© Copyright 2017-2021 Hester.</p>
           </div>
 
           <div class="col-md-2 text-muted">

@@ -106,6 +106,41 @@
 
     <article>
       <header>
+        <h2><a href="/git.html" rel="bookmark" title="Permalink to git">git</a></h2>
+      </header>
+      <div><h2>VCS发展阶段</h2>
+<h3>本地版本控制系统(LVCS)</h3>
+<p>通过数据库保存所有文件变更
+典型的代表是 <a href="https://www.gnu.org/software/rcs/manual/rcs.html">RCS</a></p>
+<p><img alt="lvcs" src="img/lvcs.png"></p>
+<h3>中心化版本控制系统(CVCS)</h3>
+<p>解决多人同时合作编辑的问题</p>
+<p>架构: 单一服务器, 存储所有版本化的文件。复数的客户端从服务器check out文件进行处理, <strong>check out出来的是最新版本的一个快照</strong></p>
+<p><img alt="cvcs" src="img/cvcs.png"></p>
+<p>最关键的缺陷是单点问题，如果服务器宕机，所有开发者没法保存变更。
+服务器的数据出问题(比如硬盘问题或者数据库问题)，整个项目就没法恢复</p>
+<h3>分布式版本控制系统(DVCS)</h3>
+<p>客户端会全量拉取服务端的文件及历史数据
+<img alt="dvcs" src="img/dvcs.png"></p>
+<p>优势在于如果服务器挂掉，所有的客户端可以作为后备，并且每一个开发者可以建立自己的工作流</p>
+<p>Linux内核代码在2002维护在BitKeeper
+2005年BitKeeper不再支持Linux内核开发者，Linux的创始人Linus Torvalds决定自己写一个版本控制工具，就诞生了git</p>
+<p>git最初的目标是
+1. 快速
+2. 设计简单
+3. 支持非线性开发，例如数千个并行的分支
+4. 分布式
+5. 可以处理例如Linux内核的大型项目</p>
+<h2>git系统重要的几个概念</h2>
+<h3>多版本文件存储</h3>
+<p>其他的VCS增量存储文件变更
+git则是快照存储</p>
+<p>git绝大多数操作都是本地进行的 …</p></div>
+      <div><a class="btn btn-primary" href="/git.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
         <h2><a href="/flink.html" rel="bookmark" title="Permalink to Flink">Flink</a></h2>
       </header>
       <div><h2>Flink笔记</h2>
