@@ -158,6 +158,94 @@ git的运行过程通常是增量的</p>
 
 <p>每个文件开头有两个字符，左边表示存储在<strong>缓存区</strong>的状态，右边表示存储在<strong>工作区</strong>的状态
 <code>??</code>表示未被git追踪的文件，M表示有修改，A表示新增</p>
+<h3>记录一些回退命令</h3>
+<div class="highlight"><pre><span></span><code><span class="o">#</span> <span class="err">可以用来修改最后一次</span><span class="n">commit的内容</span>
+<span class="n">git</span> <span class="k">commit</span> <span class="c1">--amend</span>
+
+<span class="o">#</span> <span class="err">将缓存区的文件回退到工作区</span>
+<span class="n">git</span> <span class="k">reset</span> <span class="n">HEAD</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span>
+<span class="n">git</span> <span class="n">restore</span> <span class="c1">--staged &lt;file&gt;</span>
+
+<span class="o">#</span> <span class="err">将工作区文件回退到上一次</span><span class="n">commit的状态</span><span class="p">,</span> <span class="err">注意这是一个危险操作</span>
+<span class="o">#</span> <span class="n">git</span> <span class="err">控制的修改如果</span><span class="n">commit过就有可能恢复</span><span class="err">，否则是无法通过</span><span class="n">git恢复的</span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="c1">-- &lt;file&gt;</span>
+<span class="n">git</span> <span class="n">restore</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span>
+</code></pre></div>
+
+
+<h3>fetch &amp; pull</h3>
+<p><strong>fetch</strong>只是把远程的数据下载到本地的仓库，并不会主动合并到已有的分支，也不会改变当前的工作状态</p>
+<p><strong>pull</strong>会拉取远程的分支并且合并到现有的分支</p>
+<h3>tag</h3>
+<p>git的tag通常是用于记录发布信息的，tag分为两种
+<strong>Annotated Tags</strong>，
+<strong>Lightweight Tags</strong></p>
+<p>tag同样需要使用push命令推送到远端仓库</p>
+<h2>分支相关</h2>
+<p>git的分支和commit操作息息相关
+每一次commit之后会生成一个commit对象</p>
+<p>commit对象包括的字段有
+- 目录结构树的校验和
+- 父节点校验和(初始化没有父节点，普通的commit有一个父节点，merge可能会导致多个父节点)
+- 作者信息
+- commit输入信息</p>
+<p>初始化的commit对象
+<img alt="init" src="img/init.png"></p>
+<p>经过两次commit
+<img alt="commit" src="img/commit.png"></p>
+<p>git的branch实际上只是一个文件，文件记录了长度为40的字符串，指向一个commit对象，因此生成一个新的分支代价非常低</p>
+<h3>merge和rebase的区别</h3>
+<p>初始状态
+<img alt="start" src="img/start.png"></p>
+<h4>merge的效果</h4>
+<div class="highlight"><pre><span></span><code><span class="err">git checkout master</span>
+<span class="err">git merge experitment</span>
+</code></pre></div>
+
+
+<p><img alt="merge" src="img/merge.png">
+本质上是三方的合并</p>
+<h4>rebase的效果</h4>
+<div class="highlight"><pre><span></span><code><span class="err">git checkout experiment</span>
+<span class="err">git rebase master</span>
+</code></pre></div>
+
+
+<p><img alt="rebase" src="img/rebase.png">
+步骤如下：
+1. 找到两个分支共同的祖先C2
+2. 将experiment分支到C2所有的commit暂存
+3. 将experiment分支的指针指向master分支
+4. 将步骤2暂存的结果重放</p>
+<p><strong>千万不要对远程的公共分支进行rebase</strong></p>
+<h2>其他工具</h2>
+<h3>reset</h3>
+<p>git的缓存区和HEAD都存储在.git目录，但是工作区就在实际的文件中
+<img alt="reset" src="img/reset.png"></p>
+<ol>
+<li>改变HEAD的指向, --soft选项</li>
+<li>改变暂存区, --mixed选项, 并且默认</li>
+<li>改变<strong>工作区</strong>, --hard选项, 危险操作</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="err">git reset --soft HEAD^</span>
+<span class="err">git reset --mixed HEAD^</span>
+<span class="err">git reset --hard HEAD^</span>
+</code></pre></div>
+
+
+<p>reset除了指定HEAD, 还可以指定路径</p>
+<div class="highlight"><pre><span></span><code><span class="err">git reset file.txt</span>
+</code></pre></div>
+
+
+<p><img alt="reset_file" src="img/reset_file.png">
+效果就是将缓存区的文件还原</p>
+<p>如果想还原到指定的历史，还可以增加参数</p>
+<div class="highlight"><pre><span></span><code><span class="err">git reset eb43 file.txt</span>
+</code></pre></div>
+
+
+<p><img alt="reset_file_2" src="img/reset_file_2.png"></p>
 <h2>参考文献</h2>
 <p><a href="https://git-scm.com/book/en/v2">Pro Git</a></p>
   </div>
