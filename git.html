@@ -223,7 +223,7 @@ git的运行过程通常是增量的</p>
 <p>git的缓存区和HEAD都存储在.git目录，但是工作区就在实际的文件中
 <img alt="reset" src="img/reset.png"></p>
 <ol>
-<li>改变HEAD的指向, --soft选项</li>
+<li>改变HEAD的分支的指向, --soft选项</li>
 <li>改变暂存区, --mixed选项, 并且默认</li>
 <li>改变<strong>工作区</strong>, --hard选项, 危险操作</li>
 </ol>
@@ -246,6 +246,45 @@ git的运行过程通常是增量的</p>
 
 
 <p><img alt="reset_file_2" src="img/reset_file_2.png"></p>
+<h3>checkout</h3>
+<p>checkout与reset十分类似，但是reset改变的是HEAD指向的分支，checkout改变的HEAD本身
+checkout就类似reset --hard，但是如果工作区存在变更，reset --hard是直接覆盖，而checkout更加智能，会进行合并</p>
+<p><img alt="diff" src="img/diff.png"></p>
+<p>如果checkout后面接了文件路径，效果就和reset --hard相同了，完全覆盖</p>
+<div class="highlight"><pre><span></span><code><span class="n">git</span><span class="w"> </span><span class="n">reset</span><span class="w"> </span><span class="o">[</span><span class="n">branch</span><span class="o">]</span><span class="w"> </span><span class="k">file</span><span class="w"></span>
+<span class="n">git</span><span class="w"> </span><span class="n">checkout</span><span class="w"> </span><span class="o">[</span><span class="n">branch</span><span class="o">]</span><span class="w"> </span><span class="k">file</span><span class="w"></span>
+</code></pre></div>
+
+
+<blockquote>
+<p>思考题: 如果现在想删除一个java文件，但是以后可能恢复这个文件，如何使用git处理？</p>
+</blockquote>
+<p>reset和checkout的总结可以参考以下的表格
+<img alt="table" src="img/table.png"></p>
+<h3>撤销合并</h3>
+<p>场景如下:
+误执行了<code>git merge topic</code>，需要撤销merge
+<img alt="merge1" src="img/merge1.png"></p>
+<p>方案一: reset
+将master强制拉回到<code>C6</code>，<code>git reset --hard HEAD~</code>
+<img alt="merge2" src="img/merge2.png"></p>
+<p>方案二: revert
+<code>git revert -m 1 HEAD</code>
+效果是将master看作主分支，将<code>C6</code>作为一个版本，将<code>C4</code>在master的祖先<code>C2</code>作为一个版本进行合并
+<img alt="merge3" src="img/merge3.png"></p>
+<p>这个方案的问题在于，如果之后还是需要合并topic，会丢代码
+<img alt="merge4" src="img/merge4.png">
+<code>^M</code>和<code>C7</code>的共同祖先是<code>C4</code>，<code>M</code>,<code>^M</code>和<code>C7</code>执行之后，<code>C3</code>，<code>C4</code>的代码就丢失了</p>
+<p>解决上述问题方法是再执行<code>revert</code>，将<code>^M</code>变为<code>M</code>(其实真实情况已经是^^M)，保留已经合并的<code>C3</code>, <code>C4</code></p>
+<div class="highlight"><pre><span></span><code><span class="err">git revert ^M</span>
+<span class="err">git merge topic</span>
+</code></pre></div>
+
+
+<p><img alt="merge5" src="img/merge5.png"></p>
+<blockquote>
+<p>note: 其实revert执行之后也相当于一次commit操作,并不是类似reset的回退</p>
+</blockquote>
 <h2>参考文献</h2>
 <p><a href="https://git-scm.com/book/en/v2">Pro Git</a></p>
   </div>
