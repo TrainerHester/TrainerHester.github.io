@@ -257,7 +257,8 @@ checkout就类似reset --hard，但是如果工作区存在变更，reset --hard
 
 
 <blockquote>
-<p>思考题: 如果现在想删除一个java文件，但是以后可能恢复这个文件，如何使用git处理？</p>
+<p>思考题: 如果现在想删除一个java文件，但是以后可能恢复这个文件，如何使用git处理？
+解法是找到文件删除的那次commit hash，然后使用<code>git checkout &lt;hash&gt;~1 -- &lt;filename&gt;</code></p>
 </blockquote>
 <p>reset和checkout的总结可以参考以下的表格
 <img alt="table" src="img/table.png"></p>
@@ -286,7 +287,8 @@ checkout就类似reset --hard，但是如果工作区存在变更，reset --hard
 <p>note: 其实revert执行之后也相当于一次commit操作,并不是类似reset的回退</p>
 </blockquote>
 <h2>参考文献</h2>
-<p><a href="https://git-scm.com/book/en/v2">Pro Git</a></p>
+<p><a href="https://git-scm.com/book/en/v2">Pro Git</a>
+<a href="https://www.git-tower.com/learn/git/faq/restoring-deleted-files/">git恢复删除的文件</a></p>
   </div>
 
 
