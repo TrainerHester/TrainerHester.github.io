@@ -286,9 +286,141 @@ checkout就类似reset --hard，但是如果工作区存在变更，reset --hard
 <blockquote>
 <p>note: 其实revert执行之后也相当于一次commit操作,并不是类似reset的回退</p>
 </blockquote>
+<h2>Git内部原理</h2>
+<h3>Git对象</h3>
+<p>重点文件路径<code>.git/objects</code></p>
+<p>Git 本质是一个内容寻址文件系统, 即key-value数据存储 </p>
+<p>如果存储的是内容文件, 会使用 <strong>头部信息</strong> + 内容 计算40位的SHA-1哈希值</p>
+<p>头部信息计算方式
+对象类型 + 空格 + 内容长度 + 空字节(\0)</p>
+<p>在写入磁盘时会使用zlib压缩</p>
+<p>校验和的前两位是目录, 余下38位作为文件名, 类似如下效果</p>
+<div class="highlight"><pre><span></span><code><span class="nf">find</span> <span class="no">.git</span><span class="err">/</span><span class="no">objects</span> <span class="p">-</span><span class="no">type</span> <span class="no">f</span>
+
+<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="mi">3</span><span class="no">c</span><span class="err">/</span><span class="mi">4</span><span class="no">e9cd789d88d8d89c1073707c3585e41b0e614</span>
+<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="mi">0</span><span class="no">b</span><span class="err">/</span><span class="mi">0813</span><span class="no">b3b37150a1cce8dd860aa8b9b0a0675ff3</span>
+<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="no">b2</span><span class="err">/</span><span class="no">f691d79137a3359cf65760b2cafda2910532ec</span>
+<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="no">d6</span><span class="err">/</span><span class="mi">70460</span><span class="no">b4b4aece5915caf5c68d12f560a9fe3e4</span>
+<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="no">d8</span><span class="err">/</span><span class="mi">329</span><span class="no">fc1cc938780ffdd9f94e0d364e0ea74f579</span>
+<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="no">e3</span><span class="err">/</span><span class="no">aa5e3c16816f62260c9fa81e8825c6f4ec9869</span>
+<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="mi">1</span><span class="no">f</span><span class="err">/</span><span class="mi">7</span><span class="no">a7a472abf3dd9643fd615f6da379c4acb3e3a</span>
+<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="mi">01</span><span class="err">/</span><span class="mi">55</span><span class="no">eb4229851634a0f03eb265b69f5a2d56f341</span>
+<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="no">fa</span><span class="err">/</span><span class="mi">49</span><span class="no">b077972391ad58037050f2a75f74e3671e92</span>
+<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="mi">83</span><span class="err">/</span><span class="no">baae61804e65cc73a7201a7252750c76066a30</span>
+</code></pre></div>
+
+
+<p>Git对象类型有
+- blob object 数据对象 保存文件内容
+- tree object 树对象 保存文件名, 组织文件
+- commit object 提交对象 用于记录提交
+- tag object 标签对象 类似一个提交对象，通常指向一个提交对象，可以看作<strong>永不移动的分支引用</strong></p>
+<p>以下是一个tree object的示例</p>
+<div class="highlight"><pre><span></span><code><span class="err">100644 blob a906cb2a4a904a152e80877d4088654daad0c859      README</span>
+<span class="err">100644 blob 8f94139338f9404f26296befa88755fc2598c289      Rakefile</span>
+<span class="err">040000 tree 99f1a6d12cb4b6f19c8655fca46c3ecf317074e0      lib</span>
+</code></pre></div>
+
+
+<p>4列分别是文件模式, 文件类型, SHA-1(相当于文件指针) 文件名或目录名
+其中文件模式一般分为
+- 100644 普通文件
+- 100755 可执行文件
+- 120000 符号链接</p>
+<p>commit object示例</p>
+<div class="highlight"><pre><span></span><code><span class="n">tree</span><span class="w"> </span><span class="n">d8329fc1cc938780ffdd9f94e0d364e0ea74f579</span><span class="w"></span>
+<span class="n">author</span><span class="w"> </span><span class="n">hester</span><span class="w"> </span><span class="o">&lt;</span><span class="n">hesternanweiguo</span><span class="nv">@gmail</span><span class="p">.</span><span class="n">com</span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1615013263</span><span class="w"> </span><span class="o">+</span><span class="mi">0800</span><span class="w"></span>
+<span class="n">committer</span><span class="w"> </span><span class="n">hester</span><span class="w"> </span><span class="o">&lt;</span><span class="n">hesternanweiguo</span><span class="nv">@gmail</span><span class="p">.</span><span class="n">com</span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1615013263</span><span class="w"> </span><span class="o">+</span><span class="mi">0800</span><span class="w"></span>
+
+<span class="k">first</span><span class="w"> </span><span class="k">commit</span><span class="w"></span>
+</code></pre></div>
+
+
+<h3>相关的底层命令</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">#内容写入</span>
+<span class="nb">echo</span> <span class="s1">&#39;test content&#39;</span> <span class="p">|</span> git hash-object -w --stdin 
+<span class="c1"># 返回40位hash d670460b4b4aece5915caf5c68d12f560a9fe3e4</span>
+
+<span class="c1">#内容读取</span>
+git cat-file -p d670460b4b4aece5915caf5c68d12f560a9fe3e4
+<span class="c1"># test content</span>
+
+<span class="c1">#获取指定对象的类型</span>
+git cat-file -t d670460b4b4aece5915caf5c68d12f560a9fe3e4
+<span class="c1"># blob</span>
+
+<span class="c1"># 新增文件到暂存区</span>
+git update-index --add --cacheinfo <span class="m">100644</span> <span class="se">\</span>
+83baae61804e65cc73a7201a7252750c76066a30 test.txt
+
+<span class="c1"># 暂存区内容写到tree object</span>
+git write-tree
+<span class="c1"># d8329fc1cc938780ffdd9f94e0d364e0ea74f579</span>
+
+<span class="c1"># 创建一个提交对象</span>
+<span class="nb">echo</span> <span class="s1">&#39;first commit&#39;</span> <span class="p">|</span> git commit-tree d8329f
+<span class="c1"># 0b0813b3b37150a1cce8dd860aa8b9b0a0675ff3</span>
+
+<span class="c1"># 带父提交对象的提交</span>
+<span class="nb">echo</span> <span class="s1">&#39;second commit&#39;</span> <span class="p">|</span> git commit-tree 0155eb -p 0b0813b
+<span class="c1"># e3aa5e3c16816f62260c9fa81e8825c6f4ec9869</span>
+</code></pre></div>
+
+
+<h3>Git引用</h3>
+<p>重点文件路径<code>.git/refs</code></p>
+<p>使用字符串代替40位的SHA-1</p>
+<p>git分支的本质就是<strong>一个指向某一系列提交之首的指针或引用</strong></p>
+<p>当我们切换分支时，其实变更的是文件<code>.git/HEAD</code>
+比如我们切换到test分支</p>
+<div class="highlight"><pre><span></span><code>git checkout <span class="nb">test</span>
+
+cat .git/HEAD
+
+<span class="c1"># ref: refs/heads/test</span>
+</code></pre></div>
+
+
+<p>HEAD文件还有一个作用: 在执行commit提交时(底层git commit-tree)设置父提交</p>
+<h3>tag的本质</h3>
+<p>轻量tag, 在refs/tags下新建一个文件, 文件名是tag名称，内容是指向git对象的SHA-1
+附注tag, 在refs/tags下新建一个文件, 文件名是tag名称，内容是指向<strong>tag object</strong>的SHA-1, 内容中包含一个指向真正目标的SHA-1</p>
+<p>tag object示例</p>
+<div class="highlight"><pre><span></span><code><span class="k">object</span><span class="w"> </span><span class="n">e3aa5e3c16816f62260c9fa81e8825c6f4ec9869</span><span class="w"></span>
+<span class="n">type</span><span class="w"> </span><span class="k">commit</span><span class="w"></span>
+<span class="n">tag</span><span class="w"> </span><span class="n">v1</span><span class="mf">.1</span><span class="w"></span>
+<span class="n">tagger</span><span class="w"> </span><span class="n">hester</span><span class="w"> </span><span class="o">&lt;</span><span class="n">hesternanweiguo</span><span class="nv">@gmail</span><span class="p">.</span><span class="n">com</span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1615019514</span><span class="w"> </span><span class="o">+</span><span class="mi">0800</span><span class="w"></span>
+
+<span class="n">test</span><span class="w"> </span><span class="n">tag</span><span class="w"></span>
+</code></pre></div>
+
+
+<h3>远程引用</h3>
+<p>记录在<code>refs/remote</code>路径下, 例如<code>refs/remote/origin/master</code>，记录最近一次推送操作时该分支所对应的值，远程引用是<strong>只读</strong>的，可以<code>git checkout</code>到某个远程引用，但是 Git 并不会将 HEAD 引用指向该远程引用。因此，永远不能通过<code>commit</code>命令来更新远程引用</p>
+<h3>相关底层命令</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 更新引用, 后续的SHA-1表示commit对象</span>
+git update-ref refs/heads/master b2f691d79137a3359cf65760b2cafda2910532ec
+
+<span class="c1"># 查看HEAD指向的引用</span>
+git symbolic-ref HEAD
+
+<span class="c1"># 设置HEAD引用, 相当于切换分支</span>
+git symbolic-ref HEAD refs/heads/test
+</code></pre></div>
+
+
+<p>ref和git object整体示例
+<img alt="git_object" src="img/git_object.png"></p>
+<h2>文件打包</h2>
+<p>对于大文件的版本变更，如果全量存储，就会占用太多的存储空间，为了节省空间提高效率，git会对文件进行打包，显式打包的命令<code>git gc</code>
+打包的执行时机
+- 版本库中有太多的松散对象
+- 手动执行<code>git gc</code>
+- 向远程服务器执行推送</p>
+<p>打包的文件存储在<code>.git/objects/pack</code>目录下，并且全量一般是最新文件，文件的老版本使用差异存储，这是因为大部分情况下需要快速访问文件的最新版本</p>
 <h2>参考文献</h2>
-<p><a href="https://git-scm.com/book/en/v2">Pro Git</a>
-<a href="https://www.git-tower.com/learn/git/faq/restoring-deleted-files/">git恢复删除的文件</a></p>
+<p><a href="https://git-scm.com/book/en/v2">Pro Git</a></p>
+<p><a href="https://www.git-tower.com/learn/git/faq/restoring-deleted-files/">git恢复删除的文件</a></p>
   </div>
 
 
