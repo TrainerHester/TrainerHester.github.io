@@ -102,6 +102,42 @@
 
     <article>
       <header>
+        <h2><a href="/nettybi-ji.html" rel="bookmark" title="Permalink to Netty笔记">Netty笔记</a></h2>
+      </header>
+      <div><h2>基本概念</h2>
+<p>netty是一个针对高并发的网络框架
+特点: 异步，事件驱动</p>
+<p>netty的层次结构自下而上可以理解为
+- TCP/IP
+- JDK io socket API
+- NIO
+- netty</p>
+<h2>IO模型</h2>
+<h3>BIO</h3>
+<p><img alt="bio_simple" src="img/bio_simple.png"></p>
+<p>blocking I/O</p>
+<p>同步并阻塞
+一个连接对应一个线程</p>
+<p>如果有海量的连接，会起大量线程，而线程创建、销毁、切换是有成本的
+对于空闲的连接，还是会占用线程
+如果暂时没有数据可读，会一直阻塞在Read操作</p>
+<h3>NIO</h3>
+<p><img alt="nio_simple" src="img/nio_simple.png"></p>
+<p>java no-bloking IO 非阻塞的io</p>
+<p>同步非阻塞
+服务器一个线程处理多个连接</p>
+<p>核心组件
+Channel 通道
+Buffer 缓冲区
+Selector 选择器
+<img alt="nio_detail" src="img/nio_detail.png"></p>
+<p>事件驱动
+Buffer是双向的，这一点和<code>InputStream</code>, <code>OutputStream</code>不同 …</p></div>
+      <div><a class="btn btn-primary" href="/nettybi-ji.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
         <h2><a href="/git.html" rel="bookmark" title="Permalink to git">git</a></h2>
       </header>
       <div><h2>VCS发展阶段</h2>

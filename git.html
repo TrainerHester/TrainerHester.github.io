@@ -418,6 +418,15 @@ git symbolic-ref HEAD refs/heads/test
 - 手动执行<code>git gc</code>
 - 向远程服务器执行推送</p>
 <p>打包的文件存储在<code>.git/objects/pack</code>目录下，并且全量一般是最新文件，文件的老版本使用差异存储，这是因为大部分情况下需要快速访问文件的最新版本</p>
+<blockquote>
+<p>此处需要继续补充</p>
+</blockquote>
+<h2>传输协议</h2>
+<p>分为两种
+- dumb协议，现在已经很少使用了
+- smart协议</p>
+<h3>smart协议</h3>
+<p>需要服务端运行两个进程，分别管理上传和下载</p>
 <h2>参考文献</h2>
 <p><a href="https://git-scm.com/book/en/v2">Pro Git</a></p>
 <p><a href="https://www.git-tower.com/learn/git/faq/restoring-deleted-files/">git恢复删除的文件</a></p>
