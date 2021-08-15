@@ -240,6 +240,23 @@ sendFile需要3次上下文切换，最少2次拷贝</p>
 <p>主线程与子线程数据交互简单</p>
 <p>nginx, memcache, netty都用到了这个模式</p>
 <h2>netty模型</h2>
+<p><img alt="netty_detail" src="img/netty_detail.png">
+1. netty抽象两组线程池
+    BossGroup专门接受客户端的连接
+    WorkerGroup专门接受网络读写
+    两者的类型是<strong>NioEventLoopGroup</strong>
+2. NioEventLoopGroup是一个事件循环组，包含多个事件循环NioEventLoop
+3. NioEventLoop表示一个不断循环的处理任务的线程，每个NioEventLoop都有一个selector，用于监听绑定在其上的socket通讯
+4. 每个BossGroup下的 NioEventLoop 执行的步骤
+    - 轮询accept事件
+    - 处理accpet事件，与client建立连接，生成NioSocketChannel
+    - 将NioSocketChannel注册到WorkerGroup下NioEventLoop对应的selector中
+    - 处理任务队列的任务，即runAllTasks
+5. 每个WokerGroup下的 NioEventLoop 执行的步骤
+    - 轮询read，write事件
+    - 在对应的NioEventLoop处理read，write事件
+    - 处理任务队列的任务，即runAllTasks
+6. 每个WokerGroup下的 NioEventLoop处理业务时，会使用pipeline，pipeline中包含channel，维护了多个handler</p>
   </div>
 
 

@@ -302,6 +302,10 @@ Processing Time: 执行操作算子的本地系统时间, 与机器相关</p>
 <li>watermark更新之后会向下游广播</li>
 <li>watermark如果没有更新, 不会向下游广播</li>
 </ol>
+<p>watermark对于乱序数据的三重保障机制
+1. 乱序时间
+2. 延迟时间
+3. 侧输出流</p>
   </div>
 
 
