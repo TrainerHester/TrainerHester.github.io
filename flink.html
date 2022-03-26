@@ -64,6 +64,9 @@
                   <a href="/category/blog.html">Blog</a>
                 </li>
 <li >
+                  <a href="/category/book-note.html">Book Note</a>
+                </li>
+<li >
                   <a href="/category/front-end-note.html">Front End Note</a>
                 </li>
 <li >
@@ -147,7 +150,6 @@
 <span class="n">stream</span><span class="p">.</span><span class="na">countWindow</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
 </code></pre></div>
 
-
 <h2>窗口函数</h2>
 <ul>
 <li>增量聚合函数 incremental aggregation functions
@@ -201,12 +203,10 @@ AggregateFunction</li>
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>运行结果类似</p>
-<div class="highlight"><pre><span></span><code><span class="err">6</span>
-<span class="err">3</span>
+<div class="highlight"><pre><span></span><code><span class="mf">6</span><span class="w"></span>
+<span class="mf">3</span><span class="w"></span>
 </code></pre></div>
-
 
 <ul>
 <li>全量窗口函数 full window functions
@@ -249,12 +249,10 @@ WindowFunction</li>
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>运行结果类似</p>
-<div class="highlight"><pre><span></span><code><span class="err">(sensor_3,1611416235000,6)</span>
-<span class="err">(sensor_1,1611416235000,3)</span>
+<div class="highlight"><pre><span></span><code>(sensor_3,1611416235000,6)
+(sensor_1,1611416235000,3)
 </code></pre></div>
-
 
 <p>ProcessWindowFunction和WindowFunction的差异</p>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">WindowFunction</span><span class="o">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="p">,</span> <span class="n">KEY</span><span class="p">,</span> <span class="n">W</span> <span class="kd">extends</span> <span class="n">Window</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="n">Function</span><span class="p">,</span> <span class="n">Serializable</span> <span class="p">{</span>
@@ -263,14 +261,12 @@ WindowFunction</li>
 <span class="p">}</span>
 </code></pre></div>
 
-
 <div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">ProcessWindowFunction</span><span class="o">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="p">,</span> <span class="n">KEY</span><span class="p">,</span> <span class="n">W</span> <span class="kd">extends</span> <span class="n">Window</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="n">AbstractRichFunction</span> <span class="p">{</span>
 
     <span class="c1">// 第二个参数是Context, 并且Context包含Window, 因此可以包含更多的信息</span>
     <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">process</span><span class="p">(</span><span class="n">KEY</span> <span class="n">key</span><span class="p">,</span> <span class="n">Context</span> <span class="n">context</span><span class="p">,</span> <span class="n">Iterable</span><span class="o">&lt;</span><span class="n">IN</span><span class="o">&gt;</span> <span class="n">elements</span><span class="p">,</span> <span class="n">Collector</span><span class="o">&lt;</span><span class="n">OUT</span><span class="o">&gt;</span> <span class="n">out</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <h3>其他api</h3>
 <ul>
@@ -306,6 +302,41 @@ Processing Time: 执行操作算子的本地系统时间, 与机器相关</p>
 1. 乱序时间
 2. 延迟时间
 3. 侧输出流</p>
+<h2>状态</h2>
+<p>算子状态  Operator State
+键控状态  Keyed State</p>
+<h2>检查点 check point</h2>
+<p>分布书快照算法</p>
+<p>barrier和watermark一样都需要向下游<strong>广播</strong>
+对于barrier已到达的分区，后续到达的数据会先缓存，暂时不处理
+对于barrier未到达的分区，数据会被正常处理</p>
+<p>状态一致性级别
+- at most once
+- at least once
+- exactly once</p>
+<p>事物性质的sink
+实现方式
+1. 预写入日志(Write Ahead Log, WAL)
+数据结果的状态先保存，收到checkpoint完成通知的时候，一次性sink到系统</p>
+<p>优势在于实现简单，劣势是会增大系统的延迟</p>
+<ol>
+<li>两阶段提交 2PC协议
+对于每个checkpoint，sink任务都会启动一个事务，接下来所有数据都添加到事务中
+收到checkpoint完成的通知时才正式提交事务
+优势在于真正实现了exactly once，但是对sink的目标有要求，就是必须支持事务</li>
+</ol>
+<h2>更新模式</h2>
+<ol>
+<li>追加模式 只做插入操作</li>
+<li>撤回模式 <ul>
+<li>插入为add，删除为retract，更新为上一条retract，下一条add</li>
+</ul>
+</li>
+<li>更新插入模式<ul>
+<li>更新和插入为upsert，删除为retract</li>
+</ul>
+</li>
+</ol>
   </div>
 
 

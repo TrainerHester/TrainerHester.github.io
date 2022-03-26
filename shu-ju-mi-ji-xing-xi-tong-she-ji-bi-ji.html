@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>  数据密集型系统设计笔记
+ | Hester's Blog</title>
+
+    <meta name="author" content="Hester"/>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"/>
+    <link rel="stylesheet" href="/theme/css/jquery.mglass.css"/>
+    <link rel="stylesheet" href="/theme/css/pygment-solarized-dark.css"/>
+    <link rel="stylesheet" href="/theme/css/style.css"/>
+
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'/>
+
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <!-- Feeds -->
+
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1><a href="">Hester's Blog</a> <small></small></h1>
+      </div>
+
+      <nav class="navbar navbar-default">
+
+        <!-- Hamburger menu for mobile -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#plumage-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="" title="">Hester's Blog</a>
+        </div>
+
+        <!-- Menus and search forms -->
+        <div class="collapse navbar-collapse" id="plumage-navbar-collapse-1">
+
+          <ul class="nav navbar-nav">
+<li >
+                  <a href="/category/bigdata.html">BigData</a>
+                </li>
+<li >
+                  <a href="/category/blog.html">Blog</a>
+                </li>
+<li  class="active" >
+                  <a href="/category/book-note.html">Book Note <span class="sr-only">(current)</span></a>
+                </li>
+<li >
+                  <a href="/category/front-end-note.html">Front End Note</a>
+                </li>
+<li >
+                  <a href="/category/gui-note.html">GUI Note</a>
+                </li>
+<li >
+                  <a href="/category/java-note.html">Java Note</a>
+                </li>
+<li >
+                  <a href="/category/spring.html">Spring</a>
+                </li>
+          </ul>
+
+
+
+        </div>
+
+      </nav>
+
+    </div>
+
+
+    <div class="container main">
+
+
+      <div class="row">
+        <div class=" col-md-9  ">
+  <h1>
+    <a href="/shu-ju-mi-ji-xing-xi-tong-she-ji-bi-ji.html" rel="bookmark" title="Permalink to 数据密集型系统设计笔记">数据密集型系统设计笔记</a>
+  </h1>
+        </div>
+      </div>
+
+      <div class="row">
+
+
+        <div class=" col-md-9 " id="content" role="main">
+  
+
+  <div>
+    <h2>第一章 基础概念</h2>
+<p>一般情况下系统需要具有的能力以及对应依赖
+1. 数据存储 对应 数据库
+2. 记录昂贵的查询操作 对应 缓存
+3. 允许用户通过关键字进行搜索 对应 搜索引擎
+4. 给其他系统发消息进行异步处理 对应 流式计算框架 (其实也涉及到消息队列)
+5. 定时处理大量数据 对应 批处理框架</p>
+<p>一个数据密集型系统，可能包括<strong>数据库</strong>，<strong>缓存</strong>，<strong>搜索引擎</strong>，<strong>消息队列</strong>，同时需要数据变更时需要保持同步</p>
+<p>本书对几个特征的定义
+1. Reliability 系统需要有一定的容错能力
+2. Scalability 随着数据量或者流量的增长 要有对应的方案去应对增长
+3. Maintainability 可持续迭代</p>
+<h3>Reliability</h3>
+<h4>硬件故障</h4>
+<ol>
+<li>冗余存储</li>
+<li>多节点部署，分布式应用</li>
+</ol>
+<h4>软件故障</h4>
+<p>特点是可能带来连锁反应</p>
+<h4>人为故障</h4>
+<p>解法有
+1. 沙箱环境
+2. 从单元测试到集成测试再到人工测试
+3. 代码或者配置的回滚能力
+4. 应用监控</p>
+<h3>Scalability</h3>
+<p>考虑负载和性能之间的关系</p>
+<p>大多数情况下响应时间不是一个固定的值，而是数值的分布</p>
+<p>一般来看服务端平均响应时间并不是唯一的评价标准，更好的做法有50分位点，95分位点，99分位点，99.9分位点等(p50 p95 p99 p999)</p>
+<p>SLA (service level agreement)</p>
+<p>提高性能的方案一般有
+1. 提高机器的性能，相当于垂直扩展
+2. 增加机器数目，相当于水平扩展</p>
+<p>水平扩展又分为人为水平扩展和自动扩展(插一句题外话，serverless和自动水平扩展非常类似)
+对于有状态的服务水平扩展需要保证状态一致性，这会带来额外的复杂度。</p>
+<h3>Maintainability</h3>
+<p>保持系统可持续迭代的建议
+1. 保证系统能平稳运行
+2. 保持系统较容易理解，特别是对于新加入的工程师能快速上手
+3. 系统延展性好，可以快速适应需求的变化</p>
+<h2>第二章 数据模型和查询语言</h2>
+<p>关系型数据模型 Mysql，Oracle
+对象型数据模型 MongoDB，ElasticSearch</p>
+<p>关系型数据存储，需要通过多次join(无论是通过sql还是应用层代码)才能将数据模型(<strong>model</strong>)转换成对象(<strong>object</strong>)
+对象型数据存储，很难处理多对多的关系</p>
+<p>关系型存储和对象型存储对于<strong>多对多问题</strong>的解决方案没有区别
+关系型存储使用外键
+对象型存储使用对象引用</p>
+<p>如果应用中的数据模型绝大多数是一对多的关系，几乎没有多对多关系，那么使用对象型存储是一个不错的选择</p>
+<p>如果应用中的数据模型存在大量多对多关系，更倾向使用关系型存储，并且有一些反范式的方案可以减少join，代价是增加保持数据一致性的复杂度</p>
+<p>关系型数据库一般结构化较强，而对象型数据库结构较灵活</p>
+<p>关系型数据库和对象型数据库有趋同的趋势(感觉elastic search是集大成者)</p>
+<p>以SQL为代表的声明式语言可以屏蔽掉底层的技术细节，在代码不变的情况下通过新增索引就可以提高性能，甚至在大数据组件兴起的当下，Spark SQL，Flink SQL都可以在底层使用多核并行处理的技术来提升性能</p>
+<p>一个css和js实现同样功能的例子
+页面结构</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;selected&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Sharks<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span> 
+        <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Great White Shark<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Tiger Shark<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span> 
+            <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Hammerhead Shark<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span> 
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span> 
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Whales<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Blue Whale<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span> 
+            <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Humpback Whale<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span> 
+            <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Fin Whale<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span> 
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>需要实现的功能是选中的li背景变为蓝色
+css的做法</p>
+<div class="highlight"><pre><span></span><code><span class="nt">li</span><span class="p">.</span><span class="nc">selected</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nt">p</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="kc">blue</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p>js的做法</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">liElements</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">);</span> 
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">liElements</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">liElements</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">className</span> <span class="o">===</span> <span class="s2">&quot;selected&quot;</span><span class="p">)</span> <span class="p">{</span> 
+        <span class="kd">var</span> <span class="nx">children</span> <span class="o">=</span> <span class="nx">liElements</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">childNodes</span><span class="p">;</span> 
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">children</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">child</span> <span class="o">=</span> <span class="nx">children</span><span class="p">[</span><span class="nx">j</span><span class="p">];</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">child</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="nx">Node</span><span class="p">.</span><span class="nx">ELEMENT_NODE</span> <span class="o">&amp;&amp;</span> <span class="nx">child</span><span class="p">.</span><span class="nx">tagName</span> <span class="o">===</span> <span class="s2">&quot;P&quot;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">child</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="s2">&quot;background-color: blue&quot;</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span> 
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>图类型的数据存储</p>
+<h2>第三章 存储和检索</h2>
+<p>数据库的索引的思想是使用额外的空间来增加查询速度，带来额外的开销有
+1. 额外的存储上
+2. 数据更新时需要维护索引</p>
+  </div>
+
+
+
+        </div>
+
+          <div class="col-md-3">
+  <div class="well">
+
+    <p><abbr title="2021-10-08T21:23:00+08:00"><i class="fa fa-calendar"></i> 五 08 十月 2021</abbr></p>
+
+      <p><address>
+        <i class="fa fa-user"></i> By
+          <a href="/author/hester.html" rel="author">Hester</a>
+      </address></p>
+
+    <hr/>
+
+      <p>
+              <a href="/category/book-note.html" rel="tag"
+                  data-toggle="tooltip" class="label label-info"
+                  title="1 article in this category">Book Note</a>
+      </p>
+      <hr/>
+
+
+
+  </div>
+            
+          </div>
+
+      </div>
+
+    </div>
+
+    <!-- TODO: make footer sticky -->
+    <footer class="container-fluid">
+      <div class="container">
+        <div class="row">
+
+            <div class="col-md-2">
+                <h5>Social</h5>
+                <ul class="list-unstyled">
+                  <li>  <a href="#">
+      <i class="fa fa-external-link"></i>
+    You can add links in your config file
+  </a></li>
+                  <li>  <a href="#">
+      <i class="fa fa-external-link"></i>
+    Another social link
+  </a></li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <h5>Links</h5>
+                <ul class="list-unstyled">
+                  <li>  <a href="http://getpelican.com/">
+      <img src="https://icons.better-idea.org/icon?url=getpelican.com&size=16" width="16" height="16" class="icon" alt="getpelican.com icon"/>
+    Pelican
+  </a></li>
+                  <li>  <a href="http://python.org/">
+      <img src="https://icons.better-idea.org/icon?url=python.org&size=16" width="16" height="16" class="icon" alt="python.org icon"/>
+    Python.org
+  </a></li>
+                  <li>  <a href="http://jinja.pocoo.org/">
+      <img src="https://icons.better-idea.org/icon?url=jinja.pocoo.org&size=16" width="16" height="16" class="icon" alt="jinja.pocoo.org icon"/>
+    Jinja2
+  </a></li>
+                  <li>  <a href="#">
+      <i class="fa fa-external-link"></i>
+    You can modify those links in your config file
+  </a></li>
+                </ul>
+            </div>
+
+          <div class="col-md-2">
+            <h5>Browse content by</h5>
+            <ul class="list-unstyled">
+            </ul>
+          </div>
+
+          <div class="col-md-2 text-muted">
+            <h5>Copyright notice</h5>
+            <p>© Copyright 2017-2021 Hester.</p>
+          </div>
+
+          <div class="col-md-2 text-muted">
+            <h5>Disclaimer</h5>
+              <p>All opinions expressed in this site are my own personal opinions and are not endorsed by, nor do they represent the opinions of my previous, current and future employers or any of its affiliates, partners or customers.</p>
+          </div>
+
+          <div class="col-md-2">
+          </div>
+
+        </div>
+      </div>
+
+      <h5 class="text-right"><a href="#"><i class="fa fa-arrow-up"></i> Back to top</a></h5>
+
+      <div class="container">
+        <div class="row col-md-12 text-muted text-center">
+          Site generated by <a href="https://getpelican.com"> Pelican</a>.<br/>
+          <a href="https://github.com/kdeldycke/plumage"> Plumage</a> theme by <a href="https://kevin.deldycke.com">Kevin Deldycke</a>.
+        </div>
+      </div>
+
+    </footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js"></script>
+    <script src="/theme/js/jquery.mglass.js"></script>
+    <script src="/theme/js/application.js"></script>
+
+  </body>
+</html>

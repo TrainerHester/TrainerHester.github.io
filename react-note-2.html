@@ -63,6 +63,9 @@
 <li >
                   <a href="/category/blog.html">Blog</a>
                 </li>
+<li >
+                  <a href="/category/book-note.html">Book Note</a>
+                </li>
 <li  class="active" >
                   <a href="/category/front-end-note.html">Front End Note <span class="sr-only">(current)</span></a>
                 </li>
@@ -108,39 +111,35 @@
 <ol>
 <li>外部引入的组件直接使用文件名(不需要增加文件后缀)</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">React</span> <span class="nn">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">ReactDOM</span> <span class="nn">from</span> <span class="s1">&#39;react-dom&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">React</span> <span class="kn">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">ReactDOM</span> <span class="kn">from</span> <span class="s1">&#39;react-dom&#39;</span><span class="p">;</span>
 </code></pre></div>
-
 
 <ol>
 <li>引入自己项目的资源必须以<code>./</code>或<code>../</code>开头</li>
 </ol>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="s1">&#39;./index.css&#39;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">App</span> <span class="nn">from</span> <span class="s1">&#39;./App&#39;</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">App</span> <span class="kn">from</span> <span class="s1">&#39;./App&#39;</span><span class="p">;</span>
 <span class="kn">import</span> <span class="o">*</span> <span class="k">as</span> <span class="n">serviceWorker</span> <span class="kn">from</span> <span class="s1">&#39;./serviceWorker&#39;</span><span class="p">;</span>
 </code></pre></div>
-
 
 <ol>
 <li>自定义组件的自定义函数使用箭头函数</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="err">addComment = (comment) =&gt; {</span>
-<span class="err">    const {comments} = this.state</span>
-<span class="err">    comments.unshift(comment)</span>
-<span class="err">    this.setState(comments)</span>
-<span class="err">}</span>
+<div class="highlight"><pre><span></span><code><span class="n">addComment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">comment</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="n">comments</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">this</span><span class="o">.</span><span class="n">state</span><span class="w"></span>
+<span class="w">    </span><span class="n">comments</span><span class="o">.</span><span class="n">unshift</span><span class="p">(</span><span class="n">comment</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">this</span><span class="o">.</span><span class="n">setState</span><span class="p">(</span><span class="n">comments</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
-
 
 <ol>
 <li>自定义组件的props类型规范使用static语法</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="err">static propTypes = {</span>
-<span class="err">    addComment: PropTypes.func.isRequired</span>
-<span class="err">}</span>
+<div class="highlight"><pre><span></span><code>static propTypes = {
+    addComment: PropTypes.func.isRequired
+}
 </code></pre></div>
-
 
 <p><a href="https://www.w3schools.com/js/js_array_methods.asp">js Array的操作</a></p>
 <ol>

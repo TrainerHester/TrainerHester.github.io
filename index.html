@@ -56,6 +56,27 @@
         <div class="collapse navbar-collapse" id="plumage-navbar-collapse-1">
 
           <ul class="nav navbar-nav">
+<li >
+                  <a href="/category/bigdata.html">BigData</a>
+                </li>
+<li >
+                  <a href="/category/blog.html">Blog</a>
+                </li>
+<li >
+                  <a href="/category/book-note.html">Book Note</a>
+                </li>
+<li >
+                  <a href="/category/front-end-note.html">Front End Note</a>
+                </li>
+<li >
+                  <a href="/category/gui-note.html">GUI Note</a>
+                </li>
+<li >
+                  <a href="/category/java-note.html">Java Note</a>
+                </li>
+<li >
+                  <a href="/category/spring.html">Spring</a>
+                </li>
           </ul>
 
 
@@ -82,6 +103,310 @@
 
     <h2>Articles</h2>
 
+    <article>
+      <header>
+        <h2><a href="/shu-ju-mi-ji-xing-xi-tong-she-ji-bi-ji.html" rel="bookmark" title="Permalink to 数据密集型系统设计笔记">数据密集型系统设计笔记</a></h2>
+      </header>
+      <div><h2>第一章 基础概念</h2>
+<p>一般情况下系统需要具有的能力以及对应依赖
+1. 数据存储 对应 数据库
+2. 记录昂贵的查询操作 对应 缓 …</p></div>
+      <div><a class="btn btn-primary" href="/shu-ju-mi-ji-xing-xi-tong-she-ji-bi-ji.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/nettybi-ji.html" rel="bookmark" title="Permalink to Netty笔记">Netty笔记</a></h2>
+      </header>
+      <div><h2>基本概念</h2>
+<p>netty是一个针对高并发的网络框架
+特点: 异步，事件驱动</p>
+<p>netty的层次结构自下而上可以理解为
+- TCP/IP
+- JDK io socket API
+- NIO
+- netty</p>
+<h2>IO …</h2></div>
+      <div><a class="btn btn-primary" href="/nettybi-ji.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/git.html" rel="bookmark" title="Permalink to git">git</a></h2>
+      </header>
+      <div><h2>VCS发展阶段</h2>
+<h3>本地版本控制系统(LVCS)</h3>
+<p>通过数据库保存所有文件变更
+典型的代表是 <a href="https://www.gnu.org/software/rcs/manual/rcs.html">RCS</a></p>
+<p><img alt="lvcs" src="img/lvcs.png"></p>
+<h3>中心化版本控制系统(CVCS)</h3>
+<p>解决多人同时 …</p></div>
+      <div><a class="btn btn-primary" href="/git.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/flink.html" rel="bookmark" title="Permalink to Flink">Flink</a></h2>
+      </header>
+      <div><h2>Flink笔记</h2>
+<p>[toc]</p>
+<h3>window相关的概念</h3>
+<p>将无限流切割为有限流的方式，将流数据分发到有限大小的bucket</p>
+<p>window类型
+- 时间窗口(Time Window)
+    - 滚动时间窗 …</p></div>
+      <div><a class="btn btn-primary" href="/flink.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/java-completablefuture.html" rel="bookmark" title="Permalink to Java CompletableFuture">Java CompletableFuture</a></h2>
+      </header>
+      <div><h2>简介</h2>
+<p><strong>CompletableFuture</strong>是java8引入的一种异步执行工具，它同时实现了Future接口和<strong>CompletionStage</strong>接口，前者使其具备异步执行的能力，而后者则是让当前 …</p></div>
+      <div><a class="btn btn-primary" href="/java-completablefuture.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/react-componentwillreceiveprops.html" rel="bookmark" title="Permalink to React componentWillReceiveProps">React componentWillReceiveProps</a></h2>
+      </header>
+      <div><h2>问题背景</h2>
+<p>学习React时教程中给出了下面一段代码</p>
+<p>目的：兄弟组件之间通信
+1. 子组件传递数据到父组件(父组件需要暴露一 …</p></div>
+      <div><a class="btn btn-primary" href="/react-componentwillreceiveprops.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/spring-note.html" rel="bookmark" title="Permalink to Spring note">Spring note</a></h2>
+      </header>
+      <div><h2>Spring笔记</h2>
+<p>spring: IOC容器</p>
+<h3>定义信息</h3>
+<p>xml配置的bean抽象到spring: <strong>BeanDefinition</strong>
+读取BeanDefinition的类: <strong>BeanDefintionReader</strong>
+容器的本质</p>
+<div class="highlight"><pre><span></span><code><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">BeanDefinition</span><span class="o">&gt;</span> <span class="n">beanDefinitionMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcurrentHashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+</code></pre></div>
+
+<h3>Environment</h3>
+<p>为了方便使用，在容器创建 …</p></div>
+      <div><a class="btn btn-primary" href="/spring-note.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/react-note-2.html" rel="bookmark" title="Permalink to React Note 2">React Note 2</a></h2>
+      </header>
+      <div><h2>编写React的注意事项</h2>
+<ol>
+<li>外部引入的组件直接使用文件名(不需要增加文件后缀)</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">React</span> <span class="kn">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">ReactDOM</span> <span class="kn">from</span> <span class="s1">&#39;react-dom&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<ol>
+<li>引入自己项目的资源必须 …</li></ol></div>
+      <div><a class="btn btn-primary" href="/react-note-2.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/react-note-1.html" rel="bookmark" title="Permalink to React Note 1">React Note 1</a></h2>
+      </header>
+      <div><h2>创建一个空的React项目</h2>
+<h3>安装npm</h3>
+<p>安装node</p>
+<div class="highlight"><pre><span></span><code>brew install node
+</code></pre></div>
+
+<p>查看npm版本</p>
+<div class="highlight"><pre><span></span><code>npm -v
+</code></pre></div>
+
+<h3>创建项目</h3>
+<p>脚手架工具create-react-app</p>
+<div class="highlight"><pre><span></span><code>npm install -g create-react-app
+</code></pre></div>
+
+<p>tips: 加速下载速度</p>
+<div class="highlight"><pre><span></span><code>npm config <span class="nb">set</span> registry …</code></pre></div></div>
+      <div><a class="btn btn-primary" href="/react-note-1.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/shi-zhan-xiang-mu-bi-ji.html" rel="bookmark" title="Permalink to 实战项目笔记">实战项目笔记</a></h2>
+      </header>
+      <div><h2>工程结构</h2>
+<div class="highlight"><pre><span></span><code>src
+├── api 前后端接口
+├── assets 通用资源
+├── components UI组件
+├── containers 容器组件
+├── index.js 入口js
+├── redux redux状态控制相关
+└── utils 工具类
+</code></pre></div>
+
+<h2>依赖的组件库</h2>
+<h3>AntD</h3>
+<p><a href="https://mobile.ant.design/docs/react/introduce-cn">antd …</a></p></div>
+      <div><a class="btn btn-primary" href="/shi-zhan-xiang-mu-bi-ji.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/new-plan.html" rel="bookmark" title="Permalink to new plan">new plan</a></h2>
+      </header>
+      <div><p>博客可以重启了！</p></div>
+      <div><a class="btn btn-primary" href="/new-plan.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/observer-pattern.html" rel="bookmark" title="Permalink to Observer Pattern">Observer Pattern</a></h2>
+      </header>
+      <div><p>当一个对象的行为依赖于另一个对象的状态时，观察者模式就相当有用。
+若不使用观察者模式提供的通用结构，则只能在 …</p></div>
+      <div><a class="btn btn-primary" href="/observer-pattern.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/java-io-note.html" rel="bookmark" title="Permalink to java IO note">java IO note</a></h2>
+      </header>
+      <div><p>java进行文件读取操作,主要使用到节点流FileReader和处理流BufferedReader。
+FileReader安照字符流读取文件，好处在于可以读取中文字符，
+BufferedReader是套在FileReader …</p></div>
+      <div><a class="btn btn-primary" href="/java-io-note.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/gui-section-eight.html" rel="bookmark" title="Permalink to GUI Section EIGHT">GUI Section EIGHT</a></h2>
+      </header>
+      <div><p>GUI中的画图实例</p>
+<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/Painter,java</span>
+
+<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Painter</span> <span class="kd">extends</span> <span class="n">JFrame</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">paint</span><span class="p">(</span><span class="n">Graphics</span> <span class="n">g</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Color</span> <span class="n">c</span> <span class="o">=</span> <span class="n">g</span><span class="p">.</span><span class="na">getColor</span><span class="p">();</span> <span class="c1">//获取当前画笔的颜色</span>
+        <span class="n">g</span><span class="p">.</span><span class="na">setColor</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">red</span><span class="p">);</span>
+        <span class="n">g …</span></code></pre></div></div>
+      <div><a class="btn btn-primary" href="/gui-section-eight.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/gui-section-seven.html" rel="bookmark" title="Permalink to GUI Section SEVEN">GUI Section SEVEN</a></h2>
+      </header>
+      <div><p>GUI轮廓的小示例：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/Border.java</span>
+<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.swing.border.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Borders</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
+    <span class="kd">static</span> <span class="n">JPanel</span> <span class="nf">showBorder</span><span class="p">(</span><span class="n">Border</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">JPanel</span> <span class="n">jp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JPanel</span><span class="p">();</span>
+        <span class="n">jp</span><span class="p">.</span><span class="na">setLayout</span><span class="p">(</span><span class="k">new</span> <span class="n">BorderLayout</span><span class="p">());</span>
+        <span class="n">String</span> <span class="n">nm</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">toString</span><span class="p">();</span>
+        <span class="n">nm …</span></code></pre></div></div>
+      <div><a class="btn btn-primary" href="/gui-section-seven.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/gui-section-six.html" rel="bookmark" title="Permalink to GUI Section SIX">GUI Section SIX</a></h2>
+      </header>
+      <div><p>下面是Button的一个例子，演示的Button种类包括JButton, JToggleButton, JRadioButton, JCheckBox
+利用反射机制建立了一系列的按钮组，加入按钮组的Button会产生互斥的 …</p></div>
+      <div><a class="btn btn-primary" href="/gui-section-six.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/gui-section-five.html" rel="bookmark" title="Permalink to GUI Section Five">GUI Section Five</a></h2>
+      </header>
+      <div><p>以下的代码用于观察多个事件</p>
+<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/TrackEvent.java</span>
+<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.event.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.*</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TrackEvent</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
+    <span class="kd">private</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">JTextField</span><span class="o">&gt;</span> <span class="n">h</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+    <span class="kd">private</span> <span class="n">String</span><span class="o">[]</span> <span class="n">event …</span></code></pre></div></div>
+      <div><a class="btn btn-primary" href="/gui-section-five.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/gui-section-four.html" rel="bookmark" title="Permalink to GUI Section Four">GUI Section Four</a></h2>
+      </header>
+      <div><p>先看一个综合性强的java代码：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/ShowMethod.java</span>
+<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.event.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.reflect.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.regex.*</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ShowMethods</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
+    <span class="kd">private</span> <span class="n">JTextField</span> <span class="n">name</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JTextField</span><span class="p">(</span><span class="mi">25 …</span></code></pre></div></div>
+      <div><a class="btn btn-primary" href="/gui-section-four.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/gui-section-three.html" rel="bookmark" title="Permalink to GUI Section Three">GUI Section Three</a></h2>
+      </header>
+      <div><p>本次讨论的是GUI的布局，作为例子，首先使用的是BorderLayout，代码和效果如下</p>
+<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/BorderLayout1.java</span>
+<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BorderLayout1</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
+    <span class="kd">public</span> <span class="nf">BorderLayout1 …</span></code></pre></div></div>
+      <div><a class="btn btn-primary" href="/gui-section-three.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/gui-section-two.html" rel="bookmark" title="Permalink to GUI Section Two">GUI Section Two</a></h2>
+      </header>
+      <div><p>本部分是对GUI中的事件注册进行讨论，初始的代码如下：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/Button1.java</span>
+<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Button1</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
+    <span class="kd">private</span> <span class="n">JButton</span>
+        <span class="n">b1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;Button1&quot;</span><span class="p">),</span>
+        <span class="n">b2 …</span></code></pre></div></div>
+      <div><a class="btn btn-primary" href="/gui-section-two.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
 
   <nav>
     <ul class="pagination">
@@ -94,14 +419,22 @@
 <li class="active">
             <a href="/index.html"
               rel="
- first  last ">
+ first ">
               1
                 <span class="sr-only">(current)</span>
             </a>
           </li>
+<li class="">
+            <a href="/index2.html"
+              rel="
+ last  next ">
+              2
+            </a>
+          </li>
 
-        <li class="disabled">
-          <a aria-label="Next" rel="next">
+        <li>
+          <a href="/index2.html"
+              aria-label="Next" rel="next">
             <span aria-hidden="true">&rarr;</span>
           </a>
         </li>
@@ -163,7 +496,7 @@
 
           <div class="col-md-2 text-muted">
             <h5>Copyright notice</h5>
-            <p>© Copyright  Hester.</p>
+            <p>© Copyright 2017-2021 Hester.</p>
           </div>
 
           <div class="col-md-2 text-muted">

@@ -64,6 +64,9 @@
                   <a href="/category/blog.html">Blog</a>
                 </li>
 <li >
+                  <a href="/category/book-note.html">Book Note</a>
+                </li>
+<li >
                   <a href="/category/front-end-note.html">Front End Note</a>
                 </li>
 <li >
@@ -125,7 +128,6 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <div class="highlight"><pre><span></span><code><span class="n">Future</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">completableFuture</span> <span class="o">=</span> <span class="n">calculateAsync</span><span class="p">();</span>
 
 <span class="c1">// 其他逻辑</span>
@@ -133,7 +135,6 @@
 <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">completableFuture</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
 <span class="n">assertEquals</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
 </code></pre></div>
-
 
 <p>也可以进行取消操作</p>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="n">Future</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">calculateAsyncWithCancellation</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="p">{</span>
@@ -149,11 +150,9 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <div class="highlight"><pre><span></span><code><span class="n">Future</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">future</span> <span class="o">=</span> <span class="n">calculateAsyncWithCancellation</span><span class="p">();</span>
 <span class="n">future</span><span class="p">.</span><span class="na">get</span><span class="p">();</span> <span class="c1">// 抛出CancellationException</span>
 </code></pre></div>
-
 
 <h3>封装异步执行逻辑</h3>
 <p>CompletableFuture有静态方法<strong>runAsync</strong>和<strong>supplyAsync</strong>前者的入参是Runnable, 表示没有出参的执行逻辑；后者入参是supplyAsync，表示有出参的逻辑</p>
@@ -167,7 +166,6 @@
     <span class="n">Assert</span><span class="p">.</span><span class="na">assertEquals</span><span class="p">(</span><span class="s">&quot;use supplyAsync&quot;</span><span class="p">,</span> <span class="n">supplyAsync</span><span class="p">.</span><span class="na">get</span><span class="p">());</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <p>需要说明的是上述两个方法还有另一个版本, 可以自定义异步执行器，当然在不指定的时候使用的是默认的ForkJoinPool</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Before</span>
@@ -185,7 +183,6 @@
     <span class="n">Assert</span><span class="p">.</span><span class="na">assertEquals</span><span class="p">(</span><span class="s">&quot;use supplyAsync&quot;</span><span class="p">,</span> <span class="n">supplyAsync</span><span class="p">.</span><span class="na">get</span><span class="p">());</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <h3>对异步逻辑进行后续处理</h3>
 <p>这是CompletableFuture强大之处，主要是对CompletionStage接口的实现，让使用者可以对CompletableFuture进行编排</p>
@@ -206,7 +203,6 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h3>并发对多个异步任务进行处理</h3>
 <div class="highlight"><pre><span></span><code><span class="nd">@Test</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testAllOf</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">ExecutionException</span><span class="p">,</span> <span class="n">InterruptedException</span> <span class="p">{</span>
@@ -223,7 +219,6 @@
 
 <span class="p">}</span>
 </code></pre></div>
-
 
 <h2>其他</h2>
 <p>java8引入的这个工具在graphql-java中被广泛使用，查询优化核心DataLoader也使用了这个，个人感觉DataLoader的java实现参考了javascript实现，ES使用的<strong>async</strong>, <strong>await</strong>, <strong>Promise</strong>语法与CompletableFuture十分类似</p>

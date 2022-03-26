@@ -64,6 +64,9 @@
                   <a href="/category/blog.html">Blog <span class="sr-only">(current)</span></a>
                 </li>
 <li >
+                  <a href="/category/book-note.html">Book Note</a>
+                </li>
+<li >
                   <a href="/category/front-end-note.html">Front End Note</a>
                 </li>
 <li >
@@ -155,23 +158,21 @@ git的运行过程通常是增量的</p>
   ?? LICENSE.txt
 </code></pre></div>
 
-
 <p>每个文件开头有两个字符，左边表示存储在<strong>缓存区</strong>的状态，右边表示存储在<strong>工作区</strong>的状态
 <code>??</code>表示未被git追踪的文件，M表示有修改，A表示新增</p>
 <h3>记录一些回退命令</h3>
-<div class="highlight"><pre><span></span><code><span class="o">#</span> <span class="err">可以用来修改最后一次</span><span class="n">commit的内容</span>
-<span class="n">git</span> <span class="k">commit</span> <span class="c1">--amend</span>
+<div class="highlight"><pre><span></span><code># 可以用来修改最后一次commit的内容
+git commit --amend
 
-<span class="o">#</span> <span class="err">将缓存区的文件回退到工作区</span>
-<span class="n">git</span> <span class="k">reset</span> <span class="n">HEAD</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span>
-<span class="n">git</span> <span class="n">restore</span> <span class="c1">--staged &lt;file&gt;</span>
+# 将缓存区的文件回退到工作区
+git reset HEAD &lt;file&gt;
+git restore --staged &lt;file&gt;
 
-<span class="o">#</span> <span class="err">将工作区文件回退到上一次</span><span class="n">commit的状态</span><span class="p">,</span> <span class="err">注意这是一个危险操作</span>
-<span class="o">#</span> <span class="n">git</span> <span class="err">控制的修改如果</span><span class="n">commit过就有可能恢复</span><span class="err">，否则是无法通过</span><span class="n">git恢复的</span>
-<span class="n">git</span> <span class="n">checkout</span> <span class="c1">-- &lt;file&gt;</span>
-<span class="n">git</span> <span class="n">restore</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span>
+# 将工作区文件回退到上一次commit的状态, 注意这是一个危险操作
+# git 控制的修改如果commit过就有可能恢复，否则是无法通过git恢复的
+git checkout -- &lt;file&gt;
+git restore &lt;file&gt;
 </code></pre></div>
-
 
 <h3>fetch &amp; pull</h3>
 <p><strong>fetch</strong>只是把远程的数据下载到本地的仓库，并不会主动合并到已有的分支，也不会改变当前的工作状态</p>
@@ -198,18 +199,16 @@ git的运行过程通常是增量的</p>
 <p>初始状态
 <img alt="start" src="img/start.png"></p>
 <h4>merge的效果</h4>
-<div class="highlight"><pre><span></span><code><span class="err">git checkout master</span>
-<span class="err">git merge experitment</span>
+<div class="highlight"><pre><span></span><code>git checkout master
+git merge experitment
 </code></pre></div>
-
 
 <p><img alt="merge" src="img/merge.png">
 本质上是三方的合并</p>
 <h4>rebase的效果</h4>
-<div class="highlight"><pre><span></span><code><span class="err">git checkout experiment</span>
-<span class="err">git rebase master</span>
+<div class="highlight"><pre><span></span><code>git checkout experiment
+git rebase master
 </code></pre></div>
-
 
 <p><img alt="rebase" src="img/rebase.png">
 步骤如下：
@@ -227,23 +226,20 @@ git的运行过程通常是增量的</p>
 <li>改变暂存区, --mixed选项, 并且默认</li>
 <li>改变<strong>工作区</strong>, --hard选项, 危险操作</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="err">git reset --soft HEAD^</span>
-<span class="err">git reset --mixed HEAD^</span>
-<span class="err">git reset --hard HEAD^</span>
+<div class="highlight"><pre><span></span><code>git reset --soft HEAD^
+git reset --mixed HEAD^
+git reset --hard HEAD^
 </code></pre></div>
-
 
 <p>reset除了指定HEAD, 还可以指定路径</p>
-<div class="highlight"><pre><span></span><code><span class="err">git reset file.txt</span>
+<div class="highlight"><pre><span></span><code>git reset file.txt
 </code></pre></div>
-
 
 <p><img alt="reset_file" src="img/reset_file.png">
 效果就是将缓存区的文件还原</p>
 <p>如果想还原到指定的历史，还可以增加参数</p>
-<div class="highlight"><pre><span></span><code><span class="err">git reset eb43 file.txt</span>
+<div class="highlight"><pre><span></span><code>git reset eb43 file.txt
 </code></pre></div>
-
 
 <p><img alt="reset_file_2" src="img/reset_file_2.png"></p>
 <h3>checkout</h3>
@@ -254,7 +250,6 @@ checkout就类似reset --hard，但是如果工作区存在变更，reset --hard
 <div class="highlight"><pre><span></span><code><span class="n">git</span><span class="w"> </span><span class="n">reset</span><span class="w"> </span><span class="o">[</span><span class="n">branch</span><span class="o">]</span><span class="w"> </span><span class="k">file</span><span class="w"></span>
 <span class="n">git</span><span class="w"> </span><span class="n">checkout</span><span class="w"> </span><span class="o">[</span><span class="n">branch</span><span class="o">]</span><span class="w"> </span><span class="k">file</span><span class="w"></span>
 </code></pre></div>
-
 
 <blockquote>
 <p>思考题: 如果现在想删除一个java文件，但是以后可能恢复这个文件，如何使用git处理？
@@ -277,10 +272,9 @@ checkout就类似reset --hard，但是如果工作区存在变更，reset --hard
 <img alt="merge4" src="img/merge4.png">
 <code>^M</code>和<code>C7</code>的共同祖先是<code>C4</code>，<code>M</code>,<code>^M</code>和<code>C7</code>执行之后，<code>C3</code>，<code>C4</code>的代码就丢失了</p>
 <p>解决上述问题方法是再执行<code>revert</code>，将<code>^M</code>变为<code>M</code>(其实真实情况已经是^^M)，保留已经合并的<code>C3</code>, <code>C4</code></p>
-<div class="highlight"><pre><span></span><code><span class="err">git revert ^M</span>
-<span class="err">git merge topic</span>
+<div class="highlight"><pre><span></span><code>git revert ^M
+git merge topic
 </code></pre></div>
-
 
 <p><img alt="merge5" src="img/merge5.png"></p>
 <blockquote>
@@ -295,20 +289,19 @@ checkout就类似reset --hard，但是如果工作区存在变更，reset --hard
 对象类型 + 空格 + 内容长度 + 空字节(\0)</p>
 <p>在写入磁盘时会使用zlib压缩</p>
 <p>校验和的前两位是目录, 余下38位作为文件名, 类似如下效果</p>
-<div class="highlight"><pre><span></span><code><span class="nf">find</span> <span class="no">.git</span><span class="err">/</span><span class="no">objects</span> <span class="p">-</span><span class="no">type</span> <span class="no">f</span>
+<div class="highlight"><pre><span></span><code><span class="nf">find</span><span class="w"> </span><span class="no">.git</span><span class="err">/</span><span class="no">objects</span><span class="w"> </span><span class="p">-</span><span class="no">type</span><span class="w"> </span><span class="no">f</span><span class="w"></span>
 
-<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="mi">3</span><span class="no">c</span><span class="err">/</span><span class="mi">4</span><span class="no">e9cd789d88d8d89c1073707c3585e41b0e614</span>
-<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="mi">0</span><span class="no">b</span><span class="err">/</span><span class="mi">0813</span><span class="no">b3b37150a1cce8dd860aa8b9b0a0675ff3</span>
-<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="no">b2</span><span class="err">/</span><span class="no">f691d79137a3359cf65760b2cafda2910532ec</span>
-<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="no">d6</span><span class="err">/</span><span class="mi">70460</span><span class="no">b4b4aece5915caf5c68d12f560a9fe3e4</span>
-<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="no">d8</span><span class="err">/</span><span class="mi">329</span><span class="no">fc1cc938780ffdd9f94e0d364e0ea74f579</span>
-<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="no">e3</span><span class="err">/</span><span class="no">aa5e3c16816f62260c9fa81e8825c6f4ec9869</span>
-<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="mi">1</span><span class="no">f</span><span class="err">/</span><span class="mi">7</span><span class="no">a7a472abf3dd9643fd615f6da379c4acb3e3a</span>
-<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="mi">01</span><span class="err">/</span><span class="mi">55</span><span class="no">eb4229851634a0f03eb265b69f5a2d56f341</span>
-<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="no">fa</span><span class="err">/</span><span class="mi">49</span><span class="no">b077972391ad58037050f2a75f74e3671e92</span>
-<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="mi">83</span><span class="err">/</span><span class="no">baae61804e65cc73a7201a7252750c76066a30</span>
+<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="mi">3</span><span class="no">c</span><span class="err">/</span><span class="mi">4</span><span class="no">e9cd789d88d8d89c1073707c3585e41b0e614</span><span class="w"></span>
+<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="mi">0</span><span class="no">b</span><span class="err">/</span><span class="mi">0813</span><span class="no">b3b37150a1cce8dd860aa8b9b0a0675ff3</span><span class="w"></span>
+<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="no">b2</span><span class="err">/</span><span class="no">f691d79137a3359cf65760b2cafda2910532ec</span><span class="w"></span>
+<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="no">d6</span><span class="err">/</span><span class="mi">70460</span><span class="no">b4b4aece5915caf5c68d12f560a9fe3e4</span><span class="w"></span>
+<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="no">d8</span><span class="err">/</span><span class="mi">329</span><span class="no">fc1cc938780ffdd9f94e0d364e0ea74f579</span><span class="w"></span>
+<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="no">e3</span><span class="err">/</span><span class="no">aa5e3c16816f62260c9fa81e8825c6f4ec9869</span><span class="w"></span>
+<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="mi">1</span><span class="no">f</span><span class="err">/</span><span class="mi">7</span><span class="no">a7a472abf3dd9643fd615f6da379c4acb3e3a</span><span class="w"></span>
+<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="mi">01</span><span class="err">/</span><span class="mi">55</span><span class="no">eb4229851634a0f03eb265b69f5a2d56f341</span><span class="w"></span>
+<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="no">fa</span><span class="err">/</span><span class="mi">49</span><span class="no">b077972391ad58037050f2a75f74e3671e92</span><span class="w"></span>
+<span class="na">.git</span><span class="err">/</span><span class="no">objects</span><span class="err">/</span><span class="mi">83</span><span class="err">/</span><span class="no">baae61804e65cc73a7201a7252750c76066a30</span><span class="w"></span>
 </code></pre></div>
-
 
 <p>Git对象类型有
 - blob object 数据对象 保存文件内容
@@ -316,11 +309,10 @@ checkout就类似reset --hard，但是如果工作区存在变更，reset --hard
 - commit object 提交对象 用于记录提交
 - tag object 标签对象 类似一个提交对象，通常指向一个提交对象，可以看作<strong>永不移动的分支引用</strong></p>
 <p>以下是一个tree object的示例</p>
-<div class="highlight"><pre><span></span><code><span class="err">100644 blob a906cb2a4a904a152e80877d4088654daad0c859      README</span>
-<span class="err">100644 blob 8f94139338f9404f26296befa88755fc2598c289      Rakefile</span>
-<span class="err">040000 tree 99f1a6d12cb4b6f19c8655fca46c3ecf317074e0      lib</span>
+<div class="highlight"><pre><span></span><code><span class="mf">100644</span><span class="w"> </span><span class="n">blob</span><span class="w"> </span><span class="n">a906cb2a4a904a152e80877d4088654daad0c859</span><span class="w">      </span><span class="kr">READ</span><span class="n">ME</span><span class="w"></span>
+<span class="mf">100644</span><span class="w"> </span><span class="n">blob</span><span class="w"> </span><span class="mf">8</span><span class="n">f94139338f9404f26296befa88755fc2598c289</span><span class="w">      </span><span class="n">Rakefile</span><span class="w"></span>
+<span class="mf">040000</span><span class="w"> </span><span class="n">tree</span><span class="w"> </span><span class="mf">99</span><span class="n">f1a6d12cb4b6f19c8655fca46c3ecf317074e0</span><span class="w">      </span><span class="n">lib</span><span class="w"></span>
 </code></pre></div>
-
 
 <p>4列分别是文件模式, 文件类型, SHA-1(相当于文件指针) 文件名或目录名
 其中文件模式一般分为
@@ -334,7 +326,6 @@ checkout就类似reset --hard，但是如果工作区存在变更，reset --hard
 
 <span class="k">first</span><span class="w"> </span><span class="k">commit</span><span class="w"></span>
 </code></pre></div>
-
 
 <h3>相关的底层命令</h3>
 <div class="highlight"><pre><span></span><code><span class="c1">#内容写入</span>
@@ -366,7 +357,6 @@ git write-tree
 <span class="c1"># e3aa5e3c16816f62260c9fa81e8825c6f4ec9869</span>
 </code></pre></div>
 
-
 <h3>Git引用</h3>
 <p>重点文件路径<code>.git/refs</code></p>
 <p>使用字符串代替40位的SHA-1</p>
@@ -379,7 +369,6 @@ cat .git/HEAD
 
 <span class="c1"># ref: refs/heads/test</span>
 </code></pre></div>
-
 
 <p>HEAD文件还有一个作用: 在执行commit提交时(底层git commit-tree)设置父提交</p>
 <h3>tag的本质</h3>
@@ -394,7 +383,6 @@ cat .git/HEAD
 <span class="n">test</span><span class="w"> </span><span class="n">tag</span><span class="w"></span>
 </code></pre></div>
 
-
 <h3>远程引用</h3>
 <p>记录在<code>refs/remote</code>路径下, 例如<code>refs/remote/origin/master</code>，记录最近一次推送操作时该分支所对应的值，远程引用是<strong>只读</strong>的，可以<code>git checkout</code>到某个远程引用，但是 Git 并不会将 HEAD 引用指向该远程引用。因此，永远不能通过<code>commit</code>命令来更新远程引用</p>
 <h3>相关底层命令</h3>
@@ -407,7 +395,6 @@ git symbolic-ref HEAD
 <span class="c1"># 设置HEAD引用, 相当于切换分支</span>
 git symbolic-ref HEAD refs/heads/test
 </code></pre></div>
-
 
 <p>ref和git object整体示例
 <img alt="git_object" src="img/git_object.png"></p>

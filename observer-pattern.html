@@ -64,6 +64,9 @@
                   <a href="/category/blog.html">Blog</a>
                 </li>
 <li >
+                  <a href="/category/book-note.html">Book Note</a>
+                </li>
+<li >
                   <a href="/category/front-end-note.html">Front End Note</a>
                 </li>
 <li >
@@ -116,13 +119,11 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>IObserver接口</p>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">IObserver</span> <span class="p">{</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">update</span><span class="p">(</span><span class="n">Event</span> <span class="n">evt</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <p>ConcreteSubject实现</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">java.util.*</span><span class="p">;</span>
@@ -151,7 +152,6 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>ConcreteObserver实现</p>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteObserver</span> <span class="kd">implements</span> <span class="n">IObserver</span><span class="p">{</span>
 
@@ -167,7 +167,6 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>测试主类</p>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="p">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
@@ -181,7 +180,6 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <p>运行结果：</p>
 <div class="highlight"><pre><span></span><code><span class="n">Observer</span> <span class="mi">0</span> <span class="n">Get</span> <span class="n">Information</span> <span class="n">from</span> <span class="n">Subject</span><span class="p">.</span>

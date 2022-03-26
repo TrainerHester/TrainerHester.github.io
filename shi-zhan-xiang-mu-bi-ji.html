@@ -63,6 +63,9 @@
 <li >
                   <a href="/category/blog.html">Blog</a>
                 </li>
+<li >
+                  <a href="/category/book-note.html">Book Note</a>
+                </li>
 <li  class="active" >
                   <a href="/category/front-end-note.html">Front End Note <span class="sr-only">(current)</span></a>
                 </li>
@@ -105,33 +108,31 @@
 
   <div>
     <h2>工程结构</h2>
-<div class="highlight"><pre><span></span><code><span class="err">src</span>
-<span class="err">├── api 前后端接口</span>
-<span class="err">├── assets 通用资源</span>
-<span class="err">├── components UI组件</span>
-<span class="err">├── containers 容器组件</span>
-<span class="err">├── index.js 入口js</span>
-<span class="err">├── redux redux状态控制相关</span>
-<span class="err">└── utils 工具类</span>
+<div class="highlight"><pre><span></span><code>src
+├── api 前后端接口
+├── assets 通用资源
+├── components UI组件
+├── containers 容器组件
+├── index.js 入口js
+├── redux redux状态控制相关
+└── utils 工具类
 </code></pre></div>
-
 
 <h2>依赖的组件库</h2>
 <h3>AntD</h3>
 <p><a href="https://mobile.ant.design/docs/react/introduce-cn">antd官方文档</a></p>
-<div class="highlight"><pre><span></span><code><span class="err">npm install antd-mobile --save</span>
+<div class="highlight"><pre><span></span><code>npm install antd-mobile --save
 </code></pre></div>
-
 
 <p>修改<code>public/index.html</code></p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-  <span class="c">&lt;!-- set `maximum-scale` for some compatibility issues --&gt;</span>
+  <span class="cm">&lt;!-- set `maximum-scale` for some compatibility issues --&gt;</span>
   <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no&quot;</span> <span class="p">/&gt;</span>
   <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;addEventListener&#39;</span> <span class="k">in</span> <span class="nb">document</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;addEventListener&#39;</span> <span class="ow">in</span> <span class="nb">document</span><span class="p">)</span> <span class="p">{</span>
       <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;DOMContentLoaded&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
         <span class="nx">FastClick</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
       <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
@@ -145,15 +146,13 @@
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </code></pre></div>
 
-
 <h3>打包工具实现按需打包</h3>
 <div class="highlight"><pre><span></span><code><span class="n">npm</span> <span class="n">install</span> <span class="o">--</span><span class="n">save</span><span class="o">-</span><span class="n">dev</span> <span class="n">babel</span><span class="o">-</span><span class="n">plugin</span><span class="o">-</span><span class="kn">import</span> <span class="nn">react</span><span class="o">-</span><span class="n">app</span><span class="o">-</span><span class="n">rewired</span> <span class="n">customize</span><span class="o">-</span><span class="n">cra</span>
 </code></pre></div>
 
-
 <p>定义加载配置的js
 根目录创建<code>config-overrides.js</code></p>
-<div class="highlight"><pre><span></span><code><span class="kr">const</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="p">{</span>
   <span class="nx">override</span><span class="p">,</span>
   <span class="nx">fixBabelImports</span>
 <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;customize-cra&quot;</span><span class="p">);</span>
@@ -166,36 +165,33 @@
 <span class="p">);</span>
 </code></pre></div>
 
-
 <p>修改package.json</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;react-app-rewired start&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;build&quot;</span><span class="p">:</span> <span class="s2">&quot;react-app-rewired build&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;react-app-rewired test --env=jsdom&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;eject&quot;</span><span class="p">:</span> <span class="s2">&quot;react-scripts eject&quot;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;react-app-rewired start&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;build&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;react-app-rewired build&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;test&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;react-app-rewired test --env=jsdom&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;eject&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;react-scripts eject&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
-
 
 <h3>路由配置</h3>
 <p><a href="https://reacttraining.com/react-router/web/guides/quick-start">react-router-dom快速开始</a></p>
-<div class="highlight"><pre><span></span><code><span class="err">npm install --save react-router-dom</span>
+<div class="highlight"><pre><span></span><code>npm install --save react-router-dom
 </code></pre></div>
-
 
 <p>路由组件一般需要和redux交互，所以放到containers路径下</p>
 <p>一级路由example</p>
-<div class="highlight"><pre><span></span><code><span class="o">//</span> <span class="err">入口</span><span class="n">js代码</span>
+<div class="highlight"><pre><span></span><code><span class="o">//</span> <span class="n">入口js代码</span>
 
-<span class="kn">import</span> <span class="nn">React</span> <span class="nn">from</span> <span class="s2">&quot;react&quot;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">ReactDOM</span> <span class="nn">from</span> <span class="s2">&quot;react-dom&quot;</span>
+<span class="kn">import</span> <span class="nn">React</span> <span class="kn">from</span> <span class="s2">&quot;react&quot;</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">ReactDOM</span> <span class="kn">from</span> <span class="s2">&quot;react-dom&quot;</span>
 <span class="kn">import</span> <span class="p">{</span><span class="n">BrowserRouter</span><span class="p">,</span> <span class="n">Route</span><span class="p">,</span> <span class="n">Switch</span><span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;react-router-dom&quot;</span>
 
-<span class="kn">import</span> <span class="nn">Register</span> <span class="nn">from</span> <span class="s2">&quot;./containers/register/register&quot;</span>
-<span class="kn">import</span> <span class="nn">Login</span> <span class="nn">from</span> <span class="s2">&quot;./containers/login/login&quot;</span>
-<span class="kn">import</span> <span class="nn">Main</span> <span class="nn">from</span> <span class="s2">&quot;./containers/main/main&quot;</span>
+<span class="kn">import</span> <span class="nn">Register</span> <span class="kn">from</span> <span class="s2">&quot;./containers/register/register&quot;</span>
+<span class="kn">import</span> <span class="nn">Login</span> <span class="kn">from</span> <span class="s2">&quot;./containers/login/login&quot;</span>
+<span class="kn">import</span> <span class="nn">Main</span> <span class="kn">from</span> <span class="s2">&quot;./containers/main/main&quot;</span>
 
 <span class="n">ReactDOM</span><span class="o">.</span><span class="n">render</span><span class="p">((</span>
     <span class="o">&lt;</span><span class="n">BrowserRouter</span><span class="o">&gt;</span>
@@ -214,7 +210,6 @@
     <span class="n">document</span><span class="o">.</span><span class="n">getElementById</span><span class="p">(</span><span class="s2">&quot;root&quot;</span><span class="p">))</span>
 </code></pre></div>
 
-
 <p>如果需要在路由组件中使用history，需要进行改造</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span><span class="n">withRouter</span><span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;react-router-dom&#39;</span>
 
@@ -225,61 +220,56 @@
 <span class="n">export</span> <span class="n">default</span> <span class="n">withRouter</span><span class="p">(</span><span class="n">Register</span><span class="p">)</span>
 </code></pre></div>
 
-
 <h3>状态管理</h3>
-<div class="highlight"><pre><span></span><code><span class="n">npm</span> <span class="n">install</span> <span class="o">--</span><span class="n">save</span> <span class="n">redux</span><span class="mf">@3.7.2</span> <span class="n">react</span><span class="o">-</span><span class="n">redux</span> <span class="n">redux</span><span class="o">-</span><span class="n">thunk</span>
-<span class="n">npm</span> <span class="n">install</span> <span class="o">--</span><span class="n">save</span><span class="o">-</span><span class="n">dev</span> <span class="n">redux</span><span class="o">-</span><span class="n">devtools</span><span class="o">-</span><span class="n">extension</span>
+<div class="highlight"><pre><span></span><code><span class="n">npm</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">--</span><span class="n">save</span><span class="w"> </span><span class="n">redux</span><span class="mf">@3.7.2</span><span class="w"> </span><span class="n">react</span><span class="o">-</span><span class="n">redux</span><span class="w"> </span><span class="n">redux</span><span class="o">-</span><span class="n">thunk</span><span class="w"></span>
+<span class="n">npm</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">--</span><span class="n">save</span><span class="o">-</span><span class="n">dev</span><span class="w"> </span><span class="n">redux</span><span class="o">-</span><span class="n">devtools</span><span class="o">-</span><span class="n">extension</span><span class="w"></span>
 </code></pre></div>
-
 
 <p>redux模块结构</p>
-<div class="highlight"><pre><span></span><code><span class="err">src/redux</span>
-<span class="err">├── action-types.js action常量</span>
-<span class="err">├── actions.js action工厂函数</span>
-<span class="err">├── reducers.js 所有的reducers函数(state, action) =&gt; newstate</span>
-<span class="err">└── store.js 核心对象</span>
+<div class="highlight"><pre><span></span><code>src/redux
+├── action-types.js action常量
+├── actions.js action工厂函数
+├── reducers.js 所有的reducers函数(state, action) =&gt; newstate
+└── store.js 核心对象
 </code></pre></div>
 
-
 <div class="highlight"><pre><span></span><code><span class="c1">// reducers.js</span>
-<span class="kr">import</span> <span class="p">{</span><span class="nx">combineReducers</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;redux&#39;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">combineReducers</span><span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;redux&#39;</span>
 
-<span class="kd">function</span> <span class="nx">xxx</span><span class="p">(</span><span class="nx">state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+<span class="kd">function</span> <span class="nx">xxx</span><span class="p">(</span><span class="nx">state</span> <span class="o">=</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">state</span>
 <span class="p">}</span>
 
-<span class="kd">function</span> <span class="nx">yyy</span><span class="p">(</span><span class="nx">state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+<span class="kd">function</span> <span class="nx">yyy</span><span class="p">(</span><span class="nx">state</span> <span class="o">=</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">state</span>
 <span class="p">}</span>
 
-<span class="kr">export</span> <span class="k">default</span> <span class="nx">combineReducers</span><span class="p">({</span><span class="nx">xxx</span><span class="p">,</span> <span class="nx">yyy</span><span class="p">})</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">combineReducers</span><span class="p">({</span><span class="nx">xxx</span><span class="p">,</span> <span class="nx">yyy</span><span class="p">})</span>
 
 <span class="c1">// state结构 {xxx: 0, yyy: 0}</span>
 </code></pre></div>
 
-
 <div class="highlight"><pre><span></span><code><span class="c1">// store.js 固定写法</span>
-<span class="kr">import</span> <span class="p">{</span><span class="nx">createStore</span><span class="p">,</span> <span class="nx">applyMiddleware</span><span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;redux&quot;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="nx">thunk</span> <span class="nx">from</span> <span class="s2">&quot;redux-thunk&quot;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span><span class="nx">composeWithDevTools</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;redux-devtools-extension&#39;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">createStore</span><span class="p">,</span> <span class="nx">applyMiddleware</span><span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;redux&quot;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">thunk</span> <span class="kr">from</span> <span class="s2">&quot;redux-thunk&quot;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">composeWithDevTools</span><span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;redux-devtools-extension&#39;</span>
 
-<span class="kr">import</span> <span class="nx">reducers</span> <span class="nx">from</span> <span class="s1">&#39;./reducers&#39;</span>
+<span class="k">import</span> <span class="nx">reducers</span> <span class="kr">from</span> <span class="s1">&#39;./reducers&#39;</span>
 
-<span class="kr">export</span> <span class="k">default</span> <span class="nx">createStore</span><span class="p">(</span><span class="nx">reducers</span><span class="p">,</span> <span class="nx">composeWithDevTools</span><span class="p">(</span><span class="nx">applyMiddleware</span><span class="p">(</span><span class="nx">thunk</span><span class="p">)))</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">createStore</span><span class="p">(</span><span class="nx">reducers</span><span class="p">,</span> <span class="nx">composeWithDevTools</span><span class="p">(</span><span class="nx">applyMiddleware</span><span class="p">(</span><span class="nx">thunk</span><span class="p">)))</span>
 </code></pre></div>
 
+<div class="highlight"><pre><span></span><code><span class="o">//</span> <span class="n">入口js代码</span>
 
-<div class="highlight"><pre><span></span><code><span class="o">//</span> <span class="err">入口</span><span class="n">js代码</span>
-
-<span class="kn">import</span> <span class="nn">React</span> <span class="nn">from</span> <span class="s2">&quot;react&quot;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">ReactDOM</span> <span class="nn">from</span> <span class="s2">&quot;react-dom&quot;</span>
+<span class="kn">import</span> <span class="nn">React</span> <span class="kn">from</span> <span class="s2">&quot;react&quot;</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">ReactDOM</span> <span class="kn">from</span> <span class="s2">&quot;react-dom&quot;</span>
 <span class="kn">import</span> <span class="p">{</span><span class="n">BrowserRouter</span><span class="p">,</span> <span class="n">Route</span><span class="p">,</span> <span class="n">Switch</span><span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;react-router-dom&quot;</span>
 <span class="kn">import</span> <span class="p">{</span><span class="n">Provider</span><span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;react-redux&quot;</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">Register</span> <span class="nn">from</span> <span class="s2">&quot;./containers/register/register&quot;</span>
-<span class="kn">import</span> <span class="nn">Login</span> <span class="nn">from</span> <span class="s2">&quot;./containers/login/login&quot;</span>
-<span class="kn">import</span> <span class="nn">Main</span> <span class="nn">from</span> <span class="s2">&quot;./containers/main/main&quot;</span>
-<span class="kn">import</span> <span class="nn">store</span> <span class="nn">from</span> <span class="s2">&quot;./redux/store&quot;</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">Register</span> <span class="kn">from</span> <span class="s2">&quot;./containers/register/register&quot;</span>
+<span class="kn">import</span> <span class="nn">Login</span> <span class="kn">from</span> <span class="s2">&quot;./containers/login/login&quot;</span>
+<span class="kn">import</span> <span class="nn">Main</span> <span class="kn">from</span> <span class="s2">&quot;./containers/main/main&quot;</span>
+<span class="kn">import</span> <span class="nn">store</span> <span class="kn">from</span> <span class="s2">&quot;./redux/store&quot;</span><span class="p">;</span>
 
 <span class="n">ReactDOM</span><span class="o">.</span><span class="n">render</span><span class="p">((</span>
     <span class="o">&lt;</span><span class="n">Provider</span> <span class="n">store</span><span class="o">=</span><span class="p">{</span><span class="n">store</span><span class="p">}</span> <span class="o">&gt;</span>
@@ -300,7 +290,6 @@
     <span class="p">),</span>
     <span class="n">document</span><span class="o">.</span><span class="n">getElementById</span><span class="p">(</span><span class="s2">&quot;root&quot;</span><span class="p">))</span>
 </code></pre></div>
-
 
 <p>使用chrome插件可以看到效果
 <img alt="插件效果" src="./img/redux-start.png"></p>

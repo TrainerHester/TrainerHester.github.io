@@ -63,6 +63,9 @@
 <li >
                   <a href="/category/blog.html">Blog</a>
                 </li>
+<li >
+                  <a href="/category/book-note.html">Book Note</a>
+                </li>
 <li  class="active" >
                   <a href="/category/front-end-note.html">Front End Note <span class="sr-only">(current)</span></a>
                 </li>
@@ -109,94 +112,90 @@
 <p>目的：兄弟组件之间通信
 1. 子组件传递数据到父组件(父组件需要暴露一个函数给子组件)
 2. 父组件通过设置prop的方式把数据传递给另一个自组件</p>
-<div class="highlight"><pre><span></span><code>componentWillReceiveProps(nextProps, nextContext) {
-    const {searchName} = nextProps
-    if (searchName) {
-        this.setState({init: false, loading: true})
-        axios.get(`https://api.github.com/search/users?q=<span class="cp">${</span><span class="n">searchName</span><span class="cp">}</span>`)
-            .then((reponse) =&gt; {
-                let users = reponse.data.items.map((user, index) =&gt; {
-                    return {
-                        name: user.login,
-                        url: user.html_url,
-                        avatarUrl: user.avatar_url
-                    }
-                })
-                this.setState({users, loading: false})
-            })
-            .catch((error) =&gt; {
-                this.setState({error})
-            })
-    }
-}
+<div class="highlight"><pre><span></span><code><span class="n">componentWillReceiveProps</span><span class="p">(</span><span class="n">nextProps</span><span class="p">,</span><span class="w"> </span><span class="n">nextContext</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="n">searchName</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nextProps</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">searchName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">this</span><span class="o">.</span><span class="n">setState</span><span class="p">({</span><span class="n">init</span><span class="p">:</span><span class="w"> </span><span class="bp">false</span><span class="p">,</span><span class="w"> </span><span class="n">loading</span><span class="p">:</span><span class="w"> </span><span class="bp">true</span><span class="p">})</span><span class="w"></span>
+<span class="w">        </span><span class="n">axios</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="err">`</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">api</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">search</span><span class="o">/</span><span class="n">users</span><span class="err">?</span><span class="n">q</span><span class="o">=$</span><span class="p">{</span><span class="n">searchName</span><span class="p">}</span><span class="err">`</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="o">.</span><span class="n">then</span><span class="p">((</span><span class="n">reponse</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="n">let</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reponse</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">map</span><span class="p">((</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                        </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="o">.</span><span class="n">login</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="o">.</span><span class="n">html_url</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="n">avatarUrl</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="o">.</span><span class="n">avatar_url</span><span class="w"></span>
+<span class="w">                    </span><span class="p">}</span><span class="w"></span>
+<span class="w">                </span><span class="p">})</span><span class="w"></span>
+<span class="w">                </span><span class="n">this</span><span class="o">.</span><span class="n">setState</span><span class="p">({</span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="n">loading</span><span class="p">:</span><span class="w"> </span><span class="bp">false</span><span class="p">})</span><span class="w"></span>
+<span class="w">            </span><span class="p">})</span><span class="w"></span>
+<span class="w">            </span><span class="o">.</span><span class="n">catch</span><span class="p">((</span><span class="n">error</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="n">this</span><span class="o">.</span><span class="n">setState</span><span class="p">({</span><span class="n">error</span><span class="p">})</span><span class="w"></span>
+<span class="w">            </span><span class="p">})</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
-
 
 <p><code>componentWillReceiveProps</code>是React组件自带的声明周期函数，当有新的props传递到组件会触发这个函数。同时上面的代码在该函数中调用了<strong>setState</strong></p>
 <p>组件运行都正常，但是官方给出了warning</p>
-<div class="highlight"><pre><span></span><code><span class="err">If you&#39;re updating state whenever props change, refactor your code to use memoization techniques or move it to static getDerivedStateFromProps. Learn more at: https://fb.me/react-derived-state</span>
+<div class="highlight"><pre><span></span><code><span class="k">If</span> <span class="nv">you</span><span class="s1">&#39;</span><span class="s">re updating state whenever props change, refactor your code to use memoization techniques or move it to static getDerivedStateFromProps. Learn more at: https://fb.me/react-derived-state</span>
 </code></pre></div>
-
 
 <p>使用这个方案的问题在于，如果父组件重新render，子组件的props无论是否改变都会调用<code>componentWillReceiveProps</code>，而我们希望的是只有props变化时才产生调用。</p>
 <h2>解决方案</h2>
 <h3>getDerivedStateFromProps</h3>
 <p>替代方案的关键点<strong>getDerivedStateFromProps</strong></p>
 <p>这个函数用于解决在props改变时更新state</p>
-<div class="highlight"><pre><span></span><code><span class="err">// 静态函数，props表示新的props, state表示现有的state, 最终返回新的state</span>
-<span class="err">static getDerivedStateFromProps(props, state) {</span>
-<span class="err">// Any time the current user changes,</span>
-<span class="err">// Reset any parts of state that are tied to that user.</span>
-<span class="err">// In this simple example, that&#39;s just the email.</span>
-<span class="err">if (props.userID !== state.prevPropsUserID) {</span>
-<span class="err">    return {</span>
-<span class="err">    prevPropsUserID: props.userID,</span>
-<span class="err">    email: props.defaultEmail</span>
-<span class="err">    };</span>
-<span class="err">}</span>
-<span class="err">return null;</span>
-<span class="err">}</span>
+<div class="highlight"><pre><span></span><code><span class="o">//</span><span class="w"> </span><span class="nt">静态函数</span><span class="err">，</span><span class="nt">props表示新的props</span><span class="o">,</span><span class="w"> </span><span class="nt">state表示现有的state</span><span class="o">,</span><span class="w"> </span><span class="nt">最终返回新的state</span><span class="w"></span>
+<span class="nt">static</span><span class="w"> </span><span class="nt">getDerivedStateFromProps</span><span class="o">(</span><span class="nt">props</span><span class="o">,</span><span class="w"> </span><span class="nt">state</span><span class="o">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="err">//</span><span class="w"> </span><span class="err">Any</span><span class="w"> </span><span class="err">time</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">current</span><span class="w"> </span><span class="err">user</span><span class="w"> </span><span class="err">changes,</span><span class="w"></span>
+<span class="err">//</span><span class="w"> </span><span class="err">Reset</span><span class="w"> </span><span class="err">any</span><span class="w"> </span><span class="err">parts</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">state</span><span class="w"> </span><span class="err">that</span><span class="w"> </span><span class="err">are</span><span class="w"> </span><span class="err">tied</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">that</span><span class="w"> </span><span class="err">user.</span><span class="w"></span>
+<span class="err">//</span><span class="w"> </span><span class="err">In</span><span class="w"> </span><span class="err">this</span><span class="w"> </span><span class="err">simple</span><span class="w"> </span><span class="err">example,</span><span class="w"> </span><span class="err">that&#39;s</span><span class="w"> </span><span class="err">just</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">email.</span><span class="w"></span>
+<span class="err">if</span><span class="w"> </span><span class="err">(props.userID</span><span class="w"> </span><span class="err">!==</span><span class="w"> </span><span class="err">state.prevPropsUserID)</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+<span class="w">    </span><span class="err">return</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">prevPropsUserID</span><span class="p">:</span><span class="w"> </span><span class="n">props</span><span class="o">.</span><span class="n">userID</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">email</span><span class="o">:</span><span class="w"> </span><span class="n">props</span><span class="o">.</span><span class="n">defaultEmail</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="o">;</span><span class="w"></span>
+<span class="err">}</span><span class="w"></span>
+<span class="nt">return</span><span class="w"> </span><span class="nt">null</span><span class="o">;</span><span class="w"></span>
+<span class="err">}</span><span class="w"></span>
 </code></pre></div>
-
 
 <p>但是原有的<code>componentWillReceiveProps</code>会进行两次setState，这种方案无法解决，除非把ajax调用放到父组件</p>
 <h3>PubSubJS</h3>
 <p><a href="https://github.com/mroderick/PubSubJS">PubSubJS</a>
 发布订阅模式，用于跨层次传递数据</p>
-<div class="highlight"><pre><span></span><code><span class="err">//发布端</span>
-<span class="err">handleSearch = (event) =&gt; {</span>
-<span class="err">    event.preventDefault()</span>
-<span class="err">    const searchName = this.input.value</span>
-<span class="err">    // 发布</span>
-<span class="err">    PubSub.publish(&quot;search&quot;, searchName)</span>
-<span class="err">    this.input.value = &quot;&quot;</span>
-<span class="err">}</span>
+<div class="highlight"><pre><span></span><code><span class="o">//</span><span class="err">发布端</span><span class="w"></span>
+<span class="n">handleSearch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">event</span><span class="o">.</span><span class="n">preventDefault</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">searchName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">this</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">value</span><span class="w"></span>
+<span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="err">发布</span><span class="w"></span>
+<span class="w">    </span><span class="n">PubSub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s2">&quot;search&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">searchName</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">this</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
-
-<div class="highlight"><pre><span></span><code>// 订阅端
-componentDidMount() {
-    //订阅
-    PubSub.subscribe(&#39;search&#39;, (msg, searchName) =&gt; {
-        if (searchName) {
-            this.setState({init: false, loading: true})
-            axios.get(`https://api.github.com/search/users?q=<span class="cp">${</span><span class="n">searchName</span><span class="cp">}</span>`)
-                .then((reponse) =&gt; {
-                    let users = reponse.data.items.map((user, index) =&gt; {
-                        return {
-                            name: user.login,
-                            url: user.html_url,
-                            avatarUrl: user.avatar_url
-                        }
-                    })
-                    this.setState({users, loading: false})
-                })
-                .catch((error) =&gt; {
-                    this.setState({error})
-                })
-        }
-    })
-}
+<div class="highlight"><pre><span></span><code><span class="o">//</span><span class="w"> </span><span class="err">订阅端</span><span class="w"></span>
+<span class="n">componentDidMount</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="o">//</span><span class="err">订阅</span><span class="w"></span>
+<span class="w">    </span><span class="n">PubSub</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="s1">&#39;search&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="n">searchName</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">searchName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">this</span><span class="o">.</span><span class="n">setState</span><span class="p">({</span><span class="n">init</span><span class="p">:</span><span class="w"> </span><span class="bp">false</span><span class="p">,</span><span class="w"> </span><span class="n">loading</span><span class="p">:</span><span class="w"> </span><span class="bp">true</span><span class="p">})</span><span class="w"></span>
+<span class="w">            </span><span class="n">axios</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="err">`</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">api</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">search</span><span class="o">/</span><span class="n">users</span><span class="err">?</span><span class="n">q</span><span class="o">=$</span><span class="p">{</span><span class="n">searchName</span><span class="p">}</span><span class="err">`</span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="o">.</span><span class="n">then</span><span class="p">((</span><span class="n">reponse</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="n">let</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reponse</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">map</span><span class="p">((</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                        </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                            </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="o">.</span><span class="n">login</span><span class="p">,</span><span class="w"></span>
+<span class="w">                            </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="o">.</span><span class="n">html_url</span><span class="p">,</span><span class="w"></span>
+<span class="w">                            </span><span class="n">avatarUrl</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="o">.</span><span class="n">avatar_url</span><span class="w"></span>
+<span class="w">                        </span><span class="p">}</span><span class="w"></span>
+<span class="w">                    </span><span class="p">})</span><span class="w"></span>
+<span class="w">                    </span><span class="n">this</span><span class="o">.</span><span class="n">setState</span><span class="p">({</span><span class="n">users</span><span class="p">,</span><span class="w"> </span><span class="n">loading</span><span class="p">:</span><span class="w"> </span><span class="bp">false</span><span class="p">})</span><span class="w"></span>
+<span class="w">                </span><span class="p">})</span><span class="w"></span>
+<span class="w">                </span><span class="o">.</span><span class="n">catch</span><span class="p">((</span><span class="n">error</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="n">this</span><span class="o">.</span><span class="n">setState</span><span class="p">({</span><span class="n">error</span><span class="p">})</span><span class="w"></span>
+<span class="w">                </span><span class="p">})</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">})</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
   </div>
 

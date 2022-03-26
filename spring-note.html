@@ -64,6 +64,9 @@
                   <a href="/category/blog.html">Blog</a>
                 </li>
 <li >
+                  <a href="/category/book-note.html">Book Note</a>
+                </li>
+<li >
                   <a href="/category/front-end-note.html">Front End Note</a>
                 </li>
 <li >
@@ -113,7 +116,6 @@
 <div class="highlight"><pre><span></span><code><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">BeanDefinition</span><span class="o">&gt;</span> <span class="n">beanDefinitionMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcurrentHashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span>
 </code></pre></div>
 
-
 <h3>Environment</h3>
 <p>为了方便使用，在容器创建的时候会提前将系统的相关属性加载到StandardEnvironment对象中，方便后续调用</p>
 <h3>实例化</h3>
@@ -133,7 +135,6 @@
 <span class="n">Constructor</span> <span class="n">constructor</span> <span class="o">=</span> <span class="n">clazz</span><span class="p">.</span><span class="na">getDecalaredConstructor</span><span class="p">();</span>
 <span class="n">Obj</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">constructor</span><span class="p">.</span><span class="na">newInstance</span><span class="p">();</span>
 </code></pre></div>
-
 
 <h3>初始化</h3>
 <p>给属性完成赋值操作</p>
@@ -156,7 +157,6 @@
 <div class="highlight"><pre><span></span><code><span class="c1">// Instantiate all remaining (non-lazy-init) singletons.</span>
 <span class="n">finishBeanFactoryInitialization</span><span class="p">(</span><span class="n">beanFactory</span><span class="p">);</span>
 </code></pre></div>
-
 
 <ul>
 <li>填充属性</li>

@@ -63,6 +63,9 @@
 <li >
                   <a href="/category/blog.html">Blog</a>
                 </li>
+<li >
+                  <a href="/category/book-note.html">Book Note</a>
+                </li>
 <li  class="active" >
                   <a href="/category/front-end-note.html">Front End Note <span class="sr-only">(current)</span></a>
                 </li>
@@ -110,23 +113,19 @@
 <div class="highlight"><pre><span></span><code>brew install node
 </code></pre></div>
 
-
 <p>查看npm版本</p>
 <div class="highlight"><pre><span></span><code>npm -v
 </code></pre></div>
-
 
 <h3>创建项目</h3>
 <p>脚手架工具create-react-app</p>
 <div class="highlight"><pre><span></span><code>npm install -g create-react-app
 </code></pre></div>
 
-
 <p>tips: 加速下载速度</p>
 <div class="highlight"><pre><span></span><code>npm config <span class="nb">set</span> registry https://registry.npm.taobao.org
 npm config get registry
 </code></pre></div>
-
 
 <p>创建项目</p>
 <div class="highlight"><pre><span></span><code>create-react-app react_app
@@ -134,45 +133,43 @@ npm config get registry
 npm start
 </code></pre></div>
 
-
 <p><img alt="效果图" src="img/first-page.png"></p>
 <p>在项目下可以看到<code>package.json</code>文件如下</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;react_app&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.1.0&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;private&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="nt">&quot;dependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;@testing-library/jest-dom&quot;</span><span class="p">:</span> <span class="s2">&quot;^4.2.4&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;@testing-library/react&quot;</span><span class="p">:</span> <span class="s2">&quot;^9.5.0&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;@testing-library/user-event&quot;</span><span class="p">:</span> <span class="s2">&quot;^7.2.1&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;react&quot;</span><span class="p">:</span> <span class="s2">&quot;^16.13.1&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;react-dom&quot;</span><span class="p">:</span> <span class="s2">&quot;^16.13.1&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;react-scripts&quot;</span><span class="p">:</span> <span class="s2">&quot;3.4.1&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;react-scripts start&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;build&quot;</span><span class="p">:</span> <span class="s2">&quot;react-scripts build&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;react-scripts test&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;eject&quot;</span><span class="p">:</span> <span class="s2">&quot;react-scripts eject&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;eslintConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;extends&quot;</span><span class="p">:</span> <span class="s2">&quot;react-app&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;browserslist&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;production&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="s2">&quot;&gt;0.2%&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;not dead&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;not op_mini all&quot;</span>
-    <span class="p">],</span>
-    <span class="nt">&quot;development&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="s2">&quot;last 1 chrome version&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;last 1 firefox version&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;last 1 safari version&quot;</span>
-    <span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;react_app&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;private&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;@testing-library/jest-dom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^4.2.4&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;@testing-library/react&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^9.5.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;@testing-library/user-event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^7.2.1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;react&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^16.13.1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;react-dom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^16.13.1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;react-scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.4.1&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;react-scripts start&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;build&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;react-scripts build&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;test&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;react-scripts test&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;eject&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;react-scripts eject&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;eslintConfig&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;extends&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;react-app&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;browserslist&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;production&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="s2">&quot;&gt;0.2%&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="s2">&quot;not dead&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="s2">&quot;not op_mini all&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">],</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;development&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="s2">&quot;last 1 chrome version&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="s2">&quot;last 1 firefox version&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="s2">&quot;last 1 safari version&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
-
 
 <p>开头的<code>name</code>为工程名，<code>version</code>表示版本号，<code>dependencies</code>表示工程依赖，<code>script</code>是打包运行的脚本</p>
 <blockquote>
@@ -189,12 +186,11 @@ npm start
   <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 </code></pre></div>
 
-
 <p><code>src/index.js</code>是整个应用的入口js代码</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">React</span> <span class="nn">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">ReactDOM</span> <span class="nn">from</span> <span class="s1">&#39;react-dom&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">React</span> <span class="kn">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">ReactDOM</span> <span class="kn">from</span> <span class="s1">&#39;react-dom&#39;</span><span class="p">;</span>
 <span class="kn">import</span> <span class="s1">&#39;./index.css&#39;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">App</span> <span class="nn">from</span> <span class="s1">&#39;./App&#39;</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">App</span> <span class="kn">from</span> <span class="s1">&#39;./App&#39;</span><span class="p">;</span>
 <span class="kn">import</span> <span class="o">*</span> <span class="k">as</span> <span class="n">serviceWorker</span> <span class="kn">from</span> <span class="s1">&#39;./serviceWorker&#39;</span><span class="p">;</span>
 
 <span class="n">ReactDOM</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
@@ -205,11 +201,10 @@ npm start
 <span class="p">);</span>
 </code></pre></div>
 
-
 <p><code>src/App.js</code>表示App组件
 注意<strong>所有的class</strong>使用<strong>className</strong>代替</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">React</span> <span class="nn">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">logo</span> <span class="nn">from</span> <span class="s1">&#39;./logo.svg&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">React</span> <span class="kn">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">logo</span> <span class="kn">from</span> <span class="s1">&#39;./logo.svg&#39;</span><span class="p">;</span>
 <span class="kn">import</span> <span class="s1">&#39;./App.css&#39;</span><span class="p">;</span>
 
 <span class="n">function</span> <span class="n">App</span><span class="p">()</span> <span class="p">{</span>
@@ -218,7 +213,7 @@ npm start
       <span class="o">&lt;</span><span class="n">header</span> <span class="n">className</span><span class="o">=</span><span class="s2">&quot;App-header&quot;</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="p">{</span><span class="n">logo</span><span class="p">}</span> <span class="n">className</span><span class="o">=</span><span class="s2">&quot;App-logo&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;logo&quot;</span> <span class="o">/&gt;</span>
         <span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
-          <span class="n">Edit</span> <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">src</span><span class="o">/</span><span class="n">App</span><span class="o">.</span><span class="n">js</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span> <span class="ow">and</span> <span class="n">save</span> <span class="n">to</span> <span class="nb">reload</span><span class="o">.</span>
+          <span class="n">Edit</span> <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">src</span><span class="o">/</span><span class="n">App</span><span class="o">.</span><span class="n">js</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span> <span class="ow">and</span> <span class="n">save</span> <span class="n">to</span> <span class="n">reload</span><span class="o">.</span>
         <span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="n">a</span>
           <span class="n">className</span><span class="o">=</span><span class="s2">&quot;App-link&quot;</span>
