@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Home | Hester's Blog</title>
+    <title>  HBase
+ | Hester's Blog</title>
 
     <meta name="author" content="Hester"/>
 
@@ -56,8 +57,8 @@
         <div class="collapse navbar-collapse" id="plumage-navbar-collapse-1">
 
           <ul class="nav navbar-nav">
-<li >
-                  <a href="/category/bigdata.html">BigData</a>
+<li  class="active" >
+                  <a href="/category/bigdata.html">BigData <span class="sr-only">(current)</span></a>
                 </li>
 <li >
                   <a href="/category/blog.html">Blog</a>
@@ -92,91 +93,83 @@
 
 
       <div class="row">
-        <div class=" col-md-12  ">
+        <div class=" col-md-9  ">
+  <h1>
+    <a href="/hbase.html" rel="bookmark" title="Permalink to HBase">HBase</a>
+  </h1>
         </div>
       </div>
 
       <div class="row">
 
 
-        <div class=" col-md-12 " id="content" role="main">
+        <div class=" col-md-9 " id="content" role="main">
+  
 
-    <h2>Articles</h2>
+  <div>
+    <h2>HBase</h2>
+<h3>存储的逻辑结构</h3>
+<h3>存储的物理结构(详细架构)</h3>
+<h3>DML流程</h3>
+<h4>写流程</h4>
+<p>类似log append</p>
+<h4>读流程</h4>
+<p>需要查询内存和磁盘，磁盘文件可以缓存到内存称为 block cache</p>
+<h4>flush刷写流程</h4>
+<h4>compact文件合并流程</h4>
+<h4>split文件拆分流程</h4>
+<p>注意预分区
+建议使用一个列族</p>
+<h3>api</h3>
+<p>DDL一般不会用到
+DML支持</p>
+<p>GET，SCAN两种查询方式</p>
+<p>GET必须指定rowkey
+SCAN，SCAN不指定就是全表扫描，可以指定rowkey范围</p>
+<p>PUT 写入
+DEL 删除</p>
+<p>写入操作和删除操作可以细到cell粒度</p>
+<p>数据真正删除的时机
+1. flush同一个memstore 会删除内存的过期数据
+2. majar compact 删除磁盘的过期数据</p>
+<h3>优化</h3>
+<h4>预分区</h4>
+<p>创建表的时候规划分区，解决数据倾斜问题</p>
+<p>指定rowkey的范围进行分区，例如
+[1000, 2000, 3000, 4000]
+会生成5个分区</p>
+<h4>rowkey设计</h4>
+<h2>mysql</h2>
+  </div>
 
-    <article>
-      <header>
-        <h2><a href="/gui-section-two.html" rel="bookmark" title="Permalink to GUI Section Two">GUI Section Two</a></h2>
-      </header>
-      <div><p>本部分是对GUI中的事件注册进行讨论，初始的代码如下：</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/Button1.java</span>
-<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Button1</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
-    <span class="kd">private</span> <span class="n">JButton</span>
-        <span class="n">b1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;Button1&quot;</span><span class="p">),</span>
-        <span class="n">b2 …</span></code></pre></div></div>
-      <div><a class="btn btn-primary" href="/gui-section-two.html"><strong>➟ Read more</strong></a></div>
-    </article>
-    <hr/>
-    <article>
-      <header>
-        <h2><a href="/gui-section-one.html" rel="bookmark" title="Permalink to GUI Section one">GUI Section one</a></h2>
-      </header>
-      <div><p>java swing 的 hello world</p>
-<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
-
-<span class="cm">/**</span>
-<span class="cm"> * @author Hester</span>
-<span class="cm"> * 初始的frame运用，产生的frame只有标题</span>
-<span class="cm"> */</span>
-
-<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloSwing</span> <span class="p">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span> <span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">JFrame</span> <span class="n">frame</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JFrame</span><span class="p">(</span><span class="s">&quot;Hello Swing&quot;</span><span class="p">);</span> <span class="c1">//新建一个frame对象 …</span></code></pre></div></div>
-      <div><a class="btn btn-primary" href="/gui-section-one.html"><strong>➟ Read more</strong></a></div>
-    </article>
-    <hr/>
-
-  <nav>
-    <ul class="pagination">
-        <li>
-          <a href="/index.html"
-              aria-label="Previous" rel="prev">
-            <span aria-hidden="true">&larr;</span>
-          </a>
-        </li>
-
-<li class="">
-            <a href="/index.html"
-              rel="
- first  prev ">
-              1
-            </a>
-          </li>
-<li class="active">
-            <a href="/index2.html"
-              rel="
- last ">
-              2
-                <span class="sr-only">(current)</span>
-            </a>
-          </li>
-
-        <li class="disabled">
-          <a aria-label="Next" rel="next">
-            <span aria-hidden="true">&rarr;</span>
-          </a>
-        </li>
-    </ul>
-  </nav>
 
         </div>
 
+          <div class="col-md-3">
+  <div class="well">
+
+    <p><abbr title="2022-04-30T16:55:00+08:00"><i class="fa fa-calendar"></i> 六 30 四月 2022</abbr></p>
+
+      <p><address>
+        <i class="fa fa-user"></i> By
+          <a href="/author/hester.html" rel="author">Hester</a>
+      </address></p>
+
+    <hr/>
+
+      <p>
+              <a href="/category/bigdata.html" rel="tag"
+                  data-toggle="tooltip" class="label label-info"
+                  title="2 articles in this category">BigData</a>
+      </p>
+      <hr/>
+
+
+
+  </div>
+            
+          </div>
 
       </div>
 

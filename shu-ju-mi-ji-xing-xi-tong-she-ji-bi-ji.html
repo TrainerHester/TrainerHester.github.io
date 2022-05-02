@@ -207,9 +207,93 @@ css的做法</p>
 
 <p>图类型的数据存储</p>
 <h2>第三章 存储和检索</h2>
-<p>数据库的索引的思想是使用额外的空间来增加查询速度，带来额外的开销有
-1. 额外的存储上
-2. 数据更新时需要维护索引</p>
+<h3>最简单的数据库</h3>
+<p>shell脚本实现的最简单的KV存储，文件格式CSV</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+db_set <span class="o">()</span> <span class="o">{</span>
+        <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">,</span><span class="nv">$2</span><span class="s2">&quot;</span> &gt;&gt; database
+<span class="o">}</span>
+
+db_get <span class="o">()</span> <span class="o">{</span>
+        grep <span class="s2">&quot;^</span><span class="nv">$1</span><span class="s2">,&quot;</span> database <span class="p">|</span> sed -e <span class="s2">&quot;s/^</span><span class="nv">$1</span><span class="s2">,//&quot;</span> <span class="p">|</span> tail -n <span class="m">1</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<p>新增和更新都是使用db_set操作，后写入的会覆盖之前的结果</p>
+<div class="highlight"><pre><span></span><code><span class="mf">123456</span><span class="p">,</span><span class="err">{</span><span class="s">&quot;name&quot;</span><span class="p">:</span><span class="s">&quot;London&quot;</span><span class="p">,</span><span class="s">&quot;attractions&quot;</span><span class="p">:</span><span class="err">[</span><span class="s">&quot;Big Ben&quot;</span><span class="p">,</span><span class="s">&quot;London Eye&quot;</span><span class="err">]}</span><span class="w"> </span>
+<span class="mf">42</span><span class="p">,</span><span class="err">{</span><span class="s">&quot;name&quot;</span><span class="p">:</span><span class="s">&quot;San Francisco&quot;</span><span class="p">,</span><span class="s">&quot;attractions&quot;</span><span class="p">:</span><span class="err">[</span><span class="s">&quot;Golden Gate Bridge&quot;</span><span class="err">]}</span><span class="w"> </span>
+<span class="mf">42</span><span class="p">,</span><span class="err">{</span><span class="s">&quot;name&quot;</span><span class="p">:</span><span class="s">&quot;San Francisco&quot;</span><span class="p">,</span><span class="s">&quot;attractions&quot;</span><span class="p">:</span><span class="err">[</span><span class="s">&quot;Exploratorium&quot;</span><span class="err">]}</span><span class="w"></span>
+</code></pre></div>
+
+<p><strong>文件的顺序写要比随机写快</strong></p>
+<p>log其实可以广义理解为只进行追加操作的文件</p>
+<p>查询的时间复杂度O(n)，为了提高查询的效率，可以在内存新增哈希表，key表示数据的key，value表示偏移量
+<img alt="哈希表" src="img/hashtable.png"></p>
+<p>同时可以起线程对文件合并，
+<img alt="合并" src="img/compact.png"></p>
+<blockquote>
+<p>推演到hbase，上述的合并类似majar compact
+文件格式直接使用字节存储
+对于删除操作写入一个删除标志</p>
+</blockquote>
+<p>这种方案较于直接更新文件数据的优势
+1. 磁盘的顺序写性能高于磁盘的随机写
+2. 并发控制比较容易，可以多个读线程一个写线程
+3. 文件合并可以有效控制产生多个小文件</p>
+<p>劣势
+1. 如果key的数目大到内存哈希表存不下就不好优化
+2. 哈希表不适合范围查询</p>
+<p>一般情况下，最简单的数据库写入操作就是往文件追加数据，如果建立索引，会降低写入的性能
+数据库不会把所有的字段都加索引，开发过程中也只是在某几个字段加索引(ElasticSearch是个例外)</p>
+<h3>SSTable(Sorted String Table)</h3>
+<p>条件
+1. 文件中的key需要排序
+2. 每一个文件的key只能出现一次
+<img alt="SSTable" src="img/sstable.png"></p>
+<p>较于哈希表的优势
+1. 文件的合并使用归并算法，即使对于大文件也非常好操作
+<img alt="归并" src="img/mergeSeg.png"></p>
+<ol>
+<li>
+<p>内存不需要存储所有key的偏移量，使用稀疏索引即可(即只存储部分偏移量，通过部分偏移量定位之后再查找)
+<img alt="稀疏索引" src="img/sparseIndex.png"></p>
+</li>
+<li>
+<p>每一个文件区块可以压缩降低IO消耗 ？</p>
+</li>
+</ol>
+<p>如何在内存构建SSTable，即随机写，但是读取可以按照顺序读
+红黑树，AVL树</p>
+<p>基于SSTable的工作过程
+1. 内存维护树形结构，数据写入时先写入树形结构(memtable)
+2. 树形结构到达一定大小，顺序读出写到磁盘
+3. 对于读请求，先读memtable，没有的话再从磁盘找
+4. 在后台启动线程合并文件，删除过时的数据
+5. 为了防止内存数据丢失，可以使用WAL预写入日志，该日志按照写入顺序存储</p>
+<p>这种存储引擎称为LSM(Log-Structured Merge-Tree)
+使用该方案的数据库
+Cassandra
+HBase
+Lucene的倒排索引(key是单词, value是该单词关联的id列表)</p>
+<p>还可以优化的点
+1. 如果查询不存在的key，需要每次都全表扫描吗？不需要，使用布隆过滤器
+2. 合并的时机，基于内存大小和基于时间的策略</p>
+<p>总而言之，SSTable的方式简单且高效</p>
+<h3>B树</h3>
+<p>在关系型数据库中使用最广泛的数据结构，关系型数据库索引结构的事实标准</p>
+<p>B树存储在磁盘，每一页的大小相同，一般是4KB，每一页都有指向其他页的指针，一般情况下B树为3至4层
+<img alt="btree" src="img/btree.png"></p>
+<p>B树每一个节点一般会有几百个指向下一层节点的指针，更新操作需要先查询出位置再回写，插入数据可能导致节点的分裂</p>
+<p>为了保证在写入中途数据库挂掉，使用WAL或者redo log</p>
+<h3>对比</h3>
+<p>根据经验应该是SSTable的写比较快，B树的读比较快，但是</p>
+<p>LSM的优势
+1. 适合写多读少的场景，写入比较快
+2. 空间利用率高，可以做压缩</p>
+<p>LSM的劣势
+1. 合并过程可能影响读写
+2. 如果写入的速度超过合并的速度，极有可能用光磁盘存储
+3. 对于事务操作，天然支持间隙锁的B树更有优势</p>
 <h2>第四章 编码和演进</h2>
 <h2>第五章 复制</h2>
 <p>复制与分片的区别
@@ -326,7 +410,7 @@ css的做法</p>
 
           <div class="col-md-2 text-muted">
             <h5>Copyright notice</h5>
-            <p>© Copyright 2017-2021 Hester.</p>
+            <p>© Copyright 2017-2022 Hester.</p>
           </div>
 
           <div class="col-md-2 text-muted">
