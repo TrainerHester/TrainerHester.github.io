@@ -350,7 +350,7 @@ Lucene的倒排索引(key是单词, value是该单词关联的id列表)</p>
 <p><img alt="img1" src="img/second_index2.png"></p>
 <p>二级索引也使用分片的方式组织，条件过滤可以直接请求到某一个分片，读性能较高但是写性能较低(写的同时需要构造索引，并且记录分身的分片和记录的分片不一定处在同一个节点，涉及分布式事务问题，大多数生产实践使用的是异步构造索引的方式，CAP先保证AP)</p>
 <blockquote>
-<p>对于二级索引全局分片的方式，读性能较高存疑，因为即使索引走到了同一个分片，真实的数据不一定在同一个分片上，回表带来的搜索所有分片的问题实质上没有被解决</p>
+<p>对于二级索引全局分片的方式，读性能较高存疑，因为即使索引走到了同一个分片，真实的数据不一定在同一个分片上，回表过程必须搜索所有分片，实质上还是可能扫描所有分片</p>
 </blockquote>
 <h3>重分区</h3>
 <p>可能出现的情况
@@ -428,6 +428,9 @@ Basically Available, Soft state, and Eventual consistency</p>
 <li>如果事务id比当前事务大，即使事务被提交，其写请求也会被忽略</li>
 <li>其他事务的写请求可见</li>
 </ul>
+<blockquote>
+<p>mysql的执行结果和上述步骤有出入，mysql认定的是查询开始的时间点快照，而不是事务本身开始时间点的快照</p>
+</blockquote>
 <p>以图中的事务12为例，读取的条件是
 <code>created by &lt;= 12 and (deleted by == nil || deleted by &gt; 12)</code></p>
 <h4>特殊问题 a read-modify-write cycle</h4>
@@ -467,9 +470,9 @@ SQL Server 快照隔离</p>
 <span class="k">UPDATE</span><span class="w"> </span><span class="n">wiki_pages</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;new content&#39;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1234</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;old content&#39;</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 
-<p>需要将事务隔离级别设置为RC，如果设置为RR CAS并没有什么效果</p>
+<p>需要将事务隔离级别设置为RC，如果设置为RR CAS同样有效，<strong>update不受RR读一致的限制</strong></p>
 <blockquote>
-<p>还有个问题，如果使用特定的字段执行CAS，可能带来ABA问题，最好的方式是使用自增的version字段解决问题</p>
+<p>如果使用特定的字段执行CAS，可能带来ABA问题，最好的方式是使用自增的version字段解决问题</p>
 </blockquote>
 <h4>幻读</h4>
 <p>一个事务的写操作(UPDATE, INSERT, DELETE)可能影响另一个事务查询操作(特别是对行数有影响的操作，例如count)的结果</p>
