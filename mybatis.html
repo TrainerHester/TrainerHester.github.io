@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>  mybatis
+ | Hester's Blog</title>
+
+    <meta name="author" content="Hester"/>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"/>
+    <link rel="stylesheet" href="/theme/css/jquery.mglass.css"/>
+    <link rel="stylesheet" href="/theme/css/pygment-solarized-dark.css"/>
+    <link rel="stylesheet" href="/theme/css/style.css"/>
+
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'/>
+
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <!-- Feeds -->
+
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1><a href="">Hester's Blog</a> <small></small></h1>
+      </div>
+
+      <nav class="navbar navbar-default">
+
+        <!-- Hamburger menu for mobile -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#plumage-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="" title="">Hester's Blog</a>
+        </div>
+
+        <!-- Menus and search forms -->
+        <div class="collapse navbar-collapse" id="plumage-navbar-collapse-1">
+
+          <ul class="nav navbar-nav">
+<li >
+                  <a href="/category/bigdata.html">BigData</a>
+                </li>
+<li >
+                  <a href="/category/blog.html">Blog</a>
+                </li>
+<li >
+                  <a href="/category/book-note.html">Book Note</a>
+                </li>
+<li >
+                  <a href="/category/front-end-note.html">Front End Note</a>
+                </li>
+<li >
+                  <a href="/category/gui-note.html">GUI Note</a>
+                </li>
+<li  class="active" >
+                  <a href="/category/java.html">java <span class="sr-only">(current)</span></a>
+                </li>
+<li >
+                  <a href="/category/java-note.html">Java Note</a>
+                </li>
+<li >
+                  <a href="/category/spring.html">Spring</a>
+                </li>
+          </ul>
+
+
+
+        </div>
+
+      </nav>
+
+    </div>
+
+
+    <div class="container main">
+
+
+      <div class="row">
+        <div class=" col-md-9  ">
+  <h1>
+    <a href="/mybatis.html" rel="bookmark" title="Permalink to mybatis">mybatis</a>
+  </h1>
+        </div>
+      </div>
+
+      <div class="row">
+
+
+        <div class=" col-md-9 " id="content" role="main">
+  
+
+  <div>
+    <p>整体结构</p>
+<p><img alt="unavailable" src="img/mybatis.png"></p>
+<p>整体执行流程
+1. 获取SqlSessionFactory
+2. 获取SqlSession
+3. 获取接口代理对象 MapperProxy
+4. 执行SQL</p>
+<h2>SqlSessionFactory</h2>
+<p>在springboot使用的代码化配置</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="n">SqlSessionFactory</span> <span class="nf">sqlSessionFactory</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+    <span class="n">SqlSessionFactoryBean</span> <span class="n">sqlSessionFactoryBean</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SqlSessionFactoryBean</span><span class="p">();</span>
+    <span class="n">sqlSessionFactoryBean</span><span class="p">.</span><span class="na">setVfs</span><span class="p">(</span><span class="n">SpringBootVFS</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+    <span class="c1">// 数据源</span>
+    <span class="n">sqlSessionFactoryBean</span><span class="p">.</span><span class="na">setDataSource</span><span class="p">(</span><span class="n">dataSource</span><span class="p">);</span>
+    <span class="n">PathMatchingResourcePatternResolver</span> <span class="n">resolver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PathMatchingResourcePatternResolver</span><span class="p">();</span>
+    <span class="c1">// SQL配置文件</span>
+    <span class="n">org</span><span class="p">.</span><span class="na">springframework</span><span class="p">.</span><span class="na">core</span><span class="p">.</span><span class="na">io</span><span class="p">.</span><span class="na">Resource</span><span class="o">[]</span> <span class="n">resources</span> <span class="o">=</span>
+            <span class="n">resolver</span><span class="p">.</span><span class="na">getResources</span><span class="p">(</span><span class="s">&quot;mapper/*.xml&quot;</span><span class="p">);</span>
+    <span class="n">sqlSessionFactoryBean</span><span class="p">.</span><span class="na">setMapperLocations</span><span class="p">(</span><span class="n">resources</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">sqlSessionFactoryBean</span><span class="p">.</span><span class="na">getObject</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3>解析sql配置</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// builder模式</span>
+<span class="n">XMLMapperBuilder</span> <span class="n">xmlMapperBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">XMLMapperBuilder</span><span class="p">(</span><span class="n">mapperLocation</span><span class="p">.</span><span class="na">getInputStream</span><span class="p">(),</span>
+              <span class="n">targetConfiguration</span><span class="p">,</span> <span class="n">mapperLocation</span><span class="p">.</span><span class="na">toString</span><span class="p">(),</span> <span class="n">targetConfiguration</span><span class="p">.</span><span class="na">getSqlFragments</span><span class="p">());</span>
+<span class="c1">// 开始解析              </span>
+<span class="n">xmlMapperBuilder</span><span class="p">.</span><span class="na">parse</span><span class="p">();</span>
+
+<span class="c1">// org.apache.ibatis.builder.xml.XMLMapperBuilder#parse</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">parse</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">configuration</span><span class="p">.</span><span class="na">isResourceLoaded</span><span class="p">(</span><span class="n">resource</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// xpath解析mapper节点</span>
+    <span class="n">configurationElement</span><span class="p">(</span><span class="n">parser</span><span class="p">.</span><span class="na">evalNode</span><span class="p">(</span><span class="s">&quot;/mapper&quot;</span><span class="p">));</span>
+    <span class="n">configuration</span><span class="p">.</span><span class="na">addLoadedResource</span><span class="p">(</span><span class="n">resource</span><span class="p">);</span>
+    <span class="n">bindMapperForNamespace</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="n">parsePendingResultMaps</span><span class="p">();</span>
+  <span class="n">parsePendingCacheRefs</span><span class="p">();</span>
+  <span class="n">parsePendingStatements</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">// org.apache.ibatis.builder.xml.XMLMapperBuilder#configurationElement</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">configurationElement</span><span class="p">(</span><span class="n">XNode</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="n">String</span> <span class="n">namespace</span> <span class="o">=</span> <span class="n">context</span><span class="p">.</span><span class="na">getStringAttribute</span><span class="p">(</span><span class="s">&quot;namespace&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">namespace</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">namespace</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="n">BuilderException</span><span class="p">(</span><span class="s">&quot;Mapper&#39;s namespace cannot be empty&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">builderAssistant</span><span class="p">.</span><span class="na">setCurrentNamespace</span><span class="p">(</span><span class="n">namespace</span><span class="p">);</span>
+    <span class="n">cacheRefElement</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">evalNode</span><span class="p">(</span><span class="s">&quot;cache-ref&quot;</span><span class="p">));</span>
+    <span class="n">cacheElement</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">evalNode</span><span class="p">(</span><span class="s">&quot;cache&quot;</span><span class="p">));</span>
+    <span class="n">parameterMapElement</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">evalNodes</span><span class="p">(</span><span class="s">&quot;/mapper/parameterMap&quot;</span><span class="p">));</span>
+    <span class="c1">// 构建结果映射</span>
+    <span class="cm">/**</span>
+<span class="cm">    &lt;resultMap id=&quot;BaseResultMap&quot; type=&quot;com.example.demo.dataobject.UserDO&quot;&gt;</span>
+<span class="cm">        &lt;id column=&quot;id&quot; jdbcType=&quot;INTEGER&quot; property=&quot;id&quot; /&gt;</span>
+<span class="cm">        &lt;result column=&quot;name&quot; jdbcType=&quot;VARCHAR&quot; property=&quot;name&quot; /&gt;</span>
+<span class="cm">    &lt;/resultMap&gt;</span>
+<span class="cm">    */</span>    
+    <span class="n">resultMapElements</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">evalNodes</span><span class="p">(</span><span class="s">&quot;/mapper/resultMap&quot;</span><span class="p">));</span>
+    <span class="c1">// 构建sql语句片段映射</span>
+    <span class="cm">/**</span>
+<span class="cm">    &lt;sql id=&quot;Base_Column_List&quot;&gt;</span>
+<span class="cm">        id, name</span>
+<span class="cm">    &lt;/sql&gt;</span>
+<span class="cm">    */</span>
+    <span class="n">sqlElement</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">evalNodes</span><span class="p">(</span><span class="s">&quot;/mapper/sql&quot;</span><span class="p">));</span>
+    <span class="c1">// 构建sql语句, 构造MappedStatement</span>
+    <span class="cm">/**</span>
+<span class="cm">    &lt;select id=&quot;selectByPrimaryKey&quot; parameterType=&quot;java.lang.Integer&quot; resultMap=&quot;BaseResultMap&quot;&gt;</span>
+<span class="cm">        select </span>
+<span class="cm">        &lt;include refid=&quot;Base_Column_List&quot; /&gt;</span>
+<span class="cm">        from user</span>
+<span class="cm">        where id = #{id,jdbcType=INTEGER}</span>
+<span class="cm">    &lt;/select&gt;</span>
+<span class="cm">    */</span>
+    <span class="n">buildStatementFromContext</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">evalNodes</span><span class="p">(</span><span class="s">&quot;select|insert|update|delete&quot;</span><span class="p">));</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="n">BuilderException</span><span class="p">(</span><span class="s">&quot;Error parsing Mapper XML. The XML location is &#39;&quot;</span> <span class="o">+</span> <span class="n">resource</span> <span class="o">+</span> <span class="s">&quot;&#39;. Cause: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="p">,</span> <span class="n">e</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3>其他有关数据库的问题</h3>
+<ol>
+<li>
+<p>mysql中数据类型的varchar(3)，3表示<strong>字符</strong>长度，无论是中文还是英文字符，实验版本mysql5.7 utf-8编码格式</p>
+</li>
+<li>
+<p>使用mybatis过程中，DO的定义可以是基本数据类型吗？如果遇到可空的字段是否会报错？
+经过实验，可以定义为基本数据类型
+如果为null，mybatis不会反射调用错将基本数据类型设置为null</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1">//org.apache.ibatis.executor.resultset.DefaultResultSetHandler#applyPropertyMappings</span>
+
+<span class="n">Object</span> <span class="n">value</span> <span class="o">=</span> <span class="n">getPropertyMappingValue</span><span class="p">(</span><span class="n">rsw</span><span class="p">.</span><span class="na">getResultSet</span><span class="p">(),</span> <span class="n">metaObject</span><span class="p">,</span> <span class="n">propertyMapping</span><span class="p">,</span> <span class="n">lazyLoader</span><span class="p">,</span> <span class="n">columnPrefix</span><span class="p">);</span>
+<span class="c1">// issue #541 make property optional</span>
+<span class="kd">final</span> <span class="n">String</span> <span class="n">property</span> <span class="o">=</span> <span class="n">propertyMapping</span><span class="p">.</span><span class="na">getProperty</span><span class="p">();</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">property</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">continue</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="n">DEFERRED</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">foundValues</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="k">continue</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">foundValues</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// 判断逻辑，如果数据库是null，必须在配置中显式声明null也要set并且不能是原生类型</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">||</span> <span class="p">(</span><span class="n">configuration</span><span class="p">.</span><span class="na">isCallSettersOnNulls</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">metaObject</span><span class="p">.</span><span class="na">getSetterType</span><span class="p">(</span><span class="n">property</span><span class="p">).</span><span class="na">isPrimitive</span><span class="p">()))</span> <span class="p">{</span>
+    <span class="c1">// gcode issue #377, call setter on nulls (value is not &#39;found&#39;)</span>
+    <span class="n">metaObject</span><span class="p">.</span><span class="na">setValue</span><span class="p">(</span><span class="n">property</span><span class="p">,</span> <span class="n">value</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ol>
+<li>使用mybatis进行insert操作，返回值是什么？
+影响的行数 or insert之后的主键？</li>
+</ol>
+<p>mybaits调用的原生jdbc方法</p>
+<div class="highlight"><pre><span></span><code><span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">ibatis</span><span class="p">.</span><span class="na">executor</span><span class="p">.</span><span class="na">statement</span><span class="p">.</span><span class="na">PreparedStatementHandler</span><span class="err">#</span><span class="n">update</span>
+
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">update</span><span class="p">(</span><span class="n">Statement</span> <span class="n">statement</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="p">{</span>
+    <span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="p">(</span><span class="n">PreparedStatement</span><span class="p">)</span> <span class="n">statement</span><span class="p">;</span>
+    <span class="n">ps</span><span class="p">.</span><span class="na">execute</span><span class="p">();</span>
+    <span class="c1">// 拿到的是更新的行数，原生的jdbc api</span>
+    <span class="kt">int</span> <span class="n">rows</span> <span class="o">=</span> <span class="n">ps</span><span class="p">.</span><span class="na">getUpdateCount</span><span class="p">();</span>
+    <span class="n">Object</span> <span class="n">parameterObject</span> <span class="o">=</span> <span class="n">boundSql</span><span class="p">.</span><span class="na">getParameterObject</span><span class="p">();</span>
+    <span class="n">KeyGenerator</span> <span class="n">keyGenerator</span> <span class="o">=</span> <span class="n">mappedStatement</span><span class="p">.</span><span class="na">getKeyGenerator</span><span class="p">();</span>
+    <span class="c1">// 查询后的操作，同样可能使用原生的jdbc api </span>
+    <span class="c1">// java.sql.Statement#getGeneratedKeys</span>
+    <span class="n">keyGenerator</span><span class="p">.</span><span class="na">processAfter</span><span class="p">(</span><span class="n">executor</span><span class="p">,</span> <span class="n">mappedStatement</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">parameterObject</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">rows</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>关于返回值的类型，以下代码已经解释的非常清晰了</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// org.apache.ibatis.binding.MapperMethod#rowCountResult</span>
+
+<span class="kd">private</span> <span class="n">Object</span> <span class="nf">rowCountResult</span><span class="p">(</span><span class="kt">int</span> <span class="n">rowCount</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">final</span> <span class="n">Object</span> <span class="n">result</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">method</span><span class="p">.</span><span class="na">returnsVoid</span><span class="p">())</span> <span class="p">{</span>
+      <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">Integer</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">method</span><span class="p">.</span><span class="na">getReturnType</span><span class="p">())</span> <span class="o">||</span> <span class="n">Integer</span><span class="p">.</span><span class="na">TYPE</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">method</span><span class="p">.</span><span class="na">getReturnType</span><span class="p">()))</span> <span class="p">{</span>
+      <span class="n">result</span> <span class="o">=</span> <span class="n">rowCount</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">Long</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">method</span><span class="p">.</span><span class="na">getReturnType</span><span class="p">())</span> <span class="o">||</span> <span class="n">Long</span><span class="p">.</span><span class="na">TYPE</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">method</span><span class="p">.</span><span class="na">getReturnType</span><span class="p">()))</span> <span class="p">{</span>
+      <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">rowCount</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">Boolean</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">method</span><span class="p">.</span><span class="na">getReturnType</span><span class="p">())</span> <span class="o">||</span> <span class="n">Boolean</span><span class="p">.</span><span class="na">TYPE</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">method</span><span class="p">.</span><span class="na">getReturnType</span><span class="p">()))</span> <span class="p">{</span>
+      <span class="n">result</span> <span class="o">=</span> <span class="n">rowCount</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="n">BindingException</span><span class="p">(</span><span class="s">&quot;Mapper method &#39;&quot;</span> <span class="o">+</span> <span class="n">command</span><span class="p">.</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;&#39; has an unsupported return type: &quot;</span> <span class="o">+</span> <span class="n">method</span><span class="p">.</span><span class="na">getReturnType</span><span class="p">());</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+  </div>
+
+
+
+        </div>
+
+          <div class="col-md-3">
+  <div class="well">
+
+    <p><abbr title="2022-05-14T16:55:00+08:00"><i class="fa fa-calendar"></i> 六 14 五月 2022</abbr></p>
+
+      <p><address>
+        <i class="fa fa-user"></i> By
+          <a href="/author/hester.html" rel="author">Hester</a>
+      </address></p>
+
+    <hr/>
+
+      <p>
+              <a href="/category/java.html" rel="tag"
+                  data-toggle="tooltip" class="label label-info"
+                  title="1 article in this category">java</a>
+      </p>
+      <hr/>
+
+
+
+  </div>
+            
+          </div>
+
+      </div>
+
+    </div>
+
+    <!-- TODO: make footer sticky -->
+    <footer class="container-fluid">
+      <div class="container">
+        <div class="row">
+
+            <div class="col-md-2">
+                <h5>Social</h5>
+                <ul class="list-unstyled">
+                  <li>  <a href="#">
+      <i class="fa fa-external-link"></i>
+    You can add links in your config file
+  </a></li>
+                  <li>  <a href="#">
+      <i class="fa fa-external-link"></i>
+    Another social link
+  </a></li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <h5>Links</h5>
+                <ul class="list-unstyled">
+                  <li>  <a href="http://getpelican.com/">
+      <img src="https://icons.better-idea.org/icon?url=getpelican.com&size=16" width="16" height="16" class="icon" alt="getpelican.com icon"/>
+    Pelican
+  </a></li>
+                  <li>  <a href="http://python.org/">
+      <img src="https://icons.better-idea.org/icon?url=python.org&size=16" width="16" height="16" class="icon" alt="python.org icon"/>
+    Python.org
+  </a></li>
+                  <li>  <a href="http://jinja.pocoo.org/">
+      <img src="https://icons.better-idea.org/icon?url=jinja.pocoo.org&size=16" width="16" height="16" class="icon" alt="jinja.pocoo.org icon"/>
+    Jinja2
+  </a></li>
+                  <li>  <a href="#">
+      <i class="fa fa-external-link"></i>
+    You can modify those links in your config file
+  </a></li>
+                </ul>
+            </div>
+
+          <div class="col-md-2">
+            <h5>Browse content by</h5>
+            <ul class="list-unstyled">
+            </ul>
+          </div>
+
+          <div class="col-md-2 text-muted">
+            <h5>Copyright notice</h5>
+            <p>© Copyright 2017-2022 Hester.</p>
+          </div>
+
+          <div class="col-md-2 text-muted">
+            <h5>Disclaimer</h5>
+              <p>All opinions expressed in this site are my own personal opinions and are not endorsed by, nor do they represent the opinions of my previous, current and future employers or any of its affiliates, partners or customers.</p>
+          </div>
+
+          <div class="col-md-2">
+          </div>
+
+        </div>
+      </div>
+
+      <h5 class="text-right"><a href="#"><i class="fa fa-arrow-up"></i> Back to top</a></h5>
+
+      <div class="container">
+        <div class="row col-md-12 text-muted text-center">
+          Site generated by <a href="https://getpelican.com"> Pelican</a>.<br/>
+          <a href="https://github.com/kdeldycke/plumage"> Plumage</a> theme by <a href="https://kevin.deldycke.com">Kevin Deldycke</a>.
+        </div>
+      </div>
+
+    </footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js"></script>
+    <script src="/theme/js/jquery.mglass.js"></script>
+    <script src="/theme/js/application.js"></script>
+
+  </body>
+</html>

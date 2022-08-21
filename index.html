@@ -72,6 +72,9 @@
                   <a href="/category/gui-note.html">GUI Note</a>
                 </li>
 <li >
+                  <a href="/category/java.html">java</a>
+                </li>
+<li >
                   <a href="/category/java-note.html">Java Note</a>
                 </li>
 <li >
@@ -103,6 +106,25 @@
 
     <h2>Articles</h2>
 
+    <article>
+      <header>
+        <h2><a href="/mybatis.html" rel="bookmark" title="Permalink to mybatis">mybatis</a></h2>
+      </header>
+      <div><p>整体结构</p>
+<p><img alt="unavailable" src="img/mybatis.png"></p>
+<p>整体执行流程
+1. 获取SqlSessionFactory
+2. 获取SqlSession
+3. 获取接口代理对象 MapperProxy
+4. 执行SQL</p>
+<h2>SqlSessionFactory</h2>
+<p>在springboot使用的代码化配置</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="n">SqlSessionFactory</span> <span class="nf">sqlSessionFactory</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+    <span class="n">SqlSessionFactoryBean …</span></code></pre></div></div>
+      <div><a class="btn btn-primary" href="/mybatis.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
     <article>
       <header>
         <h2><a href="/hbase.html" rel="bookmark" title="Permalink to HBase">HBase</a></h2>
@@ -386,22 +408,6 @@ BufferedReader是套在FileReader …</p></div>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ShowMethods</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
     <span class="kd">private</span> <span class="n">JTextField</span> <span class="n">name</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JTextField</span><span class="p">(</span><span class="mi">25 …</span></code></pre></div></div>
       <div><a class="btn btn-primary" href="/gui-section-four.html"><strong>➟ Read more</strong></a></div>
-    </article>
-    <hr/>
-    <article>
-      <header>
-        <h2><a href="/gui-section-three.html" rel="bookmark" title="Permalink to GUI Section Three">GUI Section Three</a></h2>
-      </header>
-      <div><p>本次讨论的是GUI的布局，作为例子，首先使用的是BorderLayout，代码和效果如下</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/BorderLayout1.java</span>
-<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
-
-<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BorderLayout1</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
-    <span class="kd">public</span> <span class="nf">BorderLayout1 …</span></code></pre></div></div>
-      <div><a class="btn btn-primary" href="/gui-section-three.html"><strong>➟ Read more</strong></a></div>
     </article>
     <hr/>
 
