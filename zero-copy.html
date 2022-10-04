@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>  All authors
+    <title>  zero copy
  | Hester's Blog</title>
 
     <meta name="author" content="Hester"/>
@@ -75,8 +75,8 @@
 <li >
                   <a href="/category/java.html">java</a>
                 </li>
-<li >
-                  <a href="/category/java-note.html">Java Note</a>
+<li  class="active" >
+                  <a href="/category/java-note.html">Java Note <span class="sr-only">(current)</span></a>
                 </li>
 <li >
                   <a href="/category/spring.html">Spring</a>
@@ -96,9 +96,9 @@
 
 
       <div class="row">
-        <div class=" col-md-12  ">
+        <div class=" col-md-9  ">
   <h1>
-      <a href="/" rel="bookmark" title="Permalink to author list">Authors</a>
+    <a href="/zero-copy.html" rel="bookmark" title="Permalink to zero copy">zero copy</a>
   </h1>
         </div>
       </div>
@@ -106,16 +106,80 @@
       <div class="row">
 
 
-        <div class=" col-md-12 " id="content" role="main">
+        <div class=" col-md-9 " id="content" role="main">
+  
+
+  <div>
+    <p>零拷贝的文章翻译
+<a href="https://developer.ibm.com/articles/j-zerocopy/">原文地址</a></p>
+<h2>零拷贝: 高效的数据传输方式</h2>
+<p>许多网页应用的运作方式是收到请求后，从磁盘读取数据然后写入socket作为响应，用于提供大量静态内容。这种流程看似占据CPU资源较少，但是并不高效，原因在于
+1. 内核从磁盘读取数据，再把数据复制到应用空间
+2. 应用把数据写入内核，内核把数据写到socket
+应用本身只是作为一个并不高效的中间层把数据从磁盘复制到socket</p>
+<p>当用户态和内核态之间切换的时，数据也需要复制，从而消耗了CPU和内存的带宽。<strong>零拷贝</strong>技术可以解决这个问题，前提是内核支持将数据不经过应用程序的情况下从磁盘直接拷贝到socket。零拷贝就是通过消除用户态和内核态的切换大幅提升应用性能。</p>
+<h3>传统的数据传输方式</h3>
+<p>思考这样一种场景：从文件读取数据，然后通过网络发送给其他应用(网页的静态数据传输，FTP服务，邮件服务都是这种场景)，核心的逻辑可以使用两个步骤概括
+1. 从磁盘读取数据
+2. 将数据写到socket</p>
+<p>虽然这个过程看上去简单，但是需要4次用户态和内核态的切换以及4次数据复制，如下图所示</p>
+<p><img alt="数据复制" src="img/zp-figure1.gif"></p>
+<p><img alt="状态切换" src="img/zp-figure2.gif"></p>
+<ol>
+<li>从磁盘读取文件(通常是read方法)的过程有一次用户态到内核态的切换，DMA负责将数据从磁盘复制到内核态的地址空间</li>
+<li>数据从内核态的地址空间复制到用户态的地址空间，内核态切换到用户态</li>
+<li>发送数据(通常是send方法)，用户态切换到内核态，数据从用户态地址空间复制到内核态地址空间</li>
+<li>内核态切换到用户态，并且DMA负责将socket的数据发送出去</li>
+</ol>
+<p>使用这种方式看起来低效，但是这种方式也可以提高性能。读取数据的过程中如果数据量较小，即应用程序需要的数据量比read buffer的数据量小，那么read buffer可以起到缓存的作用，发送数据的过程中，内核只需要把数据从应用的地址空间复制到内核的socket buffer就可以直接返回，真正的发送过程是异步执行的。</p>
+<p>然而，当数据量比较大的场景下，这种方式就会变为性能瓶颈。数据会在磁盘，应用地址空间，内核地址空间被复制多次，零拷贝就是通过消除这些复制过程提升性能</p>
+<h3>零拷贝的数据传输方式</h3>
+<p>重新回顾传统的数据传输方式，可以发现第二次和第三次数据复制没有必要。应用除了把数据从read buffer读到应用，再从应用复制到socket buffer没有做额外操作。数据其实可以从read buffer直接复制到socket buffer，<strong>transfer to</strong>方法就是用于完成这个操作的</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">transferTo</span><span class="p">(</span><span class="kt">long</span> <span class="n">position</span><span class="p">,</span> <span class="kt">long</span> <span class="n">count</span><span class="p">,</span> <span class="n">WritableByteChannel</span> <span class="n">target</span><span class="p">);</span>
+</code></pre></div>
+
+<blockquote>
+<p>transferTo方法的部分注释: This method is potentially much more efficient than a simple loop that reads from this channel and writes to the target channel. Many operating systems can transfer bytes directly from the filesystem cache to the target channel without actually copying them.</p>
+</blockquote>
+<p>transferTo方法把数据从一个channel转移到另一个channel，至于是否使用零拷贝，取决于底层操作系统是否支持，大多数类unix操作系统有<strong>sendfile()</strong>用于支持零拷贝。</p>
+<p><img alt="数据复制" src="img/zp-figure3.gif"></p>
+<p><img alt="状态切换" src="img/zp-figure4.gif"></p>
+<ol>
+<li>调用transferTo方法后，DMA把磁盘文件的内容复制到read buffer，然后从read buffer复制到socket buffer</li>
+<li>DMA把数据从socket buffer复制到NIC buffer</li>
+</ol>
+<p>上下文切换的次数从4次降到2次，数据复制的次数从4次降到3次，如果底层网卡支持<strong>gather operations</strong>，可以进一步降低复制次数。Linux2.4之后的版本就支持这个操作，只需要两次数据复制，并且全部由DMA完成，不再占用CPU资源</p>
+<p><img alt="数据复制" src="img/zp-figure5.gif"></p>
+  </div>
 
 
-  <dl class="dl-horizontal">
-      <dt><a href="/author/hester.html" class="label label-info">Hester</a></dt>
-      <dd><a href="/author/hester.html">24 articles</a></dd>
-  </dl>
 
         </div>
 
+          <div class="col-md-3">
+  <div class="well">
+
+    <p><abbr title="2022-10-04T20:23:00+08:00"><i class="fa fa-calendar"></i> 二 04 十月 2022</abbr></p>
+
+      <p><address>
+        <i class="fa fa-user"></i> By
+          <a href="/author/hester.html" rel="author">Hester</a>
+      </address></p>
+
+    <hr/>
+
+      <p>
+              <a href="/category/java-note.html" rel="tag"
+                  data-toggle="tooltip" class="label label-info"
+                  title="5 articles in this category">Java Note</a>
+      </p>
+      <hr/>
+
+
+
+  </div>
+            
+          </div>
 
       </div>
 
