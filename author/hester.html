@@ -112,6 +112,53 @@
 
     <article>
       <header>
+        <h2><a href="/fu-wu-duan-ke-pu.html" rel="bookmark" title="Permalink to 服务端科普">服务端科普</a></h2>
+      </header>
+      <div><h1>前言</h1>
+<p>本文首先会对服务端系统做一个简单的概括，然后对如何构建一个java服务端系统进行描述</p>
+<h1>与客户端对比</h1>
+<p>服务端是 …</p></div>
+      <div><a class="btn btn-primary" href="/fu-wu-duan-ke-pu.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/shen-ru-li-jie-javaxu-ni-ji.html" rel="bookmark" title="Permalink to 深入理解Java虚拟机">深入理解Java虚拟机</a></h2>
+      </header>
+      <div><h2>内存区域</h2>
+<h3>程序计数器</h3>
+<p><strong>Program Counter Register</strong>，当前线程所执行的字节码的行号指示器，每个线程都有一个独立的程序计数器</p>
+<p>如果线程正 …</p></div>
+      <div><a class="btn btn-primary" href="/shen-ru-li-jie-javaxu-ni-ji.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/apache-calcite.html" rel="bookmark" title="Permalink to Apache Calcite">Apache Calcite</a></h2>
+      </header>
+      <div><h2>主要功能</h2>
+<ol>
+<li>标准的SQL解析，校验以及提供JDBC驱动</li>
+<li>将SQL转换为关系代数，基于成本模型进行优化</li>
+<li>适配第三方数据源</li>
+</ol>
+<h2>官方文档 …</h2></div>
+      <div><a class="btn btn-primary" href="/apache-calcite.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
+        <h2><a href="/graalvm.html" rel="bookmark" title="Permalink to GraalVM">GraalVM</a></h2>
+      </header>
+      <div><h2>简介</h2>
+<p>GraalVM可以把java应用编译成可直接执行的镜像，占用内存更小，启动速度更快，它可以使java应用不依赖JVM运行</p>
+<h2>hello world</h2>
+<h3>前置条 …</h3></div>
+      <div><a class="btn btn-primary" href="/graalvm.html"><strong>➟ Read more</strong></a></div>
+    </article>
+    <hr/>
+    <article>
+      <header>
         <h2><a href="/zero-copy.html" rel="bookmark" title="Permalink to zero copy">zero copy</a></h2>
       </header>
       <div><p>零拷贝的文章翻译
@@ -337,75 +384,6 @@ BufferedReader是套在FileReader …</p></div>
       <div><a class="btn btn-primary" href="/java-io-note.html"><strong>➟ Read more</strong></a></div>
     </article>
     <hr/>
-    <article>
-      <header>
-        <h2><a href="/gui-section-eight.html" rel="bookmark" title="Permalink to GUI Section EIGHT">GUI Section EIGHT</a></h2>
-      </header>
-      <div><p>GUI中的画图实例</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/Painter,java</span>
-
-<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
-
-<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Painter</span> <span class="kd">extends</span> <span class="n">JFrame</span> <span class="p">{</span>
-
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">paint</span><span class="p">(</span><span class="n">Graphics</span> <span class="n">g</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">Color</span> <span class="n">c</span> <span class="o">=</span> <span class="n">g</span><span class="p">.</span><span class="na">getColor</span><span class="p">();</span> <span class="c1">//获取当前画笔的颜色</span>
-        <span class="n">g</span><span class="p">.</span><span class="na">setColor</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">red</span><span class="p">);</span>
-        <span class="n">g …</span></code></pre></div></div>
-      <div><a class="btn btn-primary" href="/gui-section-eight.html"><strong>➟ Read more</strong></a></div>
-    </article>
-    <hr/>
-    <article>
-      <header>
-        <h2><a href="/gui-section-seven.html" rel="bookmark" title="Permalink to GUI Section SEVEN">GUI Section SEVEN</a></h2>
-      </header>
-      <div><p>GUI轮廓的小示例：</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/Border.java</span>
-<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">javax.swing.border.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Borders</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
-    <span class="kd">static</span> <span class="n">JPanel</span> <span class="nf">showBorder</span><span class="p">(</span><span class="n">Border</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">JPanel</span> <span class="n">jp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JPanel</span><span class="p">();</span>
-        <span class="n">jp</span><span class="p">.</span><span class="na">setLayout</span><span class="p">(</span><span class="k">new</span> <span class="n">BorderLayout</span><span class="p">());</span>
-        <span class="n">String</span> <span class="n">nm</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">toString</span><span class="p">();</span>
-        <span class="n">nm …</span></code></pre></div></div>
-      <div><a class="btn btn-primary" href="/gui-section-seven.html"><strong>➟ Read more</strong></a></div>
-    </article>
-    <hr/>
-    <article>
-      <header>
-        <h2><a href="/gui-section-six.html" rel="bookmark" title="Permalink to GUI Section SIX">GUI Section SIX</a></h2>
-      </header>
-      <div><p>下面是Button的一个例子，演示的Button种类包括JButton, JToggleButton, JRadioButton, JCheckBox
-利用反射机制建立了一系列的按钮组，加入按钮组的Button会产生互斥的 …</p></div>
-      <div><a class="btn btn-primary" href="/gui-section-six.html"><strong>➟ Read more</strong></a></div>
-    </article>
-    <hr/>
-    <article>
-      <header>
-        <h2><a href="/gui-section-five.html" rel="bookmark" title="Permalink to GUI Section Five">GUI Section Five</a></h2>
-      </header>
-      <div><p>以下的代码用于观察多个事件</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/TrackEvent.java</span>
-<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
-
-<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.awt.event.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.util.*</span><span class="p">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TrackEvent</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
-    <span class="kd">private</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">JTextField</span><span class="o">&gt;</span> <span class="n">h</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span>
-    <span class="kd">private</span> <span class="n">String</span><span class="o">[]</span> <span class="n">event …</span></code></pre></div></div>
-      <div><a class="btn btn-primary" href="/gui-section-five.html"><strong>➟ Read more</strong></a></div>
-    </article>
-    <hr/>
 
   <nav>
     <ul class="pagination">
@@ -495,7 +473,7 @@ BufferedReader是套在FileReader …</p></div>
 
           <div class="col-md-2 text-muted">
             <h5>Copyright notice</h5>
-            <p>© Copyright 2017-2022 Hester.</p>
+            <p>© Copyright 2017-2024 Hester.</p>
           </div>
 
           <div class="col-md-2 text-muted">

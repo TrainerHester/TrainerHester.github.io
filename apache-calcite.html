@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>  HBase
+    <title>  Apache Calcite
  | Hester's Blog</title>
 
     <meta name="author" content="Hester"/>
@@ -57,8 +57,8 @@
         <div class="collapse navbar-collapse" id="plumage-navbar-collapse-1">
 
           <ul class="nav navbar-nav">
-<li  class="active" >
-                  <a href="/category/bigdata.html">BigData <span class="sr-only">(current)</span></a>
+<li >
+                  <a href="/category/bigdata.html">BigData</a>
                 </li>
 <li >
                   <a href="/category/blog.html">Blog</a>
@@ -75,8 +75,8 @@
 <li >
                   <a href="/category/java.html">java</a>
                 </li>
-<li >
-                  <a href="/category/java-note.html">Java Note</a>
+<li  class="active" >
+                  <a href="/category/java-note.html">Java Note <span class="sr-only">(current)</span></a>
                 </li>
 <li >
                   <a href="/category/spring.html">Spring</a>
@@ -98,7 +98,7 @@
       <div class="row">
         <div class=" col-md-9  ">
   <h1>
-    <a href="/hbase.html" rel="bookmark" title="Permalink to HBase">HBase</a>
+    <a href="/apache-calcite.html" rel="bookmark" title="Permalink to Apache Calcite">Apache Calcite</a>
   </h1>
         </div>
       </div>
@@ -110,39 +110,52 @@
   
 
   <div>
-    <h2>HBase</h2>
-<h3>存储的逻辑结构</h3>
-<h3>存储的物理结构(详细架构)</h3>
-<h3>DML流程</h3>
-<h4>写流程</h4>
-<p>类似log append</p>
-<h4>读流程</h4>
-<p>需要查询内存和磁盘，磁盘文件可以缓存到内存称为 block cache</p>
-<h4>flush刷写流程</h4>
-<h4>compact文件合并流程</h4>
-<h4>split文件拆分流程</h4>
-<p>注意预分区
-建议使用一个列族</p>
-<h3>api</h3>
-<p>DDL一般不会用到
-DML支持</p>
-<p>GET，SCAN两种查询方式</p>
-<p>GET必须指定rowkey
-SCAN，SCAN不指定就是全表扫描，可以指定rowkey范围</p>
-<p>PUT 写入
-DEL 删除</p>
-<p>写入操作和删除操作可以细到cell粒度</p>
-<p>数据真正删除的时机
-1. flush同一个memstore 会删除内存的过期数据
-2. majar compact 删除磁盘的过期数据</p>
-<h3>优化</h3>
-<h4>预分区</h4>
-<p>创建表的时候规划分区，解决数据倾斜问题</p>
-<p>指定rowkey的范围进行分区，例如
-[1000, 2000, 3000, 4000]
-会生成5个分区</p>
-<h4>rowkey设计</h4>
-<h2>mysql</h2>
+    <h2>主要功能</h2>
+<ol>
+<li>标准的SQL解析，校验以及提供JDBC驱动</li>
+<li>将SQL转换为关系代数，基于成本模型进行优化</li>
+<li>适配第三方数据源</li>
+</ol>
+<h2>官方文档</h2>
+<p>https://calcite.apache.org/docs/</p>
+<p>Apache Calcite 定位是一款动态数据管理框架。数据库管理系统的很多功能它都具备，但是有几个功能是它不具备的
+1. 数据存储
+2. 数据处理算法
+3. 元数据管理</p>
+<p>Calcite本身的定位就是脱离数据存储和处理，它其实可以作为应用与数据存储，数据处理引擎之间的媒介(但是感觉和ORM又完全不同)，它也可以作为构建数据库的基础。</p>
+<p>Calcite可以处理任何数据源，任何数据格式。只要写一个<strong>适配器</strong>告知Calcite哪些集合可以视为一张表，就可以将这些集合视为数据源。</p>
+<p>用户也可以自定义优化规则，用于操作新格式的数据、注册新的运算(例如更优的join算法)、优化sql查询。Calcite可以基于代价优化生成高效的执行计划。</p>
+<h3>CSV文件的适配器</h3>
+<p>功能: 完成一个适配器，将一个包含CSV文件的目录作为数据库，每一个文件作为一张表，Calcite用于提供SQL接口(只是SQL查询)</p>
+<p>几个关键的功能点
+1. 使用<strong>SchemaFactory</strong>和<strong>Schema</strong>接口定义schema
+2. 使用json声明表结构
+3. 使用json声明视图
+4. 使用<strong>Table</strong>接口定义表
+5. 定义记录的类型
+6. 使用<strong>ScannableTable</strong>接口简单实现了一张表
+7. 使用<strong>FilterableTable</strong>接口实现了一个更复杂，有过滤功能的表
+8. 使用<strong>TranslatableTable</strong>接口实现了一个支持关系代数运算的表，背后是把关系运算转换为执行计划</p>
+<h4>Schema发现机制</h4>
+<p>Calcite的核心功能是解析不了CSV文件的，换句话说，它是一个没有数据存储层的数据库，它并不感知任何数据格式</p>
+<p>核心逻辑，基于<strong>schema factory</strong>定义schema，schema嵌套解析表，最终Calcite执行SQL完成查询</p>
+<h2>其他资料</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/602840722">汇总</a>
+<a href="https://io-meter.com/2019/03/16/streaming-incremental-sql-execution/">flink SQL实现原理</a>
+<a href="https://www.youtube.com/watch?v=meI0W12f_nw">教程</a></p>
+<p>概念汇总
+| 名称 | 描述 |
+| ---- | ------- |
+| SQL | 最原始的请求，通过JDBC服务或其他协议由客户端传到服务端 |
+| SqlNode | AST抽象语法树，第一层转换逻辑 |
+| RelNode | Relation Expression 关系代数表达式，作为SQL优化的输入 |</p>
+<p><img alt="架构" src="img/architecture.png">
+<img alt="calcite的架构" src="img/calcite-architecture.png"></p>
+<p>calcite是一个<strong>关系代数工具，把SQL转换为执行计划</strong>
+如果想让calcite生成物理计划，并且执行物理计划，需要做到以下三点
+1. 数据源的表有哪些，表包含哪些字段，总而言之，元数据 和SchemaFactory关联
+2. 如何扫描一张表
+3. 可选项，使用什么规则来优化执行计划</p>
   </div>
 
 
@@ -152,7 +165,7 @@ DEL 删除</p>
           <div class="col-md-3">
   <div class="well">
 
-    <p><abbr title="2022-04-30T16:55:00+08:00"><i class="fa fa-calendar"></i> 六 30 四月 2022</abbr></p>
+    <p><abbr title="2023-03-05T18:32:00+08:00"><i class="fa fa-calendar"></i> 日 05 三月 2023</abbr></p>
 
       <p><address>
         <i class="fa fa-user"></i> By
@@ -162,9 +175,9 @@ DEL 删除</p>
     <hr/>
 
       <p>
-              <a href="/category/bigdata.html" rel="tag"
+              <a href="/category/java-note.html" rel="tag"
                   data-toggle="tooltip" class="label label-info"
-                  title="2 articles in this category">BigData</a>
+                  title="8 articles in this category">Java Note</a>
       </p>
       <hr/>
 

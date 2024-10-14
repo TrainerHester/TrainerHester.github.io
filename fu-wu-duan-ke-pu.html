@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>  服务端科普
+ | Hester's Blog</title>
+
+    <meta name="author" content="Hester"/>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"/>
+    <link rel="stylesheet" href="/theme/css/jquery.mglass.css"/>
+    <link rel="stylesheet" href="/theme/css/pygment-solarized-dark.css"/>
+    <link rel="stylesheet" href="/theme/css/style.css"/>
+
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'/>
+
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <!-- Feeds -->
+
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1><a href="">Hester's Blog</a> <small></small></h1>
+      </div>
+
+      <nav class="navbar navbar-default">
+
+        <!-- Hamburger menu for mobile -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#plumage-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="" title="">Hester's Blog</a>
+        </div>
+
+        <!-- Menus and search forms -->
+        <div class="collapse navbar-collapse" id="plumage-navbar-collapse-1">
+
+          <ul class="nav navbar-nav">
+<li >
+                  <a href="/category/bigdata.html">BigData</a>
+                </li>
+<li >
+                  <a href="/category/blog.html">Blog</a>
+                </li>
+<li >
+                  <a href="/category/book-note.html">Book Note</a>
+                </li>
+<li >
+                  <a href="/category/front-end-note.html">Front End Note</a>
+                </li>
+<li >
+                  <a href="/category/gui-note.html">GUI Note</a>
+                </li>
+<li >
+                  <a href="/category/java.html">java</a>
+                </li>
+<li  class="active" >
+                  <a href="/category/java-note.html">Java Note <span class="sr-only">(current)</span></a>
+                </li>
+<li >
+                  <a href="/category/spring.html">Spring</a>
+                </li>
+          </ul>
+
+
+
+        </div>
+
+      </nav>
+
+    </div>
+
+
+    <div class="container main">
+
+
+      <div class="row">
+        <div class=" col-md-9  ">
+  <h1>
+    <a href="/fu-wu-duan-ke-pu.html" rel="bookmark" title="Permalink to 服务端科普">服务端科普</a>
+  </h1>
+        </div>
+      </div>
+
+      <div class="row">
+
+
+        <div class=" col-md-9 " id="content" role="main">
+  
+
+  <div>
+    <h1>前言</h1>
+<p>本文首先会对服务端系统做一个简单的概括，然后对如何构建一个java服务端系统进行描述</p>
+<h1>与客户端对比</h1>
+<p>服务端是相对于客户端而言的，或者换一个说法，后端是相对于前端而言的
+我们常见的B/S，C/S架构，其实<strong>S</strong>就是指的服务端server，客户端的形式比较多，例如B/S架构的B指的就是broswer浏览器，C/S架构指的C是client客户端
+客户端常见的有PC上的应用程序，也有移动端常见的各种app，甚至微信小程序也是一种客户端的体现形式</p>
+<p>客户端重点关注的是界面、交互，而服务端关注的是计算逻辑以及存储，客户端和服务端在目前流行的实现方式上是通过http接口交互</p>
+<h1>简要介绍</h1>
+<p><img alt="科普1" src="img/kepu1.png"></p>
+<h2>http接口</h2>
+<p>http协议是目前主流的前后端交互协议，一般情况下http的请求称为request，响应称为response，两者都由header和body组成
+http请求的方法一般是<strong>GET</strong>和<strong>POST</strong>，body一般是json格式
+所以客户端在用户执行了一系列交互动作之后，通过http接口和服务端交互，让服务端完成各种计算</p>
+<h2>应用进程</h2>
+<p>服务端在收到http请求之后要进行逻辑处理，逻辑处理一般是由服务端应用完成的
+一个服务端应用可以简单理解如下模式</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">receiveRequest</span><span class="p">();</span>
+        <span class="n">calculate</span><span class="p">();</span>
+        <span class="n">sendResponse</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>一个死循环，完成接收请求，计算，返回响应三件事情。</p>
+<h2>数据库</h2>
+<p>由于计算机结构中，内存一旦掉电，数据就没有了。但是绝大多数系统需要持久化数据，例如记录用户的订单、记录商户的商品，因此需要有一个存储数据的地方
+后端应用使用的存储一般是关系型数据库，与关系型数据库的交互方式一般是SQL(结构化查询语言)，SQL使用非常简短的关键字和语法就可以表达需要进行的数据操作</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 查询用户最近的10条订单</span>
+<span class="k">select</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">order_id</span><span class="p">,</span><span class="w"> </span><span class="n">order_amount</span><span class="p">,</span><span class="w"> </span><span class="n">order_status</span><span class="w"></span>
+<span class="k">from</span><span class="w"> </span><span class="n">user_order</span><span class="w"></span>
+<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">gmt_modified</span><span class="w"> </span>
+<span class="k">desc</span><span class="w"></span>
+<span class="k">limit</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+
+<p>绝大多数服务端系统就是 应用 + 数据库 组成的，服务端程序员经常被称为CRUD程序员，所有的计算逻辑无外乎<strong>增删改查</strong>
+而增删改查的目标就是数据库的记录，因此一个简单的服务端系统可以简单理解为面向数据库编程的系统
+但是需要注意的是，一个真正复杂且易于迭代的系统一定不是面向数据库的，至少数据库是可替代的</p>
+<h1>java相关的实现</h1>
+<h2>http接口</h2>
+<p>主要是使用springmvc的能力实现的</p>
+<h3>servlet</h3>
+<p>java的http接口开发标准，官方只定义了接口，实现可以是多样的，其中tomcat是最著名的servlet容器</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// req可以理解为请求 res可以理解为响应</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Servlet</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">service</span><span class="p">(</span><span class="n">ServletRequest</span> <span class="n">req</span><span class="p">,</span> <span class="n">ServletResponse</span> <span class="n">res</span><span class="p">)</span>
+            <span class="kd">throws</span> <span class="n">ServletException</span><span class="p">,</span> <span class="n">IOException</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>过滤器Filter，也是servlet的标准</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Filter</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="k">default</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(</span><span class="n">FilterConfig</span> <span class="n">filterConfig</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">ServletException</span> <span class="p">{}</span>
+
+    <span class="c1">// 用户可以自定义，相当于可以在所有http请求上添加相同的前置或后置逻辑</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doFilter</span><span class="p">(</span><span class="n">ServletRequest</span> <span class="n">request</span><span class="p">,</span> <span class="n">ServletResponse</span> <span class="n">response</span><span class="p">,</span>
+            <span class="n">FilterChain</span> <span class="n">chain</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="p">,</span> <span class="n">ServletException</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="k">default</span> <span class="kt">void</span> <span class="nf">destroy</span><span class="p">()</span> <span class="p">{}</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
+<h3>tomcat</h3>
+<p>servlet的容器，使用线程池处理http请求</p>
+<p><strong>什么是线程池？</strong>
+池子 里面包含很多线程
+<strong>为什么要使用线程池？</strong>
+线程的创造和销毁比较耗费资源，特别是java的线程模型，java的线程和系统线程是1:1的，所以线程池是在应用启动之后就创建好线程，后续复用创建好的就不需要来一个请求创建一个线程了</p>
+<h3>springmvc</h3>
+<p>实现了关键的类<strong>DispatcherServlet</strong>，从名称可以看出是做分发用的，以一个简单的代码为例，使用注解标注了一个http接口，路径是<code>/app/summary/like</code>，请求是json格式的，返回也是json格式</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Controller</span>
+<span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&quot;/app/summary&quot;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppSummaryController</span> <span class="p">{</span>
+
+    <span class="nd">@Resource</span>
+    <span class="kd">private</span> <span class="n">AppSummaryService</span> <span class="n">appSummaryService</span><span class="p">;</span>
+
+    <span class="nd">@PostMapping</span><span class="p">(</span><span class="s">&quot;/like&quot;</span><span class="p">)</span>
+    <span class="nd">@ResponseBody</span>
+    <span class="kd">public</span> <span class="n">ApiResult</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="nf">like</span><span class="p">(</span><span class="nd">@RequestBody</span> <span class="n">SummaryIndexLikeRequest</span> <span class="n">request</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 用户id待定，目前使用uuid代替</span>
+        <span class="n">appSummaryService</span><span class="p">.</span><span class="na">operateForAppSummaryIndex</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="na">getId</span><span class="p">(),</span>
+                <span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">().</span><span class="na">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="n">request</span><span class="p">.</span><span class="na">getLike</span><span class="p">());</span>
+        <span class="k">return</span> <span class="n">ApiResult</span><span class="p">.</span><span class="na">successResult</span><span class="p">(</span><span class="n">Boolean</span><span class="p">.</span><span class="na">TRUE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
+<p>如果没有springmvc，开发人员需要编写servlet处理逻辑，其中包括大量http请求解析，结果组装的逻辑。springmvc使用一个统一的Servlet，通过注解的方式将逻辑分发到用户自定义逻辑，大幅度简化了http接口的开发过程。</p>
+<p>springmvc有一个拦截器的概念，<strong>org.springframework.web.servlet.HandlerInterceptor</strong>，逻辑和之前讲过的Filter类似，区别在于可以拿到具体的处理器(方法签名中的handler)</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HandlerInterceptor</span> <span class="p">{</span> 
+
+    <span class="c1">// 前置</span>
+    <span class="k">default</span> <span class="kt">boolean</span> <span class="nf">preHandle</span><span class="p">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="p">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="p">,</span> <span class="n">Object</span> <span class="n">handler</span><span class="p">)</span>
+            <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 后置</span>
+    <span class="k">default</span> <span class="kt">void</span> <span class="nf">postHandle</span><span class="p">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="p">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="p">,</span> <span class="n">Object</span> <span class="n">handler</span><span class="p">,</span>
+            <span class="nd">@Nullable</span> <span class="n">ModelAndView</span> <span class="n">modelAndView</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 后置完成返回http响应之后的动作</span>
+    <span class="k">default</span> <span class="kt">void</span> <span class="nf">afterCompletion</span><span class="p">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="p">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="p">,</span> <span class="n">Object</span> <span class="n">handler</span><span class="p">,</span>
+            <span class="nd">@Nullable</span> <span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+    <span class="p">}</span>
+
+
+
+<span class="p">}</span>
+</code></pre></div>
+
+<h2>内部逻辑</h2>
+<p>内部逻辑是指服务端CRUD逻辑，大部分java应用都会分层处理，之前的http接口会作为controller层，内部逻辑一般使用service层，存储相关一般命名为dao层（data access layer），层次是自顶向下依赖，即controller依赖service、service依赖dao。</p>
+<p><img alt="科普2" src="img/kepu2.png"></p>
+<p>由于应用之间由大量的依赖关系，即controller层的类需要依赖service层，应用启动的时候需要手工初始化，即使用new新建对应的类，然后调用set方法进行依赖注入，非常耗时耗力。特别是新增了类，除了编写新增类的逻辑，还需要管理类对象的新增和依赖注入。</p>
+<p>spring就是用于处理这个问题的</p>
+<h3>spring IOC 依赖注入</h3>
+<div class="highlight"><pre><span></span><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppSummaryServiceImpl</span> <span class="kd">implements</span> <span class="n">AppSummaryService</span> <span class="p">{</span>
+
+    <span class="nd">@Resource</span>
+    <span class="kd">private</span> <span class="n">UserLikeRecordMapper</span> <span class="n">userLikeRecordMapper</span><span class="p">;</span>
+
+    <span class="nd">@Resource</span>
+    <span class="kd">private</span> <span class="n">AppSummaryIndexMapper</span> <span class="n">appSummaryIndexMapper</span><span class="p">;</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
+<p>AppSummaryServiceImpl是AppSummaryService的实现，并且依赖dao层的两个接口UserLikeRecordMapper和AppSummaryIndexMapper。在spring中就可以使用上述代码实现</p>
+<p>其中<code>@Service</code>表示将当前的对象放到spring容器中，其他类的对象可以注入这个对象。与之对等的注解还有<code>@Component</code> <code>@Repository</code> <code>@Controller</code></p>
+<p><code>@Resource</code>表示将UserLikeRecordMapper类型的对象注入到当前对象，与之<strong>相似</strong>的注解是<code>@Autowired</code>，两者区别可以搜索查到，在此不赘述</p>
+<p>除了以上的注解，还有一个专门注入配置值的注解<code>@Value</code>，一般用于注入配置，例如</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestBean</span> <span class="p">{</span>
+
+    <span class="c1">// 表示从配置文件application.properties读取spring.application.name的值，如果没有，使用默认值like</span>
+    <span class="nd">@Value</span><span class="p">(</span><span class="s">&quot;${spring.application.name:like}&quot;</span><span class="p">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">appName</span><span class="p">;</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
+<p>如果自定义的类对象组装逻辑特别复杂，也支持如下方式构造并且注入到spring容器，这种方式在mybatis集成到spring中经常被用到</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomConfiguration</span> <span class="p">{</span>
+
+    <span class="c1">// 容器中对象的名称是方法的名称complexBean</span>
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">ComplexBean</span> <span class="nf">complexBean</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">ComplexBean</span> <span class="n">complexBean</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ComplexBean</span><span class="p">();</span>
+        <span class="c1">// 复杂逻辑</span>
+        <span class="k">return</span> <span class="n">complexBean</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
+<h3>spring AOP 面向切面编程</h3>
+<p>简单理解为在类似的处理流程嵌入统一的逻辑，常见于
+1. 打印接口日志
+2. 统一参数校验
+3. 统一记录方法调用耗时
+4. 统一权限校验</p>
+<p>以打印接口日志为例，假如没有AOP，需要在所有方法的开头和结尾加上
+1. 计算当前时间
+2. 作差求出耗时
+3. 记录日志</p>
+<p>如果有AOP就可以进行统一代码拦截，不需要动现有代码
+AOP的例子比较多，目前较流行的是使用自定义注解实现</p>
+<h4>创建自定义注解</h4>
+<p>首先，创建一个自定义注解<code>@Loggable</code>，用于标记需要统计耗时的方法。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">com.example.demo.annotation</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.annotation.ElementType</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.annotation.Retention</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.annotation.RetentionPolicy</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.annotation.Target</span><span class="p">;</span>
+
+<span class="nd">@Target</span><span class="p">(</span><span class="n">ElementType</span><span class="p">.</span><span class="na">METHOD</span><span class="p">)</span>
+<span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">Loggable</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4>创建AOP切面</h4>
+<p>接下来，创建一个AOP切面类，用于拦截标记了<code>@Loggable</code>注解的方法，并统计其耗时。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">com.example.demo.aspect</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">com.example.demo.annotation.Loggable</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.aspectj.lang.ProceedingJoinPoint</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.aspectj.lang.annotation.Around</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.aspectj.lang.annotation.Aspect</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.slf4j.Logger</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.slf4j.LoggerFactory</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="p">;</span>
+
+<span class="nd">@Aspect</span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LoggingAspect</span> <span class="p">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="p">.</span><span class="na">getLogger</span><span class="p">(</span><span class="n">LoggingAspect</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+
+    <span class="nd">@Around</span><span class="p">(</span><span class="s">&quot;@annotation(com.example.demo.annotation.Loggable)&quot;</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">logExecutionTime</span><span class="p">(</span><span class="n">ProceedingJoinPoint</span> <span class="n">joinPoint</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="p">{</span>
+        <span class="kt">long</span> <span class="n">start</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">();</span>
+
+        <span class="n">Object</span> <span class="n">proceed</span> <span class="o">=</span> <span class="n">joinPoint</span><span class="p">.</span><span class="na">proceed</span><span class="p">();</span>
+
+        <span class="kt">long</span> <span class="n">executionTime</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">;</span>
+
+        <span class="n">logger</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="n">joinPoint</span><span class="p">.</span><span class="na">getSignature</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; executed in &quot;</span> <span class="o">+</span> <span class="n">executionTime</span> <span class="o">+</span> <span class="s">&quot;ms&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">proceed</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4>使用自定义注解</h4>
+<p>现在，你可以在任何需要统计耗时的方法上使用<code>@Loggable</code>注解。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">com.example.demo.service</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">com.example.demo.annotation.Loggable</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="p">;</span>
+
+<span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleService</span> <span class="p">{</span>
+
+    <span class="nd">@Loggable</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">someMethod</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="p">{</span>
+        <span class="c1">// 模拟一些耗时操作</span>
+        <span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">anotherMethod</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="p">{</span>
+        <span class="c1">// 这个方法没有使用@Loggable注解，不会被统计耗时</span>
+        <span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>以上代码展示了如何使用Spring自定义注解和AOP来实现方法耗时统计。通过<code>@Loggable</code>注解和AOP切面，你可以轻松地在日志中记录方法的执行时间。</p>
+<h3>spring的其他扩展点</h3>
+<h4>bean构建相关</h4>
+<ul>
+<li>InitializingBean接口</li>
+<li>PostConstruct注解</li>
+<li>BeanPostProcessor</li>
+<li>xml文件中的init方法（目前比较少了）</li>
+</ul>
+<h2>数据库交互</h2>
+  </div>
+
+
+
+        </div>
+
+          <div class="col-md-3">
+  <div class="well">
+
+    <p><abbr title="2024-10-08T21:32:00+08:00"><i class="fa fa-calendar"></i> 二 08 十月 2024</abbr></p>
+
+      <p><address>
+        <i class="fa fa-user"></i> By
+          <a href="/author/hester.html" rel="author">Hester</a>
+      </address></p>
+
+    <hr/>
+
+      <p>
+              <a href="/category/java-note.html" rel="tag"
+                  data-toggle="tooltip" class="label label-info"
+                  title="8 articles in this category">Java Note</a>
+      </p>
+      <hr/>
+
+
+
+  </div>
+            
+          </div>
+
+      </div>
+
+    </div>
+
+    <!-- TODO: make footer sticky -->
+    <footer class="container-fluid">
+      <div class="container">
+        <div class="row">
+
+            <div class="col-md-2">
+                <h5>Social</h5>
+                <ul class="list-unstyled">
+                  <li>  <a href="#">
+      <i class="fa fa-external-link"></i>
+    You can add links in your config file
+  </a></li>
+                  <li>  <a href="#">
+      <i class="fa fa-external-link"></i>
+    Another social link
+  </a></li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <h5>Links</h5>
+                <ul class="list-unstyled">
+                  <li>  <a href="http://getpelican.com/">
+      <img src="https://icons.better-idea.org/icon?url=getpelican.com&size=16" width="16" height="16" class="icon" alt="getpelican.com icon"/>
+    Pelican
+  </a></li>
+                  <li>  <a href="http://python.org/">
+      <img src="https://icons.better-idea.org/icon?url=python.org&size=16" width="16" height="16" class="icon" alt="python.org icon"/>
+    Python.org
+  </a></li>
+                  <li>  <a href="http://jinja.pocoo.org/">
+      <img src="https://icons.better-idea.org/icon?url=jinja.pocoo.org&size=16" width="16" height="16" class="icon" alt="jinja.pocoo.org icon"/>
+    Jinja2
+  </a></li>
+                  <li>  <a href="#">
+      <i class="fa fa-external-link"></i>
+    You can modify those links in your config file
+  </a></li>
+                </ul>
+            </div>
+
+          <div class="col-md-2">
+            <h5>Browse content by</h5>
+            <ul class="list-unstyled">
+            </ul>
+          </div>
+
+          <div class="col-md-2 text-muted">
+            <h5>Copyright notice</h5>
+            <p>© Copyright 2017-2024 Hester.</p>
+          </div>
+
+          <div class="col-md-2 text-muted">
+            <h5>Disclaimer</h5>
+              <p>All opinions expressed in this site are my own personal opinions and are not endorsed by, nor do they represent the opinions of my previous, current and future employers or any of its affiliates, partners or customers.</p>
+          </div>
+
+          <div class="col-md-2">
+          </div>
+
+        </div>
+      </div>
+
+      <h5 class="text-right"><a href="#"><i class="fa fa-arrow-up"></i> Back to top</a></h5>
+
+      <div class="container">
+        <div class="row col-md-12 text-muted text-center">
+          Site generated by <a href="https://getpelican.com"> Pelican</a>.<br/>
+          <a href="https://github.com/kdeldycke/plumage"> Plumage</a> theme by <a href="https://kevin.deldycke.com">Kevin Deldycke</a>.
+        </div>
+      </div>
+
+    </footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js"></script>
+    <script src="/theme/js/jquery.mglass.js"></script>
+    <script src="/theme/js/application.js"></script>
+
+  </body>
+</html>

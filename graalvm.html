@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>  GUI Section Three
+    <title>  GraalVM
  | Hester's Blog</title>
 
     <meta name="author" content="Hester"/>
@@ -60,8 +60,8 @@
 <li >
                   <a href="/category/bigdata.html">BigData</a>
                 </li>
-<li >
-                  <a href="/category/blog.html">Blog</a>
+<li  class="active" >
+                  <a href="/category/blog.html">Blog <span class="sr-only">(current)</span></a>
                 </li>
 <li >
                   <a href="/category/book-note.html">Book Note</a>
@@ -69,8 +69,8 @@
 <li >
                   <a href="/category/front-end-note.html">Front End Note</a>
                 </li>
-<li  class="active" >
-                  <a href="/category/gui-note.html">GUI Note <span class="sr-only">(current)</span></a>
+<li >
+                  <a href="/category/gui-note.html">GUI Note</a>
                 </li>
 <li >
                   <a href="/category/java.html">java</a>
@@ -98,7 +98,7 @@
       <div class="row">
         <div class=" col-md-9  ">
   <h1>
-    <a href="/gui-section-three.html" rel="bookmark" title="Permalink to GUI Section Three">GUI Section Three</a>
+    <a href="/graalvm.html" rel="bookmark" title="Permalink to GraalVM">GraalVM</a>
   </h1>
         </div>
       </div>
@@ -110,70 +110,105 @@
   
 
   <div>
-    <p>本次讨论的是GUI的布局，作为例子，首先使用的是BorderLayout，代码和效果如下</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/BorderLayout1.java</span>
-<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
+    <h2>简介</h2>
+<p>GraalVM可以把java应用编译成可直接执行的镜像，占用内存更小，启动速度更快，它可以使java应用不依赖JVM运行</p>
+<h2>hello world</h2>
+<h3>前置条件</h3>
+<p>docker
+jdk17
+maven</p>
+<h3>相关代码</h3>
+<p>工程结构使用<a href="https://start.spring.io/">spring.io</a>生成即可</p>
+<p><img alt="springio" src="img/springio.png"></p>
+<p>java代码</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@RestController</span>
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GraaldemoApplication</span> <span class="p">{</span>
 
-<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BorderLayout1</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
-    <span class="kd">public</span> <span class="nf">BorderLayout1</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">add</span><span class="p">(</span><span class="n">BorderLayout</span><span class="p">.</span><span class="na">CENTER</span><span class="p">,</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;center&quot;</span><span class="p">));</span>
-        <span class="n">add</span><span class="p">(</span><span class="n">BorderLayout</span><span class="p">.</span><span class="na">EAST</span><span class="p">,</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;east&quot;</span><span class="p">));</span>
-        <span class="n">add</span><span class="p">(</span><span class="n">BorderLayout</span><span class="p">.</span><span class="na">WEST</span><span class="p">,</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;west&quot;</span><span class="p">));</span>
-        <span class="n">add</span><span class="p">(</span><span class="n">BorderLayout</span><span class="p">.</span><span class="na">NORTH</span><span class="p">,</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;north&quot;</span><span class="p">));</span>
-        <span class="n">add</span><span class="p">(</span><span class="n">BorderLayout</span><span class="p">.</span><span class="na">SOUTH</span><span class="p">,</span> <span class="k">new</span> <span class="n">JButton</span><span class="p">(</span><span class="s">&quot;south&quot;</span><span class="p">));</span>
+    <span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">)</span>
+    <span class="n">String</span> <span class="nf">home</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">&quot;Hello World!&quot;</span><span class="p">;</span>
     <span class="p">}</span>
 
-
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// TODO Auto-generated method stub</span>
-        <span class="n">SwingConsole</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="k">new</span> <span class="n">BorderLayout1</span><span class="p">(),</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">250</span><span class="p">);</span>
+        <span class="n">SpringApplication</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">GraaldemoApplication</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
     <span class="p">}</span>
 
 <span class="p">}</span>
 </code></pre></div>
 
-<p><img alt="unavailable" src="img/layout1.jpg" title="l1"></p>
-<p>JFrame使用的默认布局也是BorderLayout，它会将窗口分为5个部分
-FlowLayout的布局已经在之前讨论过：<strong>从左到右，从上到下合适布局</strong></p>
-<p>然后展示的是GridLayout：</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//:com/gui/start/GridLayout1.java</span>
-<span class="kn">package</span> <span class="nn">com.gui.start</span><span class="p">;</span>
+<p>parent pom配置</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+    <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+    <span class="nt">&lt;parent&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-parent<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>3.0.0<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;relativePath/&gt;</span> <span class="cm">&lt;!-- lookup parent from repository --&gt;</span>
+    <span class="nt">&lt;/parent&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.example<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>graaldemo<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.0.1-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;name&gt;</span>graaldemo<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;description&gt;</span>Demo project for Spring Boot<span class="nt">&lt;/description&gt;</span>
+    <span class="nt">&lt;properties&gt;</span>
+        <span class="nt">&lt;java.version&gt;</span>17<span class="nt">&lt;/java.version&gt;</span>
+    <span class="nt">&lt;/properties&gt;</span>
+    <span class="nt">&lt;dependencies&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
 
-<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="p">;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.projectlombok<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>lombok<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-test<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;/dependencies&gt;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GridLayout1</span> <span class="kd">extends</span> <span class="n">JFrame</span><span class="p">{</span>
-    <span class="kd">public</span> <span class="nf">GridLayout1</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">setLayout</span><span class="p">(</span><span class="k">new</span> <span class="n">GridLayout</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">));</span> <span class="c1">//将窗口分为7 * 3的区域进行布局</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">add</span><span class="p">(</span><span class="k">new</span> <span class="n">Button</span><span class="p">(</span><span class="s">&quot;button &quot;</span> <span class="o">+</span> <span class="n">i</span><span class="p">));</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
+    <span class="nt">&lt;build&gt;</span>
+        <span class="nt">&lt;plugins&gt;</span>
+            <span class="nt">&lt;plugin&gt;</span>
+                <span class="nt">&lt;groupId&gt;</span>org.graalvm.buildtools<span class="nt">&lt;/groupId&gt;</span>
+                <span class="nt">&lt;artifactId&gt;</span>native-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;/plugin&gt;</span>
+            <span class="nt">&lt;plugin&gt;</span>
+                <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+                <span class="nt">&lt;artifactId&gt;</span>spring-boot-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+                <span class="nt">&lt;configuration&gt;</span>
+                    <span class="nt">&lt;excludes&gt;</span>
+                        <span class="nt">&lt;exclude&gt;</span>
+                            <span class="nt">&lt;groupId&gt;</span>org.projectlombok<span class="nt">&lt;/groupId&gt;</span>
+                            <span class="nt">&lt;artifactId&gt;</span>lombok<span class="nt">&lt;/artifactId&gt;</span>
+                        <span class="nt">&lt;/exclude&gt;</span>
+                    <span class="nt">&lt;/excludes&gt;</span>
+                <span class="nt">&lt;/configuration&gt;</span>
+            <span class="nt">&lt;/plugin&gt;</span>
+        <span class="nt">&lt;/plugins&gt;</span>
+    <span class="nt">&lt;/build&gt;</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// TODO Auto-generated method stub</span>
-        <span class="n">SwingConsole</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="k">new</span> <span class="n">GridLayout1</span><span class="p">(),</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">550</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="nt">&lt;/project&gt;</span>
 </code></pre></div>
 
-<p><img alt="unavailable" src="img/layout2.jpg" title="l2"></p>
-<p>这种切割方式会在布局时产生空白区域。</p>
-<p>以上几种方式的布局都不好控制，为了能够更好和更加灵活完成GUI控件的布局，采用eclipse自动化插件<strong>windowbuilder</strong>
-插件的安装方式省略，接下来的步骤用于说明该插件的使用方式</p>
-<h2>step1 创建一个Application Window</h2>
-<p><img alt="unavailable" src="img/step1.jpg" title="s1">
-<img alt="unavailable" src="img/step1b.jpg" title="s1b"></p>
-<h2>step2 从代码区转换到设计窗口</h2>
-<p><img alt="unavailable" src="img/step2.jpg" title="s2">
-<img alt="unavailable" src="img/step2b.jpg" title="s2b"></p>
-<h2>step3 使用AbsoultLayout进行布局操作</h2>
-<p><img alt="unavailable" src="img/step3.jpg" title="s3">
-<img alt="unavailable" src="img/step3b.jpg" title="s3b"></p>
-<p>一个简单的GUI界面就搭建完成了，实现不同功能将在之后的部分讨论</p>
+<p>镜像打包</p>
+<div class="highlight"><pre><span></span><code>mvn -Pnative spring-boot:build-image
+</code></pre></div>
+
+<blockquote>
+<p>过程十分漫长，并且注意docker内存需要设置8G，不然构建过程可能报错</p>
+</blockquote>
+<p><img alt="docker8G" src="img/docker_8g.png"></p>
+<p>运行镜像</p>
+<div class="highlight"><pre><span></span><code>docker run --rm -p <span class="m">8080</span>:8080 docker.io/library/graaldemo:0.0.1-SNAPSHOT
+</code></pre></div>
   </div>
 
 
@@ -183,7 +218,7 @@ FlowLayout的布局已经在之前讨论过：<strong>从左到右，从上到�
           <div class="col-md-3">
   <div class="well">
 
-    <p><abbr title="2017-11-02T14:20:00+08:00"><i class="fa fa-calendar"></i> 四 02 十一月 2017</abbr></p>
+    <p><abbr title="2022-12-31T22:12:00+08:00"><i class="fa fa-calendar"></i> 六 31 十二月 2022</abbr></p>
 
       <p><address>
         <i class="fa fa-user"></i> By
@@ -193,9 +228,9 @@ FlowLayout的布局已经在之前讨论过：<strong>从左到右，从上到�
     <hr/>
 
       <p>
-              <a href="/category/gui-note.html" rel="tag"
+              <a href="/category/blog.html" rel="tag"
                   data-toggle="tooltip" class="label label-info"
-                  title="8 articles in this category">GUI Note</a>
+                  title="3 articles in this category">Blog</a>
       </p>
       <hr/>
 
