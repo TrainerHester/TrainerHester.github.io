@@ -368,6 +368,225 @@ AOP的例子比较多，目前较流行的是使用自定义注解实现</p>
 <li>xml文件中的init方法（目前比较少了）</li>
 </ul>
 <h2>数据库交互</h2>
+<p>数据库是用于持久化数据的系统，大部分系统都会和关系型数据库（简称RDB）打交道，对数据库的操作一般是使用SQL。因此java的标准库对数据库操作制定了一套规范JDBC，所有的数据库厂商如果想让应用和自己的数据库交互，就需要实现JDBC规定的接口。</p>
+<p>JDBC的做法其实和SPI机制非常类似，SPI的全称是Service Provider Interface，简单来说，就是有一方制定标准，但是不提供具体的实现，而是由其他主体按照标准实现，外部使用标准的主体可以不关注具体实现，只和接口交互就可以了。假想我们自己是一家电商公司的开发人员，我们需要对接外部很多商家，不同的商家有不同的订单创建接口，如果我们一家一家对接，每对接一家就需要开发测试发布一遍，成本很高。如果我们制定了标准的订单创建接口，规定好出入参数和错误码，其他商家按照我们的规范去实现，那我们的开发成本就非常低，只需要处理好商家和对应实现的映射关系就可以了。</p>
+<h3>JDBC</h3>
+<p><img alt="科普3" src="img/kepu3.png"></p>
+<p>下面给出一个jdbc的使用示例，假设我们需要访问的是mysql数据库，数据库名称testdb，表结构如下</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span><span class="w">  </span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w">  </span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span><span class="w">  </span>
+<span class="w">    </span><span class="n">email</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w">  </span>
+<span class="p">);</span><span class="w"></span>
+</code></pre></div>
+
+<p>一个使用JDBC查询数据库的示例如下</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">java.sql.Connection</span><span class="p">;</span>  
+<span class="kn">import</span> <span class="nn">java.sql.DriverManager</span><span class="p">;</span>  
+<span class="kn">import</span> <span class="nn">java.sql.PreparedStatement</span><span class="p">;</span>  
+<span class="kn">import</span> <span class="nn">java.sql.ResultSet</span><span class="p">;</span>  
+<span class="kn">import</span> <span class="nn">java.sql.SQLException</span><span class="p">;</span>  
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JDBCExample</span> <span class="p">{</span>  
+    <span class="c1">// JDBC URL, 用户名和密码  </span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">JDBC_URL</span> <span class="o">=</span> <span class="s">&quot;jdbc:mysql://localhost:3306/testdb&quot;</span><span class="p">;</span>  
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">JDBC_USER</span> <span class="o">=</span> <span class="s">&quot;root&quot;</span><span class="p">;</span>  
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">JDBC_PASSWORD</span> <span class="o">=</span> <span class="s">&quot;password&quot;</span><span class="p">;</span>  
+
+    <span class="c1">// JDBC 变量为了以后使用  </span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Connection</span> <span class="n">connection</span><span class="p">;</span>  
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>  
+        <span class="k">try</span> <span class="p">{</span>  
+            <span class="c1">// 注册 JDBC 驱动  </span>
+            <span class="n">Class</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="s">&quot;com.mysql.cj.jdbc.Driver&quot;</span><span class="p">);</span>  
+
+            <span class="c1">// 打开连接  </span>
+            <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Connecting to database...&quot;</span><span class="p">);</span>  
+            <span class="n">connection</span> <span class="o">=</span> <span class="n">DriverManager</span><span class="p">.</span><span class="na">getConnection</span><span class="p">(</span><span class="n">JDBC_URL</span><span class="p">,</span> <span class="n">JDBC_USER</span><span class="p">,</span> <span class="n">JDBC_PASSWORD</span><span class="p">);</span>  
+
+            <span class="c1">// 执行查询  </span>
+            <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&quot;SELECT id, name, email FROM users&quot;</span><span class="p">;</span>  
+            <span class="n">PreparedStatement</span> <span class="n">preparedStatement</span> <span class="o">=</span> <span class="n">connection</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="n">sql</span><span class="p">);</span>  
+            <span class="n">ResultSet</span> <span class="n">resultSet</span> <span class="o">=</span> <span class="n">preparedStatement</span><span class="p">.</span><span class="na">executeQuery</span><span class="p">();</span>  
+
+            <span class="c1">// 展开结果集数据库  </span>
+            <span class="k">while</span> <span class="p">(</span><span class="n">resultSet</span><span class="p">.</span><span class="na">next</span><span class="p">())</span> <span class="p">{</span>  
+                <span class="c1">// 通过字段检索  </span>
+                <span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="n">resultSet</span><span class="p">.</span><span class="na">getInt</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">);</span>  
+                <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">resultSet</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">);</span>  
+                <span class="n">String</span> <span class="n">email</span> <span class="o">=</span> <span class="n">resultSet</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">&quot;email&quot;</span><span class="p">);</span>  
+
+                <span class="c1">// 输出数据  </span>
+                <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="s">&quot;ID: &quot;</span> <span class="o">+</span> <span class="n">id</span><span class="p">);</span>  
+                <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="s">&quot;, Name: &quot;</span> <span class="o">+</span> <span class="n">name</span><span class="p">);</span>  
+                <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;, Email: &quot;</span> <span class="o">+</span> <span class="n">email</span><span class="p">);</span>  
+            <span class="p">}</span>  
+            <span class="c1">// 完成后关闭  </span>
+            <span class="n">resultSet</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>  
+            <span class="n">preparedStatement</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>  
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">SQLException</span> <span class="n">se</span><span class="p">)</span> <span class="p">{</span>  
+            <span class="c1">// 处理 JDBC 错误  </span>
+            <span class="n">se</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span>  
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>  
+            <span class="c1">// 处理 Class.forName 错误  </span>
+            <span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span>  
+        <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>  
+            <span class="c1">// 关闭资源  </span>
+            <span class="k">try</span> <span class="p">{</span>  
+                <span class="k">if</span> <span class="p">(</span><span class="n">connection</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">connection</span><span class="p">.</span><span class="na">isClosed</span><span class="p">())</span> <span class="p">{</span>  
+                    <span class="n">connection</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>  
+                <span class="p">}</span>  
+            <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">SQLException</span> <span class="n">se</span><span class="p">)</span> <span class="p">{</span>  
+                <span class="n">se</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span>  
+            <span class="p">}</span>  
+        <span class="p">}</span>  
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Goodbye!&quot;</span><span class="p">);</span>  
+    <span class="p">}</span>  
+<span class="p">}</span>
+</code></pre></div>
+
+<p>JDBC的使用过程涉及3大概念
+1. Connection 表示和数据库的连接，由DriverManager生成
+2. Statement 表示和数据库交互的会话，由Connection生成，一般使用PreparedStatement，特点是预编译SQL提高执行效率。
+3. ResultSet Statement执行SQL语句之后获取的执行结果</p>
+<p>和数据库的所有交互都可以由以上3个步骤完成。JDBC的使用看上去比较简单，但是平时开发SQL语句是比较灵活动态的，而且处理结果ResultSet需要转换为java应用自己的类，比较麻烦。程序员为了简化开发过程，少写代码，就在JDBC的基础上开发了ORM框架，ORM的全程是Object Record Mapping，用于将数据库的查询结果映射成java应用的对象。国内较流行的框架是mybatis</p>
+<h3>mybatis</h3>
+<p>还是以刚才的数据库表为例，如果使用mybatis开发，那么开发方式如下</p>
+<p>首先，你需要配置 MyBatis，包括创建 MyBatis 配置文件（如 <code>mybatis-config.xml</code>）和映射文件（如 <code>UserMapper.xml</code>）。然后，你需要创建对应的 Java 接口和实体类。</p>
+<h4>1. 创建 MyBatis 配置文件（<code>mybatis-config.xml</code>）</h4>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
+<span class="cp">&lt;!DOCTYPE configuration</span>
+<span class="cp">  PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span>
+<span class="cp">  &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</span>
+<span class="nt">&lt;configuration&gt;</span>
+  <span class="nt">&lt;environments</span> <span class="na">default=</span><span class="s">&quot;development&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;environment</span> <span class="na">id=</span><span class="s">&quot;development&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;transactionManager</span> <span class="na">type=</span><span class="s">&quot;JDBC&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;dataSource</span> <span class="na">type=</span><span class="s">&quot;POOLED&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;driver&quot;</span> <span class="na">value=</span><span class="s">&quot;com.mysql.cj.jdbc.Driver&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;url&quot;</span> <span class="na">value=</span><span class="s">&quot;jdbc:mysql://localhost:3306/testdb?serverTimezone=UTC&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;username&quot;</span> <span class="na">value=</span><span class="s">&quot;root&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;password&quot;</span> <span class="na">value=</span><span class="s">&quot;password&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/dataSource&gt;</span>
+    <span class="nt">&lt;/environment&gt;</span>
+  <span class="nt">&lt;/environments&gt;</span>
+  <span class="nt">&lt;mappers&gt;</span>
+    <span class="nt">&lt;mapper</span> <span class="na">resource=</span><span class="s">&quot;UserMapper.xml&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/mappers&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</code></pre></div>
+
+<h4>2. 创建映射文件（<code>UserMapper.xml</code>）</h4>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
+<span class="cp">&lt;!DOCTYPE mapper</span>
+<span class="cp">  PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span>
+<span class="cp">  &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</span>
+<span class="nt">&lt;mapper</span> <span class="na">namespace=</span><span class="s">&quot;com.example.UserMapper&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&quot;selectAllUsers&quot;</span> <span class="na">resultType=</span><span class="s">&quot;com.example.User&quot;</span><span class="nt">&gt;</span>
+    SELECT id, name, email FROM users
+  <span class="nt">&lt;/select&gt;</span>
+<span class="nt">&lt;/mapper&gt;</span>
+</code></pre></div>
+
+<h4>3. 创建实体类（<code>User.java</code>）</h4>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">com.example</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="p">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">email</span><span class="p">;</span>
+
+    <span class="c1">// Getters and Setters</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getId</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">id</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setId</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="p">(</span><span class="n">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getEmail</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">email</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setEmail</span><span class="p">(</span><span class="n">String</span> <span class="n">email</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">email</span> <span class="o">=</span> <span class="n">email</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4>4. 创建 Mapper 接口（<code>UserMapper.java</code>）</h4>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">com.example</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserMapper</span> <span class="p">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">selectAllUsers</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4>5. 编写 MyBatis 应用程序（<code>MyBatisExample.java</code>）</h4>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">com.example</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.apache.ibatis.io.Resources</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.ibatis.session.SqlSession</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.ibatis.session.SqlSessionFactory</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.ibatis.session.SqlSessionFactoryBuilder</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyBatisExample</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="n">String</span> <span class="n">resource</span> <span class="o">=</span> <span class="s">&quot;mybatis-config.xml&quot;</span><span class="p">;</span>
+        <span class="n">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="n">Resources</span><span class="p">.</span><span class="na">getResourceAsStream</span><span class="p">(</span><span class="n">resource</span><span class="p">);</span>
+        <span class="n">SqlSessionFactory</span> <span class="n">sqlSessionFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SqlSessionFactoryBuilder</span><span class="p">().</span><span class="na">build</span><span class="p">(</span><span class="n">inputStream</span><span class="p">);</span>
+
+        <span class="k">try</span> <span class="p">(</span><span class="n">SqlSession</span> <span class="n">session</span> <span class="o">=</span> <span class="n">sqlSessionFactory</span><span class="p">.</span><span class="na">openSession</span><span class="p">())</span> <span class="p">{</span>
+            <span class="n">UserMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="na">getMapper</span><span class="p">(</span><span class="n">UserMapper</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+            <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">mapper</span><span class="p">.</span><span class="na">selectAllUsers</span><span class="p">();</span>
+
+            <span class="k">for</span> <span class="p">(</span><span class="n">User</span> <span class="n">user</span> <span class="p">:</span> <span class="n">users</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;ID: &quot;</span> <span class="o">+</span> <span class="n">user</span><span class="p">.</span><span class="na">getId</span><span class="p">());</span>
+                <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Name: &quot;</span> <span class="o">+</span> <span class="n">user</span><span class="p">.</span><span class="na">getName</span><span class="p">());</span>
+                <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Email: &quot;</span> <span class="o">+</span> <span class="n">user</span><span class="p">.</span><span class="na">getEmail</span><span class="p">());</span>
+                <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;-------------------&quot;</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4>详细说明：</h4>
+<ol>
+<li>
+<p><strong>MyBatis 配置文件</strong>：<code>mybatis-config.xml</code> 包含了 MyBatis 的全局配置，包括环境配置（如数据源）和映射器（Mapper）的配置。</p>
+</li>
+<li>
+<p><strong>映射文件</strong>：<code>UserMapper.xml</code> 包含了 SQL 语句和映射规则。这里定义了一个 <code>selectAllUsers</code> 的 SQL 查询，并将结果映射到 <code>User</code> 类。</p>
+</li>
+<li>
+<p><strong>实体类</strong>：<code>User.java</code> 是一个简单的 Java 类，用于表示数据库中的 <code>users</code> 表的一行。</p>
+</li>
+<li>
+<p><strong>Mapper 接口</strong>：<code>UserMapper.java</code> 是一个 Java 接口，定义了与数据库交互的方法。MyBatis 会自动实现这个接口，并将 SQL 查询的结果映射到返回类型上。</p>
+</li>
+<li>
+<p><strong>MyBatis 应用程序</strong>：<code>MyBatisExample.java</code> 是主类，它读取 MyBatis 配置文件，创建 <code>SqlSessionFactory</code>，然后打开一个 <code>SqlSession</code> 来执行查询。查询结果通过 Mapper 接口返回，并打印到控制台。</p>
+</li>
+</ol>
+<p>一般情况下java应用会基于spring去构建，因此开发人员只需要开发映射文件以及Mapper接口。</p>
+<p>映射文件可以使用mybatis提供的各种xml标签动态生成SQL，大幅度增加了开发人员的处理效率</p>
+<p>目前广为流行的<strong>mybaits-plus</strong>其实是在mybatis的基础上提供了通用的mapper和service，可以在不编写任何SQL语句的情况下，快速地实现对单表的CRUD、批量、逻辑删除、分页等操作。</p>
   </div>
 
 
